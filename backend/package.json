@@ -1,0 +1,28 @@
+{
+  "name": "notaria-43-backend",
+  "version": "1.0.0",
+  "description": "Sistema de Gestión de Turnos - Notaría 43",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js",
+    "db:generate": "npx prisma generate",
+    "db:migrate": "npx prisma migrate dev",
+    "db:push": "npx prisma db push",
+    "db:seed": "node prisma/seed.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.9.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.0",
+    "express": "^4.21.0",
+    "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^6.9.15",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "prisma": "^6.9.0"
+  }
+}
