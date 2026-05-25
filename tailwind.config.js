@@ -8,13 +8,13 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#b89369', // Brown/Gold color
-          hover: '#9a7a56',
+          DEFAULT: '#0D3B2E', // Verde botella profundo (Títulos, botones principales y estructura)
+          hover: '#134E3F',   // Un tono sutilmente más claro para interactividad/hovers
         },
-        secondary: '#378b84', // Teal color
-        dark: '#1a1a1a', // Dark slate
-        light: '#f3f4f6', // Light gray background
-        muted: '#a08170', // Muted brown
+        secondary: '#D8E2DC', // Menta pastel desaturado (Fondo de bloques, tarjetas de servicios y la timeline)
+        dark: '#1A2421',      // Negro verdoso muy oscuro (Garantiza máxima legibilidad en el texto body)
+        light: '#F8F9FA',     // Blanco sutilmente frío (El fondo base de toda la página web)
+        muted: '#A3B19B',     // Oliva pálido (Detalles de acento, bordes finos o iconos secundarios)
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],

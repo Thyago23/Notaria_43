@@ -5,8 +5,10 @@ import Booking from './pages/Booking';
 import TramiteDetail from './pages/TramiteDetail';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
-
 import Register from './pages/Register';
+import Abogados from './pages/Abogados';
+import SobreNosotros from './pages/SobreNosotros';
+import Footer from './components/layout/Footer';
 
 function App() {
   return (
@@ -21,8 +23,11 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/admin" element={<Dashboard />} />
+            <Route path="/abogados" element={<Abogados />} />
+            <Route path="/sobre-nosotros" element={<SobreNosotros />} />
           </Routes>
         </main>
+        <Footer />
       </div>
     </Router>
   );
