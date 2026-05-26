@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  cedula    String   @unique @db.VarChar(10)
+  nombres   String   @db.VarChar(100)
+  apellidos String   @db.VarChar(100)
+  email     String   @unique @db.VarChar(255)
+  password  String   @db.VarChar(255)
+  role      UserRole @default(CIUDADANO)
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  turnos    Turno[]
+
+  @@index([role], map: "idx_users_role")
+  @@map("users")
+}
+
+model Tramite {
+  id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  nombre          String   @unique @db.VarChar(200)
+  descripcion     String
+  duracionMinutos Int      @map("duracion_minutos")
+  requisitos      String[] @default([])
+  isActive        Boolean  @default(true) @map("is_active")
+  createdAt       DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt       DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  turnos          Turno[]
+
+  @@map("tramites")
+}
+
+model Turno {
+  id          String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  fecha       DateTime    @db.Date
+  horaInicio  DateTime    @map("hora_inicio") @db.Time(6)
+  horaFin     DateTime    @map("hora_fin") @db.Time(6)
+  status      TurnoStatus @default(PENDIENTE)
+  notas       String?
+  guestNombre String?     @map("guest_nombre")
+  guestEmail  String?     @map("guest_email")
+  createdAt   DateTime    @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime    @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  userId      String?     @map("user_id") @db.Uuid
+  tramiteId   String      @map("tramite_id") @db.Uuid
+  tramite     Tramite     @relation(fields: [tramiteId], references: [id], onUpdate: NoAction)
+  user        User?       @relation(fields: [userId], references: [id], onUpdate: NoAction)
+
+  @@index([fecha, status], map: "idx_turnos_fecha_status")
+  @@index([tramiteId], map: "idx_turnos_tramite_id")
+  @@index([userId], map: "idx_turnos_user_id")
+  @@map("turnos")
+}
+
+model EmailQueue {
+  id          String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  to          String      @db.VarChar(255)
+  subject     String      @db.VarChar(500)
+  htmlContent String      @map("html_content")
+  status      EmailStatus @default(PENDING)
+  retries     Int         @default(0)
+  lastError   String?     @map("last_error")
+  createdAt   DateTime    @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime    @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@map("email_queue")
+}
+
+enum UserRole {
+  CIUDADANO
+  ADMINISTRATIVO
+  NOTARIO
+}
+
+enum TurnoStatus {
+  PENDIENTE
+  ATENDIDO
+  CANCELADO
+}
+
+enum EmailStatus {
+  PENDING
+  SENT
+  FAILED
+}

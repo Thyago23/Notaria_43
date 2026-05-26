@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  # Backend - Express.js
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: notaria-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL:-postgresql://notaria:password@db:5432/notaria}
+      - JWT_SECRET=${JWT_SECRET:-your-secret-key}
+      - CORS_ORIGIN=${CORS_ORIGIN:-http://localhost:5173}
+      - EMAIL_USER=${EMAIL_USER}
+      - EMAIL_PASSWORD=${EMAIL_PASSWORD}
+      - EMAIL_HOST=${EMAIL_HOST:-smtp.gmail.com}
+    depends_on:
+      - db
+    networks:
+      - notaria-network
+    volumes:
+      - ./backend/src:/app/src
+
+  # Frontend - React + Vite
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: notaria-frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=${VITE_API_URL:-http://localhost:3000}
+      - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
+      - VITE_SUPABASE_KEY=${VITE_SUPABASE_KEY}
+    depends_on:
+      - backend
+    networks:
+      - notaria-network
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+
+  # PostgreSQL Database
+  db:
+    image: postgres:16-alpine
+    container_name: notaria-db
+    environment:
+      - POSTGRES_USER=${DB_USER:-notaria}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-password}
+      - POSTGRES_DB=${DB_NAME:-notaria}
+    ports:
+      - "55432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/prisma/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - notaria-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U notaria"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  notaria-network:
+    driver: bridge
