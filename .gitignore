@@ -61,3 +61,4 @@ temp/
 
 # Markdown
 *.md
+!SETUP_INSTRUCTIONS.md
