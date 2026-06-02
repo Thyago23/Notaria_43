@@ -7,7 +7,16 @@
 import { environment } from './environment.js';
 
 export const corsOptions = Object.freeze({
-  origin: environment.cors.origin,
+  origin: (origin, callback) => {
+    const allowedOrigins = environment.cors.allowedOrigins || [environment.cors.origin];
+    // Permitir requests sin origin (como mobile apps o curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,

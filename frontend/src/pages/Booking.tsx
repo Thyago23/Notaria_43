@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { TRAMITES_DATA } from '../data/tramites';
 
-const Tramites = () => {
+const Booking = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredTramites = TRAMITES_DATA.filter(tramite => 
@@ -90,4 +90,4 @@ const Tramites = () => {
   );
 };
 
-export default Tramites;
+export default Booking;

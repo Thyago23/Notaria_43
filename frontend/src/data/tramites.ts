@@ -254,7 +254,7 @@ export const TRAMITES_DATA: Tramite[] = [
     requisitos: [
       'Minuta',
       'Original de partida de matrimonio',
-      'Originales y una copia a color de cédula y papeleta de vetación de los cónyuges'
+      'Originales y una copia a color de cédula y papeleta de votación de los cónyuges'
     ]
   },
   {

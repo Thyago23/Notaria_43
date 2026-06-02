@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const Navbar = () => {
+  const { isAuthenticated, logout } = useAuth();
+
   return (
     <nav className="bg-white border-b border-gray-100 py-4 px-6 md:px-12 flex items-center justify-between">
       {/* Logo */}
@@ -18,18 +21,29 @@ const Navbar = () => {
 
       {/* Auth Buttons */}
       <div className="flex items-center space-x-4">
-        <Link
-          to="/register"
-          className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors uppercase tracking-wider"
-        >
-          REGISTRO
-        </Link>
-        <Link
-          to="/login"
-          className="bg-[#b89369] hover:bg-[#a5845e] text-white font-medium py-3 px-8 text-sm uppercase tracking-wider transition-colors"
-        >
-          ACCEDER
-        </Link>
+        {isAuthenticated ? (
+          <>
+            <Link
+              to="/admin/dashboard"
+              className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors uppercase tracking-wider"
+            >
+              PANEL ADMINISTRATIVO
+            </Link>
+            <button
+              onClick={logout}
+              className="bg-red-600 hover:bg-red-700 text-white font-medium py-3 px-8 text-sm uppercase tracking-wider transition-colors"
+            >
+              CERRAR SESIÓN
+            </button>
+          </>
+        ) : (
+          <Link
+            to="/login"
+            className="bg-[#b89369] hover:bg-[#a5845e] text-white font-medium py-3 px-8 text-sm uppercase tracking-wider transition-colors"
+          >
+            ACCEDER
+          </Link>
+        )}
       </div>
     </nav>
   );

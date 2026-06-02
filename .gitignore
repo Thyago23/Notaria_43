@@ -58,7 +58,3 @@ coverage/
 tmp/
 temp/
 .cache/
-
-# Markdown
-*.md
-!SETUP_INSTRUCTIONS.md

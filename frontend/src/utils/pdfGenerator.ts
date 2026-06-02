@@ -5,6 +5,7 @@ interface AppointmentData {
   cliente_email: string;
   tramite_nombre: string;
   fecha_hora: string;
+  turnoId?: string;
 }
 
 export const generateBookingPDF = (data: AppointmentData) => {
