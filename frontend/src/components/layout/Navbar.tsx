@@ -14,9 +14,9 @@ const Navbar = () => {
       {/* Navigation Links */}
       <div className="hidden md:flex items-center space-x-8">
         <Link to="/" className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors">Inicio</Link>
-        <Link to="/#sobre-nosotros" className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors">Sobre la notaría</Link>
+        <Link to="/sobre-nosotros" className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors">Sobre la notaría</Link>
+        <Link to="/abogados" className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors">Abogados</Link>
         <Link to="/booking" className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors">Trámites y documentos</Link>
-        <Link to="/#tarifas" className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors">Tarifas</Link>
       </div>
 
       {/* Auth Buttons */}
@@ -39,7 +39,7 @@ const Navbar = () => {
         ) : (
           <Link
             to="/login"
-            className="bg-[#b89369] hover:bg-[#a5845e] text-white font-medium py-3 px-8 text-sm uppercase tracking-wider transition-colors"
+            className="bg-primary hover:bg-primary-hover text-white font-medium py-3 px-8 text-sm uppercase tracking-wider transition-colors"
           >
             ACCEDER
           </Link>

@@ -13,8 +13,7 @@ const Home = () => {
           </h1>
 
           <p className="text-gray-700 font-medium mb-10 max-w-lg leading-relaxed">
-            ¡Asesoramos exitosamente en materia de derecho de familia, civil, inmobiliario y penal!
-            Los abogados de la empresa han ganado más de 22,000 demandas.
+            Seguridad jurídica, transparencia y eficiencia en el corazón del Valle de Los Chillos. Más de una década respaldando los actos y contratos de nuestra comunidad con absoluta fidelidad a la ley.
           </p>
 
           <div className="flex flex-wrap gap-4 mb-16">
@@ -25,7 +24,7 @@ const Home = () => {
               ¡Agenda tu cita ahora!
             </Link>
             <Link
-              to="#"
+              to="/sobre-nosotros"
               className="border border-primary text-primary hover:bg-primary/5 font-medium py-3 px-8 text-sm transition-colors text-center"
             >
               Sobre nosotros
@@ -36,9 +35,12 @@ const Home = () => {
         {/* Right Image */}
         <div className="w-full lg:w-1/2 min-h-[400px] lg:min-h-full relative bg-dark">
           <img
-            src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1200&auto=format&fit=crop"
-            alt="Professional Lawyer"
+            src="/AdministradoresDeLaNotaria43/HomeDrFernando.jpeg"
+            alt="Mgs. Dr. Fernando Iván Castro Salazar"
             className="absolute inset-0 w-full h-full object-cover object-top opacity-90 mix-blend-luminosity"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1200&auto=format&fit=crop';
+            }}
           />
         </div>
       </section>
@@ -63,9 +65,9 @@ const Home = () => {
               </p>
             </div>
             <div className="mt-auto">
-              <button className="w-full bg-secondary hover:bg-teal-700 text-white py-4 text-sm font-medium transition-colors uppercase">
+              <Link to="/abogados" className="w-full bg-secondary hover:bg-teal-700 text-white py-4 text-sm font-medium transition-colors uppercase text-center block">
                 Abogados
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -85,9 +87,9 @@ const Home = () => {
               </p>
             </div>
             <div className="mt-auto">
-              <button className="w-full bg-muted hover:bg-[#8f7262] text-white py-4 text-lg font-medium transition-colors uppercase">
+              <Link to="/booking" className="w-full bg-muted hover:bg-[#8f7262] text-white py-4 text-lg font-medium transition-colors uppercase text-center block">
                 ¿Qué necesitas?
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -107,9 +109,9 @@ const Home = () => {
               </p>
             </div>
             <div className="mt-auto">
-              <button className="w-full bg-dark hover:bg-black text-white py-4 text-sm font-medium transition-colors uppercase">
+              <Link to="/sobre-nosotros" className="w-full bg-dark hover:bg-black text-white py-4 text-sm font-medium transition-colors uppercase text-center block">
                 Testimonios
-              </button>
+              </Link>
             </div>
           </div>
 
