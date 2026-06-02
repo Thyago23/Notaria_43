@@ -13,7 +13,7 @@ services:
       - NODE_ENV=production
       - DATABASE_URL=${DATABASE_URL:-postgresql://notaria:password@db:5432/notaria}
       - JWT_SECRET=${JWT_SECRET:-your-secret-key}
-      - CORS_ORIGIN=${CORS_ORIGIN:-http://localhost:5174}
+      - CORS_ORIGIN=${CORS_ORIGIN:-http://localhost:5173}
       - EMAIL_USER=${EMAIL_USER}
       - EMAIL_PASSWORD=${EMAIL_PASSWORD}
       - EMAIL_HOST=${EMAIL_HOST:-smtp.gmail.com}
@@ -31,7 +31,7 @@ services:
       dockerfile: Dockerfile
     container_name: notaria-frontend
     ports:
-      - "5173:5173"
+      - "5173:80"
     environment:
       - VITE_API_URL=${VITE_API_URL:-http://localhost:3000}
       - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}

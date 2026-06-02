@@ -6,6 +6,9 @@ import Booking from './pages/Booking';
 import TramiteDetail from './pages/TramiteDetail';
 import LoginAdmin from './pages/LoginAdmin';
 import Dashboard from './pages/Dashboard';
+import Abogados from './pages/Abogados';
+import SobreNosotros from './pages/SobreNosotros';
+import Footer from './components/layout/Footer';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import AdminDashboardLayout from './components/layout/AdminDashboardLayout';
 
@@ -19,6 +22,8 @@ function App() {
             <Routes>
               {/* Public Routes */}
               <Route path="/" element={<Home />} />
+              <Route path="/abogados" element={<Abogados />} />
+              <Route path="/sobre-nosotros" element={<SobreNosotros />} />
               <Route path="/booking" element={<Booking />} />
               <Route path="/tramites/:id" element={<TramiteDetail />} />
               <Route path="/login" element={<LoginAdmin />} />
@@ -39,6 +44,7 @@ function App() {
               </Route>
             </Routes>
           </main>
+          <Footer />
         </div>
       </Router>
     </AuthProvider>

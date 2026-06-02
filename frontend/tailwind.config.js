@@ -8,13 +8,13 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#b89369', // Brown/Gold color
-          hover: '#9a7a56',
+          DEFAULT: '#8cc550', // Updated primary green
+          hover: '#74b03f',
         },
-        secondary: '#378b84', // Teal color
+        secondary: '#378b84', // Teal color (unchanged)
         dark: '#1a1a1a', // Dark slate
         light: '#f3f4f6', // Light gray background
-        muted: '#a08170', // Muted brown
+        muted: '#a08170', // Muted brown (kept for compatibility)
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
