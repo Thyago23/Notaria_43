@@ -1,31 +1,129 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { apiClient } from '../api/client';
 
-const MOCK_CITAS = [
-  { id: '1', cliente: 'Juan Pérez', email: 'juan@ejemplo.com', tramite: 'Escrituras', fecha: '2026-05-15T10:00:00', estado: 'Pendiente' },
-  { id: '2', cliente: 'María Gómez', email: 'maria@ejemplo.com', tramite: 'Poderes', fecha: '2026-05-16T11:30:00', estado: 'Completada' },
-  { id: '3', cliente: 'Carlos Ruiz', email: 'carlos@ejemplo.com', tramite: 'Testamentos', fecha: '2026-05-18T09:00:00', estado: 'Pendiente' },
-];
+interface Cita {
+  id: string;
+  fecha: string;
+  horaInicio: string;
+  horaFin: string;
+  status: 'PENDIENTE' | 'ATENDIDO' | 'CANCELADO';
+  notas: string | null;
+  user?: {
+    id: string;
+    cedula: string;
+    nombres: string;
+    apellidos: string;
+  } | null;
+  guest_nombre?: string;
+  guest_email?: string;
+  tramite: {
+    nombre: string;
+    duracionMinutos: number;
+  };
+}
 
 const Dashboard = () => {
+  const [citas, setCitas] = useState<Cita[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [actionLoading, setActionLoading] = useState<{ [key: string]: boolean }>({});
   const [filterTramite, setFilterTramite] = useState('');
   const [filterCliente, setFilterCliente] = useState('');
 
-  const filteredCitas = MOCK_CITAS.filter(cita => 
-    cita.tramite.toLowerCase().includes(filterTramite.toLowerCase()) &&
-    cita.cliente.toLowerCase().includes(filterCliente.toLowerCase())
-  );
+  useEffect(() => {
+    fetchCitas();
+  }, []);
+
+  const fetchCitas = async () => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      const response = await apiClient.get('/turnos/agenda');
+      setCitas(response.data.data || []);
+    } catch (err: any) {
+      setError(err.message || 'Error al cargar las citas');
+      console.error('Error fetching citas:', err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleMarkAsAttended = async (citaId: string) => {
+    try {
+      setActionLoading(prev => ({ ...prev, [citaId]: true }));
+      setError(null);
+      setSuccessMessage(null);
+      await apiClient.patch(`/turnos/${citaId}/atender`);
+      setSuccessMessage('Turno marcado como atendido exitosamente');
+      await fetchCitas();
+    } catch (err: any) {
+      setError(err.message || 'Error al marcar cita como atendida');
+    } finally {
+      setActionLoading(prev => ({ ...prev, [citaId]: false }));
+    }
+  };
+
+  const handleCancelCita = async (citaId: string) => {
+    if (!window.confirm('¿Estás seguro de que deseas cancelar este turno? Esta acción no se puede deshacer.')) {
+      return;
+    }
+    
+    try {
+      setActionLoading(prev => ({ ...prev, [citaId]: true }));
+      setError(null);
+      setSuccessMessage(null);
+      await apiClient.delete(`/turnos/${citaId}`);
+      setSuccessMessage('Turno cancelado exitosamente');
+      await fetchCitas();
+    } catch (err: any) {
+      setError(err.message || 'Error al cancelar cita');
+    } finally {
+      setActionLoading(prev => ({ ...prev, [citaId]: false }));
+    }
+  };
+
+  const filteredCitas = citas.filter(cita => {
+    const tramiteMatch = cita.tramite.nombre.toLowerCase().includes(filterTramite.toLowerCase());
+    const clienteNombre = cita.user?.nombres || cita.guest_nombre || '';
+    const clienteMatch = clienteNombre.toLowerCase().includes(filterCliente.toLowerCase());
+    return tramiteMatch && clienteMatch;
+  });
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-primary border-t-transparent"></div>
+          <p className="mt-4 text-gray-600">Cargando citas...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-heading font-bold text-dark">Panel Administrativo</h1>
-        <button className="bg-red-50 hover:bg-red-100 text-red-600 px-4 py-2 rounded text-sm font-medium transition-colors">
-          Cerrar Sesión
-        </button>
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-2xl font-bold text-dark">Gestión de Citas</h1>
+          <p className="text-gray-600 text-sm mt-1">Administre los turnos y citas agendadas</p>
+        </div>
       </div>
 
+      {error && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+          <p className="text-red-800 text-sm">{error}</p>
+        </div>
+      )}
+
+      {successMessage && (
+        <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+          <p className="text-green-800 text-sm">{successMessage}</p>
+        </div>
+      )}
+
       {/* Filtros */}
-      <div className="bg-white p-4 rounded-lg shadow mb-6 flex flex-col md:flex-row gap-4">
+      <div className="bg-white p-4 rounded-lg shadow flex flex-col md:flex-row gap-4">
         <div className="flex-1">
           <label className="block text-xs text-gray-500 mb-1">Buscar por Cliente</label>
           <input 
@@ -64,23 +162,53 @@ const Dashboard = () => {
             {filteredCitas.map((cita) => (
               <tr key={cita.id} className="hover:bg-gray-50">
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-gray-900">{cita.cliente}</div>
-                  <div className="text-sm text-gray-500">{cita.email}</div>
+                  <div className="text-sm font-medium text-gray-900">
+                    {cita.user ? `${cita.user.nombres} ${cita.user.apellidos}` : cita.guest_nombre || 'Invitado'}
+                  </div>
+                  <div className="text-sm text-gray-500">{cita.user?.cedula || cita.guest_email || 'N/A'}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{cita.tramite}</div>
+                  <div className="text-sm text-gray-900">{cita.tramite.nombre}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{new Date(cita.fecha).toLocaleString()}</div>
+                  <div className="text-sm text-gray-900">
+                    {new Date(cita.fecha).toLocaleDateString()} {cita.horaInicio}
+                  </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${cita.estado === 'Completada' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
-                    {cita.estado}
+                  <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                    cita.status === 'ATENDIDO' ? 'bg-green-100 text-green-800' :
+                    cita.status === 'CANCELADO' ? 'bg-red-100 text-red-800' :
+                    'bg-yellow-100 text-yellow-800'
+                  }`}>
+                    {cita.status}
                   </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <button className="text-primary hover:text-primary-hover mr-3">Editar</button>
-                  <button className="text-red-600 hover:text-red-900">Cancelar</button>
+                  {cita.status === 'PENDIENTE' && (
+                    <>
+                      <button
+                        onClick={() => handleMarkAsAttended(cita.id)}
+                        disabled={actionLoading[cita.id]}
+                        className="text-primary hover:text-primary-hover mr-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {actionLoading[cita.id] ? 'Procesando...' : 'Marcar Atendido'}
+                      </button>
+                      <button
+                        onClick={() => handleCancelCita(cita.id)}
+                        disabled={actionLoading[cita.id]}
+                        className="text-red-600 hover:text-red-900 disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {actionLoading[cita.id] ? 'Procesando...' : 'Cancelar'}
+                      </button>
+                    </>
+                  )}
+                  {cita.status === 'ATENDIDO' && (
+                    <span className="text-green-600 text-sm font-medium">✓ Atendido</span>
+                  )}
+                  {cita.status === 'CANCELADO' && (
+                    <span className="text-red-600 text-sm font-medium">✗ Cancelado</span>
+                  )}
                 </td>
               </tr>
             ))}

@@ -71,7 +71,7 @@ turnosRouter.post(
 // Marcar turno como atendido (Notario)
 turnosRouter.patch(
   '/:id/atender',
-  roleMiddleware(USER_ROLES.NOTARIO),
+  roleMiddleware(USER_ROLES.NOTARIO, USER_ROLES.ADMINISTRATIVO),
   validateRequest({ params: turnoIdParamSchema }),
   handleMarkAsAttended
 );

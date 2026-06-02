@@ -39,7 +39,7 @@ const TramiteDetail = () => {
       .then((response) => {
         const backendTramite = response.data.data.find((item: any) => item.nombre === localTramite.nombre);
         if (backendTramite) {
-          setTramite((prev) => (prev ? { ...prev, backendId: backendTramite.id } : prev));
+          setTramite((prev: any) => (prev ? { ...prev, backendId: backendTramite.id } : prev));
         }
       })
       .catch((fetchError) => {
@@ -117,7 +117,7 @@ const TramiteDetail = () => {
       navigate('/booking');
     } catch (submitError) {
       console.error('Error reservando turno:', submitError);
-      const message = submitError?.response?.data?.message || 'Error al reservar cita. Intente nuevamente.';
+      const message = (submitError as any)?.response?.data?.message || 'Error al reservar cita...';
       alert(message);
     }
   };
@@ -188,7 +188,7 @@ const TramiteDetail = () => {
               </h2>
               
               <ul className="space-y-4 mb-10 text-gray-700 bg-gray-50 p-6 rounded-lg border border-gray-200">
-                {tramite.requisitos.map((req, index) => (
+                {tramite.requisitos.map((req: string, index: number) => (
                   <li key={index} className="flex items-start">
                     <span className="text-secondary mr-3 font-bold mt-0.5">•</span>
                     <span className="leading-relaxed">{req}</span>

@@ -314,10 +314,12 @@ export async function getAgenda({ fecha, fechaInicio, fechaFin }) {
       lte: new Date(fechaFin + 'T00:00:00'),
     };
   } else {
-    // Por defecto: agenda del día actual
+    // Por defecto: mostrar turnos desde hoy en adelante
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    whereClause.fecha = today;
+    whereClause.fecha = {
+      gte: today,
+    };
   }
 
   return database.turno.findMany({
