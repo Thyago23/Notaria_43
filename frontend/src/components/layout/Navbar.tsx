@@ -13,10 +13,11 @@ const Navbar = () => {
 
       {/* Navigation Links */}
       <div className="hidden md:flex items-center space-x-8">
-        <Link to="/" className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors">Inicio</Link>
-        <Link to="/sobre-nosotros" className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors">Sobre la notaría</Link>
-        <Link to="/abogados" className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors">Abogados</Link>
-        <Link to="/booking" className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors">Trámites y documentos</Link>
+        <Link to="/" className="text-sm font-semibold text-gray-600 hover:text-[#8cc550] transition-colors">Inicio</Link>
+        <Link to="/sobre-nosotros" className="text-sm font-semibold text-gray-600 hover:text-[#8cc550] transition-colors">Sobre la notaría</Link>
+        <Link to="/abogados" className="text-sm font-semibold text-gray-600 hover:text-[#8cc550] transition-colors">Abogados</Link>
+        <Link to="/booking" className="text-sm font-semibold text-gray-600 hover:text-[#8cc550] transition-colors">Trámites y documentos</Link>
+        <a href="/LISTADEPRECIOSAÑO2026.pdf" target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-gray-600 hover:text-[#8cc550] transition-colors">Tarifas</a>
       </div>
 
       {/* Auth Buttons */}
@@ -25,7 +26,7 @@ const Navbar = () => {
           <>
             <Link
               to="/admin/dashboard"
-              className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors uppercase tracking-wider"
+              className="text-sm font-semibold text-gray-600 hover:text-[#8cc550] transition-colors uppercase tracking-wider"
             >
               PANEL ADMINISTRATIVO
             </Link>
@@ -39,7 +40,7 @@ const Navbar = () => {
         ) : (
           <Link
             to="/login"
-            className="bg-primary hover:bg-primary-hover text-white font-medium py-3 px-8 text-sm uppercase tracking-wider transition-colors"
+            className="bg-[#8cc550] hover:bg-[#7ab345] text-white font-medium py-3 px-8 text-sm uppercase tracking-wider transition-colors"
           >
             ACCEDER
           </Link>

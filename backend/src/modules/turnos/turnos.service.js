@@ -313,19 +313,23 @@ export async function getAgenda({ fecha, fechaInicio, fechaFin }) {
       gte: new Date(fechaInicio + 'T00:00:00'),
       lte: new Date(fechaFin + 'T00:00:00'),
     };
-  } else {
-    // Por defecto: mostrar turnos desde hoy en adelante
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    whereClause.fecha = {
-      gte: today,
-    };
   }
+  // Sin filtro por defecto - mostrar todos los turnos no cancelados
 
   return database.turno.findMany({
     where: whereClause,
-    include: {
-      user: { select: { id: true, cedula: true, nombres: true, apellidos: true } },
+    select: {
+      id: true,
+      fecha: true,
+      horaInicio: true,
+      horaFin: true,
+      status: true,
+      notas: true,
+      guestNombre: true,
+      guestEmail: true,
+      user: {
+        select: { id: true, cedula: true, nombres: true, apellidos: true },
+      },
       tramite: { select: { nombre: true, duracionMinutos: true } },
     },
     orderBy: [{ fecha: 'asc' }, { horaInicio: 'asc' }],

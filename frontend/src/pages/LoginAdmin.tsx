@@ -98,9 +98,9 @@ const LoginAdmin: React.FC = () => {
         </div>
         
         <div className="relative z-10 text-white max-w-lg">
-          <h1 className="text-5xl font-bold mb-6 leading-tight">
+          <h1 className="text-4xl text-white font-bold mb-6 leading-tight">
             Sistema de Gestión<br />
-            <span className="text-primary">Notaría 43</span>
+            <span className="text-white">Notaría 43</span>
           </h1>
           <p className="text-gray-300 text-lg mb-8 leading-relaxed">
             Acceso exclusivo para personal administrativo y notarial. 
@@ -203,7 +203,7 @@ const LoginAdmin: React.FC = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-3 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+              className="w-full bg-[#8cc550] hover:bg-[#7ab345] text-white font-semibold py-3 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
             >
               {isLoading ? (
                 <>
@@ -216,14 +216,6 @@ const LoginAdmin: React.FC = () => {
             </button>
           </form>
 
-          <div className="mt-8 text-center">
-            <p className="text-sm text-gray-500">
-              ¿Necesita ayuda? Contacte al{' '}
-              <a href="mailto:soporte@notaria43.com" className="text-primary hover:underline font-medium">
-                soporte técnico
-              </a>
-            </p>
-          </div>
         </div>
       </div>
     </div>
