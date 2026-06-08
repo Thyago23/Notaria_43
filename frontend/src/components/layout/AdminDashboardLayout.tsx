@@ -101,7 +101,7 @@ const AdminDashboardLayout: React.FC = () => {
                 onClick={() => setSidebarOpen(false)}
                 className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
                   isActive(item.path)
-                    ? 'bg-primary text-white'
+                    ? 'bg-[#8cc550] text-white'
                     : 'text-gray-300 hover:bg-gray-800 hover:text-white'
                 }`}
               >
@@ -148,7 +148,7 @@ const AdminDashboardLayout: React.FC = () => {
               <p className="text-sm font-medium text-gray-900">{user?.nombres} {user?.apellidos}</p>
               <p className="text-xs text-gray-500">{user?.email}</p>
             </div>
-            <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
+            <div className="w-10 h-10 bg-[#8cc550] rounded-full flex items-center justify-center text-white font-semibold">
               {user?.nombres?.charAt(0) || 'U'}
             </div>
           </div>

@@ -8,7 +8,7 @@ const Register = () => {
             <label className="block text-sm font-medium text-gray-700 mb-1">Nombre Completo</label>
             <input 
               type="text" 
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8cc550]"
               placeholder="Juan Pérez"
             />
           </div>
@@ -16,7 +16,7 @@ const Register = () => {
             <label className="block text-sm font-medium text-gray-700 mb-1">Correo Electrónico</label>
             <input 
               type="email" 
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8cc550]"
               placeholder="juan@ejemplo.com"
             />
           </div>
@@ -24,7 +24,7 @@ const Register = () => {
             <label className="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
             <input 
               type="password" 
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8cc550]"
               placeholder="••••••••"
             />
           </div>
@@ -32,19 +32,19 @@ const Register = () => {
             <label className="block text-sm font-medium text-gray-700 mb-1">Confirmar Contraseña</label>
             <input 
               type="password" 
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8cc550]"
               placeholder="••••••••"
             />
           </div>
           <button 
             type="submit" 
-            className="w-full bg-primary hover:bg-primary-hover text-white font-medium py-3 px-4 rounded transition-colors mt-6"
+            className="w-full bg-[#8cc550] hover:bg-[#7ab345] text-white font-medium py-3 px-4 rounded transition-colors mt-6"
           >
             Registrarse
           </button>
         </form>
         <p className="mt-6 text-center text-sm text-gray-600">
-          ¿Ya tienes cuenta? <a href="/login" className="text-primary hover:underline font-medium">Inicia sesión aquí</a>
+          ¿Ya tienes cuenta? <a href="/login" className="text-[#8cc550] hover:underline font-medium">Inicia sesión aquí</a>
         </p>
       </div>
     </div>

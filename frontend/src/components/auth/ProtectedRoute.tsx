@@ -26,7 +26,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     return (
       <div className="min-h-screen flex items-center justify-center bg-light">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-[#8cc550] border-t-transparent"></div>
           <p className="mt-4 text-gray-600 font-medium">Cargando...</p>
         </div>
       </div>
@@ -49,7 +49,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
           </p>
           <button
             onClick={() => window.history.back()}
-            className="bg-primary hover:bg-primary-hover text-white font-medium py-2 px-6 rounded transition-colors"
+            className="bg-[#8cc550] hover:bg-[#7ab345] text-white font-medium py-2 px-6 rounded transition-colors"
           >
             Volver
           </button>

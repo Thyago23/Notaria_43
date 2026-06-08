@@ -18,11 +18,13 @@ services:
       - EMAIL_PASSWORD=${EMAIL_PASSWORD}
       - EMAIL_HOST=${EMAIL_HOST:-smtp.gmail.com}
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - notaria-network
     volumes:
       - ./backend/src:/app/src
+    restart: on-failure
 
   # Frontend - React + Vite
   frontend:

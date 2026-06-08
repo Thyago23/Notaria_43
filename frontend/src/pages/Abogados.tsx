@@ -53,12 +53,12 @@ const Abogados: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         <div className="mb-12 text-center md:text-left">
           <div className="flex items-center justify-center md:justify-start space-x-2 text-sm text-gray-500 mb-4">
-            <Link to="/" className="hover:text-primary transition-colors">Inicio</Link>
+            <Link to="/" className="hover:text-[#8cc550] transition-colors">Inicio</Link>
             <span>/</span>
             <span className="text-gray-800 font-medium">Equipo Profesional</span>
           </div>
           <h1 className="text-4xl md:text-5xl font-heading font-bold text-dark mb-4">
-            Nuestro <span className="text-primary">Equipo Profesional</span>
+            Nuestro <span className="text-[#8cc550]">Equipo Profesional</span>
           </h1>
           <p className="text-gray-600 max-w-2xl leading-relaxed">
             Conozca a los profesionales y administradores de la Notaría 43 capacitados para brindarle la mejor asesoría legal y administrativa en sus trámites.
@@ -69,7 +69,7 @@ const Abogados: React.FC = () => {
           {staff.map((admin, index) => (
             <div
               key={index}
-              className="flex flex-col bg-white border border-gray-100 hover:border-primary/20 rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+              className="flex flex-col bg-white border border-gray-100 hover:border-[#8cc550]/20 rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
             >
               <div className="h-80 overflow-hidden bg-gray-50 relative group">
                 <img
@@ -81,7 +81,7 @@ const Abogados: React.FC = () => {
                   }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                  <span className="text-white text-xs font-semibold uppercase tracking-wider bg-primary px-3 py-1.5 rounded-full">
+                  <span className="text-white text-xs font-semibold uppercase tracking-wider bg-[#8cc550] px-3 py-1.5 rounded-full">
                     Contacto Notarial
                   </span>
                 </div>
@@ -99,10 +99,10 @@ const Abogados: React.FC = () => {
                   <span className="text-xs text-gray-400 uppercase tracking-widest mb-1">Correo de la Notaría</span>
                   <a
                     href={`mailto:${admin.email}`}
-                    className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors flex items-center space-x-2"
+                    className="text-sm font-semibold text-gray-600 hover:text-[#8cc550] transition-colors flex items-center space-x-2"
                   >
                     <svg
-                      className="w-4 h-4 text-primary"
+                      className="w-4 h-4 text-[#8cc550]"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"

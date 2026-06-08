@@ -8,7 +8,7 @@ const Login = () => {
             <label className="block text-sm font-medium text-gray-700 mb-1">Correo Electrónico</label>
             <input 
               type="email" 
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8cc550]"
               placeholder="admin@notaria.com"
             />
           </div>
@@ -16,19 +16,19 @@ const Login = () => {
             <label className="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
             <input 
               type="password" 
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8cc550]"
               placeholder="••••••••"
             />
           </div>
           <button 
             type="submit" 
-            className="w-full bg-primary hover:bg-primary-hover text-white font-medium py-3 px-4 rounded transition-colors mt-6"
+            className="w-full bg-[#8cc550] hover:bg-[#7ab345] text-white font-medium py-3 px-4 rounded transition-colors mt-6"
           >
             Acceder
           </button>
         </form>
         <p className="mt-6 text-center text-sm text-gray-600">
-          ¿No tienes cuenta? <a href="/register" className="text-primary hover:underline font-medium">Regístrate aquí</a>
+          ¿No tienes cuenta? <a href="/register" className="text-[#8cc550] hover:underline font-medium">Regístrate aquí</a>
         </p>
       </div>
     </div>

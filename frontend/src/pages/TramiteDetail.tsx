@@ -159,7 +159,7 @@ const TramiteDetail = () => {
     <div className="container mx-auto px-4 py-12 max-w-4xl min-h-[70vh]">
       <button 
         onClick={() => navigate('/booking')} 
-        className="text-gray-500 hover:text-primary mb-6 flex items-center transition-colors font-medium text-sm"
+        className="text-gray-500 hover:text-[#8cc550] mb-6 flex items-center transition-colors font-medium text-sm"
       >
         <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -169,7 +169,7 @@ const TramiteDetail = () => {
 
       <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
         <div className="bg-dark p-8 md:px-12 text-white">
-          <span className="text-primary font-medium text-sm tracking-wider uppercase mb-2 block">
+          <span className="text-[#8cc550] font-medium text-sm tracking-wider uppercase mb-2 block">
             {tramite.categoria || tramite.descripcion || 'Trámite'}
           </span>
           <h1 className="text-3xl md:text-4xl font-heading font-bold">
@@ -181,7 +181,7 @@ const TramiteDetail = () => {
           {!showBookingForm ? (
             <div className="animate-fadeIn">
               <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                <svg className="w-6 h-6 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-6 h-6 mr-2 text-[#8cc550]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 Requisitos Necesarios
@@ -200,7 +200,7 @@ const TramiteDetail = () => {
                 <p className="text-sm text-gray-500 mb-4">¿Cuenta con todos los requisitos necesarios para este trámite?</p>
                 <button 
                   onClick={() => setShowBookingForm(true)}
-                  className="w-full md:w-auto bg-primary hover:bg-primary-hover text-white font-medium py-3 px-8 rounded transition-colors text-center inline-block"
+                  className="w-full md:w-auto bg-[#8cc550] hover:bg-[#7ab345] text-white font-medium py-3 px-8 rounded transition-colors text-center inline-block"
                 >
                   Continuar para Reservar Cita
                 </button>
@@ -226,7 +226,7 @@ const TramiteDetail = () => {
                     required
                     value={formData.cliente_nombre}
                     onChange={(e) => setFormData({...formData, cliente_nombre: e.target.value})}
-                    className="w-full border border-gray-300 rounded-md px-4 py-3 focus:ring-2 focus:ring-primary outline-none transition-shadow"
+                    className="w-full border border-gray-300 rounded-md px-4 py-3 focus:ring-2 focus:ring-[#8cc550] outline-none transition-shadow"
                     placeholder="Ej. Juan Pérez"
                   />
                 </div>
@@ -237,7 +237,7 @@ const TramiteDetail = () => {
                     required
                     value={formData.cliente_email}
                     onChange={(e) => setFormData({...formData, cliente_email: e.target.value})}
-                    className="w-full border border-gray-300 rounded-md px-4 py-3 focus:ring-2 focus:ring-primary outline-none transition-shadow"
+                    className="w-full border border-gray-300 rounded-md px-4 py-3 focus:ring-2 focus:ring-[#8cc550] outline-none transition-shadow"
                     placeholder="juan@ejemplo.com"
                   />
                 </div>
@@ -249,7 +249,7 @@ const TramiteDetail = () => {
                     min={getMinDateTime()}
                     value={formData.fecha_hora}
                     onChange={handleDateChange}
-                    className="w-full border border-gray-300 rounded-md px-4 py-3 focus:ring-2 focus:ring-primary outline-none transition-shadow"
+                    className="w-full border border-gray-300 rounded-md px-4 py-3 focus:ring-2 focus:ring-[#8cc550] outline-none transition-shadow"
                   />
                 </div>
                 
@@ -259,7 +259,7 @@ const TramiteDetail = () => {
                   </p>
                   <button 
                     type="submit" 
-                    className="w-full bg-secondary hover:bg-teal-700 text-white font-medium py-3 px-4 rounded-md transition-colors shadow-sm"
+                    className="w-full bg-[#8cc550] hover:bg-[#7ab345] text-white font-medium py-3 px-4 rounded-md transition-colors shadow-sm"
                   >
                     Confirmar Reserva y Descargar Comprobante
                   </button>

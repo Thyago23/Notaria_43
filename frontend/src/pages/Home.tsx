@@ -19,13 +19,13 @@ const Home = () => {
           <div className="flex flex-wrap gap-4 mb-16">
             <Link
               to="/booking"
-              className="bg-primary hover:bg-primary-hover text-white font-medium py-3 px-8 text-sm transition-colors text-center"
+              className="bg-[#8cc550] hover:bg-[#7ab345] text-white font-medium py-3 px-8 text-sm transition-colors text-center"
             >
               ¡Agenda tu cita ahora!
             </Link>
             <Link
               to="/sobre-nosotros"
-              className="border border-primary text-primary hover:bg-primary/5 font-medium py-3 px-8 text-sm transition-colors text-center"
+              className="border border-[#8cc550] text-[#8cc550] hover:bg-[#8cc550]/5 font-medium py-3 px-8 text-sm transition-colors text-center"
             >
               Sobre nosotros
             </Link>
@@ -65,7 +65,7 @@ const Home = () => {
               </p>
             </div>
             <div className="mt-auto">
-              <Link to="/abogados" className="w-full bg-secondary hover:bg-teal-700 text-white py-4 text-sm font-medium transition-colors uppercase text-center block">
+              <Link to="/abogados" className="w-full bg-[#8cc550] hover:bg-[#7ab345] text-white py-4 text-sm font-medium transition-colors uppercase text-center block">
                 Abogados
               </Link>
             </div>
@@ -87,7 +87,7 @@ const Home = () => {
               </p>
             </div>
             <div className="mt-auto">
-              <Link to="/booking" className="w-full bg-muted hover:bg-[#8f7262] text-white py-4 text-lg font-medium transition-colors uppercase text-center block">
+              <Link to="/booking" className="w-full bg-[#8cc550] hover:bg-[#7ab345] text-white py-4 text-lg font-medium transition-colors uppercase text-center block">
                 ¿Qué necesitas?
               </Link>
             </div>
@@ -109,7 +109,7 @@ const Home = () => {
               </p>
             </div>
             <div className="mt-auto">
-              <Link to="/sobre-nosotros" className="w-full bg-dark hover:bg-black text-white py-4 text-sm font-medium transition-colors uppercase text-center block">
+              <Link to="/sobre-nosotros" className="w-full bg-[#8cc550] hover:bg-[#7ab345] text-white py-4 text-sm font-medium transition-colors uppercase text-center block">
                 Testimonios
               </Link>
             </div>
