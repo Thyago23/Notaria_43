@@ -10,7 +10,7 @@ export const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Axios instance for custom backend (colleague's database)
 export const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
+  baseURL: import.meta.env.VITE_API_URL || 'https://notaria-43.onrender.com/api',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -36,7 +36,7 @@ apiClient.interceptors.response.use(
   (error) => {
     if (error.response) {
       const { status, data } = error.response;
-      
+
       // Handle specific HTTP status codes
       switch (status) {
         case 401:
@@ -68,7 +68,7 @@ apiClient.interceptors.response.use(
         success: false,
         message: 'Error desconocido al comunicarse con el servidor',
       };
-      
+
       return Promise.reject(apiError);
     } else if (error.request) {
       // Request was made but no response received
