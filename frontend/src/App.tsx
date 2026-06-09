@@ -11,11 +11,13 @@ import SobreNosotros from './pages/SobreNosotros';
 import Footer from './components/layout/Footer';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import AdminDashboardLayout from './components/layout/AdminDashboardLayout';
+import ScrollToTop from './components/layout/ScrollToTop';
 
 function App() {
   return (
     <AuthProvider>
       <Router>
+        <ScrollToTop />
         <div className="min-h-screen flex flex-col">
           <Navbar />
           <main className="flex-grow">
