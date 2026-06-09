@@ -31,11 +31,18 @@ export const environment = Object.freeze({
 
   cors: Object.freeze({
     origin: requireEnv('CORS_ORIGIN', 'http://localhost:5173'),
+<<<<<<< HEAD
     // Permitir CORS_ORIGIN y puertos de desarrollo
     allowedOrigins: [
       ...requireEnv('CORS_ORIGIN', 'http://localhost:5173').split(',').map(o => o.trim()),
       'http://localhost:5173', 
       'http://localhost:5174'
+=======
+    allowedOrigins: [
+      requireEnv('CORS_ORIGIN', 'http://localhost:5173'),
+      'http://localhost:5173',
+      'http://localhost:5174',
+>>>>>>> b3bf90fdc1285441407ab922015324e8c94b4e06
     ],
   }),
 
