@@ -42,7 +42,8 @@ const Dashboard = () => {
       const response = await apiClient.get('/turnos/agenda');
       setCitas(response.data.data || []);
     } catch (err: any) {
-      setError(err.message || 'Error al cargar las citas');
+      const errorMessage = typeof err === 'object' ? JSON.stringify(err, null, 2) : String(err);
+      setError(`Error detallado: ${errorMessage}`);
       console.error('Error fetching citas:', err);
     } finally {
       setIsLoading(false);
