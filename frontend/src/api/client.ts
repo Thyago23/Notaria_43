@@ -21,6 +21,7 @@ export const apiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  timeout: 10000,
 });
 
 // Request interceptor - Add JWT token to requests
@@ -78,6 +79,15 @@ apiClient.interceptors.response.use(
 
       return Promise.reject(apiError);
     } else if (error.request) {
+      // Handle timeout specifically
+      if (error.code === 'ECONNABORTED') {
+        console.error('El servidor tardó demasiado en responder (Timeout)');
+        return Promise.reject({
+          success: false,
+          message: 'El servidor tardó demasiado en responder. Por favor, intente nuevamente.',
+        });
+      }
+
       // Request was made but no response received
       console.error('No se recibió respuesta del servidor');
       return Promise.reject({
