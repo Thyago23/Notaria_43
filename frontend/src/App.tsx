@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/layout/Navbar';
 import Home from './pages/Home';
@@ -15,6 +15,14 @@ import Footer from './components/layout/Footer';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import AdminDashboardLayout from './components/layout/AdminDashboardLayout';
 import ScrollToTop from './components/layout/ScrollToTop';
+
+function ConditionalFooter() {
+  const location = useLocation();
+  if (location.pathname.startsWith('/admin')) {
+    return null;
+  }
+  return <Footer />;
+}
 
 function App() {
   return (
@@ -49,7 +57,7 @@ function App() {
               </Route>
             </Routes>
           </main>
-          <Footer />
+          <ConditionalFooter />
         </div>
       </Router>
     </AuthProvider>
