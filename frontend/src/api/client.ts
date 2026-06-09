@@ -8,9 +8,16 @@ const supabaseKey = import.meta.env.VITE_SUPABASE_KEY || 'mock-key';
 // Supabase client instance
 export const supabase = createClient(supabaseUrl, supabaseKey);
 
+const getApiUrl = () => {
+  const url = import.meta.env.VITE_API_URL || 'https://notaria-43.onrender.com/api';
+  // Check if URL already has /api at the end (ignoring trailing slash if any)
+  const cleanUrl = url.replace(/\/$/, '');
+  return cleanUrl.endsWith('/api') ? cleanUrl : `${cleanUrl}/api`;
+};
+
 // Axios instance for custom backend (colleague's database)
 export const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'https://notaria-43.onrender.com/api',
+  baseURL: getApiUrl(),
   headers: {
     'Content-Type': 'application/json',
   },
