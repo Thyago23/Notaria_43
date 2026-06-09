@@ -31,9 +31,10 @@ export const environment = Object.freeze({
 
   cors: Object.freeze({
     origin: requireEnv('CORS_ORIGIN', 'http://localhost:5173'),
-    // Permitir CORS_ORIGIN y puertos de desarrollo
+    // Permitir CORS_ORIGIN, el dominio de Vercel y puertos de desarrollo
     allowedOrigins: [
       ...requireEnv('CORS_ORIGIN', 'http://localhost:5173').split(',').map(o => o.trim()),
+      'https://notaria-43.vercel.app',
       'http://localhost:5173', 
       'http://localhost:5174'
     ],
