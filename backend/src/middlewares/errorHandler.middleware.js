@@ -54,7 +54,7 @@ export function errorHandlerMiddleware(err, _req, res, _next) {
 
   return res.status(HTTP_STATUS.INTERNAL_ERROR).json({
     success: false,
-    message: `Error interno: ${err.message}`,
-    stack: err.stack,
+    message: 'Error interno del servidor.',
+    ...(environment.isDevelopment && { stack: err.stack }),
   });
 }

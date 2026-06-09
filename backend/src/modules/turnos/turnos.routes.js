@@ -76,6 +76,14 @@ turnosRouter.patch(
   handleMarkAsAttended
 );
 
+// Reportes (Administrativo, Notario)
+turnosRouter.get(
+  '/reportes',
+  roleMiddleware(USER_ROLES.ADMINISTRATIVO, USER_ROLES.NOTARIO),
+  validateRequest({ query: reporteQuerySchema }),
+  handleGetReport
+);
+
 // Cancelar turno (Ciudadano, Administrativo)
 turnosRouter.delete(
   '/:id',

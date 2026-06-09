@@ -6,6 +6,9 @@ import Booking from './pages/Booking';
 import TramiteDetail from './pages/TramiteDetail';
 import LoginAdmin from './pages/LoginAdmin';
 import Dashboard from './pages/Dashboard';
+import AdminHome from './pages/AdminHome';
+import AdminTramites from './pages/AdminTramites';
+import AdminAsignacion from './pages/AdminAsignacion';
 import Abogados from './pages/Abogados';
 import SobreNosotros from './pages/SobreNosotros';
 import Footer from './components/layout/Footer';
@@ -39,10 +42,10 @@ function App() {
                   </ProtectedRoute>
                 }
               >
-                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="dashboard" element={<AdminHome />} />
                 <Route path="citas" element={<Dashboard />} />
-                <Route path="tramites" element={<Dashboard />} />
-                <Route path="asignacion" element={<Dashboard />} />
+                <Route path="tramites" element={<AdminTramites />} />
+                <Route path="asignacion" element={<AdminAsignacion />} />
               </Route>
             </Routes>
           </main>
