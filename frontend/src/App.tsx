@@ -24,13 +24,21 @@ function ConditionalFooter() {
   return <Footer />;
 }
 
+function ConditionalNavbar() {
+  const location = useLocation();
+  if (location.pathname.startsWith('/admin')) {
+    return null;
+  }
+  return <Navbar />;
+}
+
 function App() {
   return (
     <AuthProvider>
       <Router>
         <ScrollToTop />
         <div className="min-h-screen flex flex-col">
-          <Navbar />
+          <ConditionalNavbar />
           <main className="flex-grow">
             <Routes>
               {/* Public Routes */}
