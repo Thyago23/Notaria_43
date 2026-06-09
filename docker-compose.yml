@@ -35,7 +35,7 @@ services:
     ports:
       - "5173:80"
     environment:
-      - VITE_API_URL=${VITE_API_URL:-http://localhost:3000}
+      - VITE_API_URL=${VITE_API_URL:-http://localhost:3000/api}
       - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
       - VITE_SUPABASE_KEY=${VITE_SUPABASE_KEY}
     depends_on:
