@@ -31,8 +31,11 @@ export const environment = Object.freeze({
 
   cors: Object.freeze({
     origin: requireEnv('CORS_ORIGIN', 'http://localhost:5173'),
-    // Permitir múltiples orígenes para desarrollo (ambos puertos Vite)
-    allowedOrigins: ['http://localhost:5173', 'http://localhost:5174'],
+    allowedOrigins: [
+      requireEnv('CORS_ORIGIN', 'http://localhost:5173'),
+      'http://localhost:5173',
+      'http://localhost:5174',
+    ],
   }),
 
   smtp: Object.freeze({
