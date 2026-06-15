@@ -52,33 +52,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setError(null);
       setIsLoading(true);
 
-      let response;
-      try {
-        response = await apiClient.post('/auth/login', credentials);
-      } catch (postErr: any) {
-        if (import.meta.env.DEV) {
-          console.warn('Backend inalcanzable. Iniciando sesión con Mock temporal en entorno DEV.');
-          response = {
-            data: {
-              data: {
-                user: {
-                  id: 'mock-user-123',
-                  cedula: credentials.cedula,
-                  nombres: 'Administrador',
-                  apellidos: 'Mock',
-                  email: 'mock@notaria43.com',
-                  role: 'ADMINISTRATIVO',
-                  createdAt: new Date().toISOString(),
-                },
-                token: 'mock-jwt-token-12345',
-              }
-            }
-          };
-        } else {
-          throw postErr;
-        }
-      }
-
+      const response = await apiClient.post('/auth/login', credentials);
       const { user: userData, token: userToken } = response.data.data;
 
       // Validar que el usuario tenga rol administrativo
