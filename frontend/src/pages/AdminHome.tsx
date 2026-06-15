@@ -243,7 +243,7 @@ const AdminHome = () => {
                 </table>
               </div>
               <div className="mt-6 flex justify-center">
-                <Link to="/admin/asignacion" className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 border border-gray-300 rounded-full px-4 py-2 hover:bg-gray-50 transition-colors">
+                <Link to="/admin/citas" className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 border border-gray-300 rounded-full px-4 py-2 hover:bg-gray-50 transition-colors">
                   Ver todos los trámites
                   <svg className="ml-1 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                 </Link>
