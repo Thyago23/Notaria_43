@@ -8,33 +8,9 @@ const AdminHome = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Mock data for charts
-  const sparklineData = [
-    { value: 1 }, { value: 2 }, { value: 1 }, { value: 3 }, { value: 2 }, { value: 4 }, { value: 3 }
-  ];
-
-  const barChartData = [
-    { name: '20 May', turnos: 1.2 },
-    { name: '21 May', turnos: 2 },
-    { name: '22 May', turnos: 1.2 },
-    { name: '23 May', turnos: 0 },
-    { name: '24 May', turnos: 1.6 },
-    { name: '25 May', turnos: 2.2 },
-    { name: '26 May', turnos: 0.9 },
-    { name: '27 May', turnos: 0.6 },
-    { name: '30 May', turnos: 2 },
-    { name: '31 May', turnos: 1.2 },
-    { name: '04 Jun', turnos: 3.6 },
-    { name: '05 Jun', turnos: 2.6 },
-    { name: '06 Jun', turnos: 1.6 }
-  ];
-
-  const actividadReciente = [
-    { id: 1, tramite: 'Escritura de Compraventa', cliente: 'Juan Pérez', estado: 'Atendido', fecha: '02/06/2025\n10:30 AM', color: 'bg-blue-100 text-blue-600', icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' },
-    { id: 2, tramite: 'Poder Especial', cliente: 'Ana González', estado: 'Pendiente', fecha: '03/06/2025\n11:15 AM', color: 'bg-yellow-100 text-yellow-600', icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' },
-    { id: 3, tramite: 'Declaración Juramentada', cliente: 'Carlos López', estado: 'Atendido', fecha: '01/06/2025\n09:45 AM', color: 'bg-blue-100 text-blue-600', icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' },
-    { id: 4, tramite: 'Legalización de Firmas', cliente: 'María Rodríguez', estado: 'Pendiente', fecha: '03/06/2025\n02:00 PM', color: 'bg-purple-100 text-purple-600', icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' }
-  ];
+  const [actividadReciente, setActividadReciente] = useState<any[]>([]);
+  const [barChartData, setBarChartData] = useState<any[]>([]);
+  const [sparklineData, setSparklineData] = useState<any[]>([{value: 0}]);
 
   useEffect(() => {
     fetchResumen();
@@ -53,7 +29,73 @@ const AdminHome = () => {
       const fechaFin = end.toISOString().split('T')[0];
 
       const response = await apiClient.get(`/turnos/reportes?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`);
-      setResumen(response.data.data.resumen);
+      const data = response.data.data;
+      
+      setResumen(data.resumen);
+      
+      // Procesar turnos reales
+      const turnos: any[] = data.turnos || [];
+      
+      // 1. Actividad Reciente (últimos 5)
+      const sortedTurnos = [...turnos].sort((a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime());
+      const recent = sortedTurnos.slice(0, 5).map(t => {
+        const d = new Date(t.fecha);
+        const day = d.getDate().toString().padStart(2, '0');
+        const month = (d.getMonth() + 1).toString().padStart(2, '0');
+        const year = d.getFullYear();
+        
+        const timeD = new Date(t.horaInicio);
+        const hours = timeD.getUTCHours();
+        const minutes = timeD.getUTCMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        const formattedHours = hours % 12 || 12;
+        const formattedMinutes = minutes.toString().padStart(2, '0');
+        const timeString = `${formattedHours}:${formattedMinutes} ${ampm}`;
+
+        const isAtendido = t.status === 'ATENDIDO';
+        const color = isAtendido ? 'bg-green-100 text-green-600' : 
+                      t.status === 'CANCELADO' ? 'bg-red-100 text-red-600' : 'bg-yellow-100 text-yellow-600';
+        const icon = isAtendido ? 'M5 13l4 4L19 7' : 
+                     t.status === 'CANCELADO' ? 'M6 18L18 6M6 6l12 12' : 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z';
+        
+        const clienteName = t.user ? `${t.user.nombres} ${t.user.apellidos}` : (t.guestNombre || 'Invitado');
+        const statusText = t.status.charAt(0) + t.status.slice(1).toLowerCase();
+
+        return {
+          id: t.id,
+          tramite: t.tramite?.nombre || 'Trámite General',
+          cliente: clienteName,
+          estado: statusText,
+          fecha: `${day}/${month}/${year}\n${timeString}`,
+          color,
+          icon
+        };
+      });
+      setActividadReciente(recent);
+
+      // 2. Bar Chart Data (agrupado por fecha)
+      const countsByDate: Record<string, number> = {};
+      const sortedForChart = [...turnos].sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
+      
+      sortedForChart.forEach(t => {
+        const d = new Date(t.fecha);
+        const day = d.getDate().toString().padStart(2, '0');
+        const monthNames = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+        const month = monthNames[d.getMonth()];
+        const key = `${day} ${month}`;
+        countsByDate[key] = (countsByDate[key] || 0) + 1;
+      });
+      
+      const bData = Object.keys(countsByDate).map(key => ({
+        name: key,
+        turnos: countsByDate[key]
+      }));
+      setBarChartData(bData.length > 0 ? bData : [{ name: 'Sin datos', turnos: 0 }]);
+
+      // 3. Sparkline Data
+      const sData = bData.map(d => ({ value: d.turnos }));
+      setSparklineData(sData.length > 0 ? sData : [{ value: 0 }]);
+
     } catch (err: any) {
       setError(err.message || 'Error al cargar el resumen');
       console.error('Error fetching resumen:', err);
