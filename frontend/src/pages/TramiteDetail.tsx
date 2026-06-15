@@ -16,6 +16,8 @@ const TramiteDetail = () => {
     fecha: '',
     hora: '',
   });
+  const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [bookingError, setBookingError] = useState('');
 
   useEffect(() => {
     if (!id) {
@@ -103,14 +105,15 @@ const TramiteDetail = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setBookingError('');
 
     if (!formData.fecha || !formData.hora) {
-      alert('Seleccione una fecha y hora válida.');
+      setBookingError('Seleccione una fecha y hora válida.');
       return;
     }
 
     if (!tramite.backendId) {
-      alert('No se pudo obtener el identificador del trámite. Intente nuevamente.');
+      setBookingError('No se pudo obtener el identificador del trámite. Intente nuevamente.');
       return;
     }
 
@@ -132,12 +135,11 @@ const TramiteDetail = () => {
         turnoId: response.data.data.id,
       });
 
-      alert('Cita reservada y comprobante descargado exitosamente.');
-      navigate('/booking');
+      setBookingSuccess(true);
     } catch (submitError) {
       console.error('Error reservando turno:', submitError);
       const message = (submitError as any)?.message || 'Error al reservar cita...';
-      alert(message);
+      setBookingError(message);
     }
   };
 
@@ -193,7 +195,25 @@ const TramiteDetail = () => {
         </div>
 
         <div className="p-8 md:p-12">
-          {!showBookingForm ? (
+          {bookingSuccess ? (
+            <div className="animate-fadeIn text-center py-8">
+              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg className="w-10 h-10 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h2 className="text-3xl font-bold text-gray-800 mb-4">¡Cita Reservada con Éxito!</h2>
+              <p className="text-gray-600 mb-8 max-w-md mx-auto">
+                Su comprobante en PDF se ha descargado automáticamente. Por favor, guárdelo y preséntelo el día de su cita junto con los requisitos.
+              </p>
+              <button
+                onClick={() => navigate('/booking')}
+                className="bg-[#8cc550] hover:bg-[#7ab345] text-white font-medium py-3 px-8 rounded transition-colors inline-flex items-center"
+              >
+                Volver a la lista de trámites
+              </button>
+            </div>
+          ) : !showBookingForm ? (
             <div className="animate-fadeIn">
               <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                 <svg className="w-6 h-6 mr-2 text-[#8cc550]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -234,6 +254,11 @@ const TramiteDetail = () => {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6 max-w-lg">
+                {bookingError && (
+                  <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-2">
+                    <p className="text-red-700 text-sm">{bookingError}</p>
+                  </div>
+                )}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Nombre Completo</label>
                   <input
