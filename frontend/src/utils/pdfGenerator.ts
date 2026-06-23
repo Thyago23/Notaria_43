@@ -33,7 +33,7 @@ export const generateBookingPDF = (data: AppointmentData) => {
   // Add Turno ID prominently
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(14);
-  doc.text(`CÓDIGO DE TURNO: ${data.turnoId ? data.turnoId.substring(0, 8).toUpperCase() : 'N/A'}`, 20, 115);
+  doc.text(`CÓDIGO DE TURNO: ${data.turnoId ? data.turnoId.toUpperCase() : 'N/A'}`, 20, 115);
 
   // Add Cancellation Instructions
   doc.setFont('helvetica', 'normal');
