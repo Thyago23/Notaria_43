@@ -15,11 +15,12 @@ RUN npm install
 COPY prisma ./prisma
 RUN npx prisma generate
 
-# Aplicar migraciones a la base de datos (solo en producción)
-RUN npx prisma db push --accept-data-loss
-
 # Copiar código fuente
 COPY src ./src
+
+# Copiar script de inicio
+COPY start.sh ./
+RUN chmod +x start.sh
 
 # Exponer puerto
 EXPOSE 3000
@@ -28,5 +29,5 @@ EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
   CMD wget --no-verbose --tries=1 --spider http://localhost:3000/api/health || exit 1
 
-# Ejecutar
-CMD ["node", "src/index.js"]
+# Ejecutar script de inicio
+CMD ["./start.sh"]
