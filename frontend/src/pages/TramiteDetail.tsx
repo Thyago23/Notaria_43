@@ -4,6 +4,7 @@ import { generateBookingPDF } from '../utils/pdfGenerator';
 import { apiClient } from '../api/client';
 import { TRAMITES_DATA } from '../data/tramites';
 import DatePicker from 'react-datepicker';
+import { es } from 'date-fns/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const TramiteDetail = () => {
@@ -277,7 +278,7 @@ const TramiteDetail = () => {
                     value={formData.cliente_email}
                     onChange={(e) => setFormData({ ...formData, cliente_email: e.target.value })}
                     className="w-full border border-gray-300 rounded-md px-4 py-3 focus:ring-2 focus:ring-[#8cc550] outline-none transition-shadow"
-                    placeholder="juan@ejemplo.com"
+                    placeholder="Ej. juan@ejemplo.com"
                   />
                 </div>
                 <div>
@@ -288,7 +289,7 @@ const TramiteDetail = () => {
                     value={formData.cliente_telefono}
                     onChange={(e) => setFormData({ ...formData, cliente_telefono: e.target.value })}
                     className="w-full border border-gray-300 rounded-md px-4 py-3 focus:ring-2 focus:ring-[#8cc550] outline-none transition-shadow"
-                    placeholder="0991234567"
+                    placeholder=" Ej.0991234567"
                   />
                 </div>
                 <div>
@@ -303,33 +304,45 @@ const TramiteDetail = () => {
                     }}
                     dateFormat="dd/MM/yyyy"
                     placeholderText="Seleccione una fecha"
+                    locale={es}
                     className="w-full border border-gray-300 rounded-md px-4 py-3 focus:ring-2 focus:ring-[#8cc550] outline-none transition-shadow"
                     required
                   />
                   <p className="text-xs text-gray-500 mt-1">
- Solo se muestran días de lunes a viernes
+                    Atención de Lunes a Viernes
                   </p>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Hora</label>
-                  <select
-                    required
-                    value={formData.hora}
-                    onChange={(e) => setFormData({ ...formData, hora: e.target.value })}
-                    disabled={!formData.fecha}
-                    className="w-full border border-gray-300 rounded-md px-4 py-3 focus:ring-2 focus:ring-[#8cc550] outline-none transition-shadow disabled:bg-gray-100 disabled:text-gray-400"
-                  >
-                    <option value="">
-                      {formData.fecha ? 'Seleccione una hora' : 'Primero seleccione una fecha'}
-                    </option>
-                    {getFilteredHours().map((slot) => (
-                      <option key={slot} value={slot}>{slot}</option>
-                    ))}
-                  </select>
-                  {formData.fecha && getFilteredHours().length === 0 && (
-                    <p className="text-red-500 text-xs mt-1">
-                      No hay horarios disponibles para hoy. Seleccione otro día.
-                    </p>
+                  {!formData.fecha ? (
+                    <div className="w-full border border-gray-200 rounded-md px-4 py-3 bg-gray-50 text-gray-400">
+                      Primero seleccione una fecha
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-4 gap-2">
+                      {getFilteredHours().length === 0 ? (
+                        <div className="col-span-4 text-center py-4">
+                          <p className="text-red-500 text-sm">
+                            No hay horarios disponibles para hoy. Seleccione otro día.
+                          </p>
+                        </div>
+                      ) : (
+                        getFilteredHours().map((slot) => (
+                          <button
+                            key={slot}
+                            type="button"
+                            onClick={() => setFormData({ ...formData, hora: slot })}
+                            className={`py-3 px-2 rounded-md border-2 transition-all text-sm font-medium ${
+                              formData.hora === slot
+                                ? 'border-[#8cc550] bg-[#8cc550] text-white'
+                                : 'border-gray-200 bg-white text-gray-700 hover:border-[#8cc550] hover:bg-green-50'
+                            }`}
+                          >
+                            {slot}
+                          </button>
+                        ))
+                      )}
+                    </div>
                   )}
                 </div>
 
