@@ -12,6 +12,8 @@ import {
   handleMarkAsAttended,
   handleCancelTurno,
   handleGetReport,
+  handleFindTurnoById,
+  handleCancelTurnoPublic,
 } from './turnos.controller.js';
 import { authMiddleware } from '../../middlewares/auth.middleware.js';
 import { roleMiddleware } from '../../middlewares/role.middleware.js';
@@ -33,6 +35,19 @@ turnosRouter.post(
   '/guest',
   validateRequest({ body: createGuestTurnoSchema }),
   handleCreateGuestTurno
+);
+
+// Cancelación pública por ID de turno (sin autenticación)
+turnosRouter.get(
+  '/public/:id',
+  validateRequest({ params: turnoIdParamSchema }),
+  handleFindTurnoById
+);
+
+turnosRouter.delete(
+  '/public/:id',
+  validateRequest({ params: turnoIdParamSchema }),
+  handleCancelTurnoPublic
 );
 
 // Todas las rutas de turnos requieren autenticación

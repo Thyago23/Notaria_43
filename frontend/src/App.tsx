@@ -4,6 +4,7 @@ import Navbar from './components/layout/Navbar';
 import Home from './pages/Home';
 import Booking from './pages/Booking';
 import TramiteDetail from './pages/TramiteDetail';
+import CancelTurno from './pages/CancelTurno';
 import LoginAdmin from './pages/LoginAdmin';
 import Dashboard from './pages/Dashboard';
 import AdminHome from './pages/AdminHome';
@@ -47,6 +48,7 @@ function App() {
               <Route path="/sobre-nosotros" element={<SobreNosotros />} />
               <Route path="/booking" element={<Booking />} />
               <Route path="/tramites/:id" element={<TramiteDetail />} />
+              <Route path="/cancelar" element={<CancelTurno />} />
               <Route path="/login" element={<LoginAdmin />} />
               
               {/* Protected Admin Routes */}

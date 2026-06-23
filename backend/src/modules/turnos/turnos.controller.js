@@ -11,6 +11,8 @@ import {
   markTurnoAsAttended,
   cancelTurno,
   getTurnosReport,
+  findTurnoById,
+  cancelTurnoPublic,
 } from './turnos.service.js';
 import { HTTP_STATUS } from '../../utils/constants.js';
 
@@ -98,6 +100,28 @@ export async function handleGetReport(req, res, next) {
   try {
     const report = await getTurnosReport(req.query);
     return res.status(HTTP_STATUS.OK).json({ success: true, data: report });
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function handleFindTurnoById(req, res, next) {
+  try {
+    const turno = await findTurnoById(req.params.id);
+    return res.status(HTTP_STATUS.OK).json({ success: true, data: turno });
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function handleCancelTurnoPublic(req, res, next) {
+  try {
+    const turno = await cancelTurnoPublic(req.params.id);
+    return res.status(HTTP_STATUS.OK).json({
+      success: true,
+      message: 'Turno cancelado exitosamente',
+      data: turno,
+    });
   } catch (error) {
     next(error);
   }

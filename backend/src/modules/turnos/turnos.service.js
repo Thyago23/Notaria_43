@@ -6,7 +6,7 @@
 import { getDatabase } from '../../config/database.js';
 import { AppError } from '../../utils/appError.js';
 import { HTTP_STATUS, TURNO_STATUS, SCHEDULE } from '../../utils/constants.js';
-import { enqueueConfirmationEmail } from '../notificaciones/notificaciones.service.js';
+import { enqueueConfirmationEmail, enqueueAdminNotificationEmail } from '../notificaciones/notificaciones.service.js';
 
 /**
  * Calcula la hora de fin sumando minutos a una hora de inicio.
@@ -137,7 +137,7 @@ export async function getAvailableSlots(fecha, tramiteId) {
  * RF-03: La restricción GIST en la BD es la última línea de defensa
  * contra condiciones de carrera.
  */
-async function createTurnoInternal({ tramiteId, fecha, horaInicio, notas, userId, guestNombre, guestEmail }) {
+async function createTurnoInternal({ tramiteId, fecha, horaInicio, notas, userId, guestNombre, guestEmail, guestPhone }) {
   const database = getDatabase();
 
   const tramite = await database.tramite.findUnique({
@@ -248,6 +248,7 @@ async function createTurnoInternal({ tramiteId, fecha, horaInicio, notas, userId
         userId: userId || null,
         guestNombre: guestNombre || null,
         guestEmail: guestEmail || null,
+        guestPhone: guestPhone || null,
         tramiteId,
       },
       include: {
@@ -262,6 +263,11 @@ async function createTurnoInternal({ tramiteId, fecha, horaInicio, notas, userId
     console.error('[EMAIL QUEUE ERROR]', emailError.message);
   });
 
+  // Notificación al administrativo (asíncrono, no bloquea)
+  enqueueAdminNotificationEmail(turno).catch((emailError) => {
+    console.error('[ADMIN EMAIL QUEUE ERROR]', emailError.message);
+  });
+
   return turno;
 }
 
@@ -269,7 +275,7 @@ export async function createTurno(userId, turnoData) {
   return createTurnoInternal({ ...turnoData, userId, guestNombre: null, guestEmail: null });
 }
 
-export async function createGuestTurno({ tramiteId, fecha, horaInicio, clienteNombre, clienteEmail, notas }) {
+export async function createGuestTurno({ tramiteId, fecha, horaInicio, clienteNombre, clienteEmail, clienteTelefono, notas }) {
   return createTurnoInternal({
     tramiteId,
     fecha,
@@ -278,6 +284,7 @@ export async function createGuestTurno({ tramiteId, fecha, horaInicio, clienteNo
     userId: null,
     guestNombre: clienteNombre,
     guestEmail: clienteEmail,
+    guestPhone: clienteTelefono,
   });
 }
 
@@ -385,6 +392,54 @@ export async function cancelTurno(turnoId, userId, userRole) {
   // Un ciudadano solo puede cancelar sus propios turnos
   if (userRole === 'CIUDADANO' && turno.userId !== userId) {
     throw new AppError('No tiene permiso para cancelar este turno', HTTP_STATUS.FORBIDDEN);
+  }
+
+  if (turno.status === TURNO_STATUS.CANCELADO) {
+    throw new AppError('Este turno ya fue cancelado', HTTP_STATUS.CONFLICT);
+  }
+
+  if (turno.status === TURNO_STATUS.ATENDIDO) {
+    throw new AppError('No se puede cancelar un turno que ya fue atendido', HTTP_STATUS.BAD_REQUEST);
+  }
+
+  return database.turno.update({
+    where: { id: turnoId },
+    data: { status: TURNO_STATUS.CANCELADO },
+  });
+}
+
+/**
+ * Busca un turno por su ID para cancelación pública (sin autenticación).
+ */
+export async function findTurnoById(turnoId) {
+  const database = getDatabase();
+
+  const turno = await database.turno.findUnique({
+    where: { id: turnoId },
+    include: {
+      tramite: { select: { nombre: true } },
+    },
+  });
+
+  if (!turno) {
+    throw new AppError('Turno no encontrado', HTTP_STATUS.NOT_FOUND);
+  }
+
+  return turno;
+}
+
+/**
+ * Cancela un turno públicamente usando el ID del turno (sin autenticación).
+ */
+export async function cancelTurnoPublic(turnoId) {
+  const database = getDatabase();
+
+  const turno = await database.turno.findUnique({
+    where: { id: turnoId },
+  });
+
+  if (!turno) {
+    throw new AppError('Turno no encontrado', HTTP_STATUS.NOT_FOUND);
   }
 
   if (turno.status === TURNO_STATUS.CANCELADO) {

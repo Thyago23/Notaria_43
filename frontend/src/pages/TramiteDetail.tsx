@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { generateBookingPDF } from '../utils/pdfGenerator';
 import { apiClient } from '../api/client';
 import { TRAMITES_DATA } from '../data/tramites';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const TramiteDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -13,7 +15,8 @@ const TramiteDetail = () => {
   const [formData, setFormData] = useState({
     cliente_nombre: '',
     cliente_email: '',
-    fecha: '',
+    cliente_telefono: '',
+    fecha: null as Date | null,
     hora: '',
   });
   const [bookingSuccess, setBookingSuccess] = useState(false);
@@ -52,12 +55,6 @@ const TramiteDetail = () => {
 
   const [showBookingForm, setShowBookingForm] = useState(false);
 
-  const getMinDate = () => {
-    const now = new Date();
-    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-    return now.toISOString().slice(0, 10);
-  };
-
   const getAvailableHours = () => {
     const slots = [];
     for (let h = 8; h < 17; h++) {
@@ -76,7 +73,7 @@ const TramiteDetail = () => {
     if (!formData.fecha) return allSlots;
 
     const today = new Date();
-    const selectedDate = new Date(formData.fecha + 'T00:00:00');
+    const selectedDate = formData.fecha;
     const isToday = selectedDate.toDateString() === today.toDateString();
 
     if (!isToday) return allSlots;
@@ -88,19 +85,17 @@ const TramiteDetail = () => {
     });
   };
 
-  const handleFechaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (!value) {
-      setFormData({ ...formData, fecha: '', hora: '' });
+  const handleFechaChange = (date: Date | null) => {
+    if (!date) {
+      setFormData({ ...formData, fecha: null, hora: '' });
       return;
     }
-    const selected = new Date(value + 'T00:00:00');
-    const day = selected.getDay();
+    const day = date.getDay();
     if (day === 0 || day === 6) {
       alert('Por favor seleccione un día de Lunes a Viernes.');
       return;
     }
-    setFormData({ ...formData, fecha: value, hora: '' });
+    setFormData({ ...formData, fecha: date, hora: '' });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -117,13 +112,17 @@ const TramiteDetail = () => {
       return;
     }
 
+    // Format date as YYYY-MM-DD
+    const fechaString = formData.fecha.toISOString().split('T')[0];
+
     try {
       const response = await apiClient.post('/turnos/guest', {
         tramiteId: tramite.backendId,
-        fecha: formData.fecha,
+        fecha: fechaString,
         horaInicio: formData.hora,
         clienteNombre: formData.cliente_nombre,
         clienteEmail: formData.cliente_email,
+        clienteTelefono: formData.cliente_telefono,
         notas: '',
       });
 
@@ -282,15 +281,34 @@ const TramiteDetail = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Fecha</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Número de Teléfono</label>
                   <input
-                    type="date"
+                    type="tel"
                     required
-                    min={getMinDate()}
-                    value={formData.fecha}
-                    onChange={handleFechaChange}
+                    value={formData.cliente_telefono}
+                    onChange={(e) => setFormData({ ...formData, cliente_telefono: e.target.value })}
                     className="w-full border border-gray-300 rounded-md px-4 py-3 focus:ring-2 focus:ring-[#8cc550] outline-none transition-shadow"
+                    placeholder="0991234567"
                   />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Fecha</label>
+                  <DatePicker
+                    selected={formData.fecha}
+                    onChange={handleFechaChange}
+                    minDate={new Date()}
+                    filterDate={(date: Date) => {
+                      const day = date.getDay();
+                      return day !== 0 && day !== 6;
+                    }}
+                    dateFormat="dd/MM/yyyy"
+                    placeholderText="Seleccione una fecha"
+                    className="w-full border border-gray-300 rounded-md px-4 py-3 focus:ring-2 focus:ring-[#8cc550] outline-none transition-shadow"
+                    required
+                  />
+                  <p className="text-xs text-gray-500 mt-1">
+ Solo se muestran días de lunes a viernes
+                  </p>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Hora</label>

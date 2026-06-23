@@ -17,6 +17,7 @@ import { usersRouter } from './modules/users/users.routes.js';
 import { tramitesRouter } from './modules/tramites/tramites.routes.js';
 import { turnosRouter } from './modules/turnos/turnos.routes.js';
 import { reportesRouter } from './modules/reportes/reportes.routes.js';
+import { notificacionesRouter } from './modules/notificaciones/notificaciones.routes.js';
 
 const app = express();
 
@@ -81,6 +82,7 @@ app.use('/api/users', usersRouter);
 app.use('/api/tramites', tramitesRouter);
 app.use('/api/turnos', turnosRouter);
 app.use('/api/reportes', reportesRouter);
+app.use('/api/notificaciones', notificacionesRouter);
 
 // ============================================
 // Ruta 404

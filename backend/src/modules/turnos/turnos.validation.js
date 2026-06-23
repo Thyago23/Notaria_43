@@ -33,6 +33,11 @@ export const createGuestTurnoSchema = z.object({
     .email('Debe proporcionar un email válido')
     .trim()
     .toLowerCase(),
+  clienteTelefono: z
+    .string()
+    .min(10, 'El teléfono debe tener al menos 10 caracteres')
+    .max(20, 'El teléfono no puede exceder 20 caracteres')
+    .trim(),
   notas: z.string().max(500).optional(),
 });
 

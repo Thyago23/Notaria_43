@@ -89,3 +89,20 @@ export async function enqueueEmail({ to, subject, html }) {
 
   return emailRecord;
 }
+
+/**
+ * Obtiene emails fallidos para mostrar alertas en el dashboard.
+ */
+export async function getFailedEmails() {
+  const database = getDatabase();
+
+  return database.emailQueue.findMany({
+    where: {
+      status: EMAIL_STATUS.FAILED,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+    take: 10,
+  });
+}

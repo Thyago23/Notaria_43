@@ -11,6 +11,7 @@ const AdminHome = () => {
   const [actividadReciente, setActividadReciente] = useState<any[]>([]);
   const [barChartData, setBarChartData] = useState<any[]>([]);
   const [sparklineData, setSparklineData] = useState<any[]>([{value: 0}]);
+  const [failedEmails, setFailedEmails] = useState<any[]>([]);
 
   useEffect(() => {
     fetchResumen();
@@ -24,12 +25,21 @@ const AdminHome = () => {
       const end = new Date();
       const start = new Date();
       start.setDate(end.getDate() - 30);
-      
+
       const fechaInicio = start.toISOString().split('T')[0];
       const fechaFin = end.toISOString().split('T')[0];
 
       const response = await apiClient.get(`/turnos/reportes?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`);
       const data = response.data.data;
+
+      // Fetch failed emails
+      try {
+        const emailsResponse = await apiClient.get('/notificaciones/failed');
+        setFailedEmails(emailsResponse.data.data || []);
+      } catch (emailError) {
+        console.error('Error fetching failed emails:', emailError);
+        setFailedEmails([]);
+      }
       
       setResumen(data.resumen);
       
@@ -126,6 +136,37 @@ const AdminHome = () => {
       {error && (
         <div className="bg-red-50 border border-red-200 rounded-lg p-4">
           <p className="text-red-800 text-sm">{error}</p>
+        </div>
+      )}
+
+      {failedEmails.length > 0 && (
+        <div className="bg-yellow-50 border-l-4 border-yellow-500 rounded-lg p-4">
+          <div className="flex items-start">
+            <div className="flex-shrink-0">
+              <svg className="h-5 w-5 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+            </div>
+            <div className="ml-3 flex-1">
+              <h3 className="text-sm font-medium text-yellow-800">
+                {failedEmails.length} notificación(es) por correo falló(aron)
+              </h3>
+              <div className="mt-2 text-sm text-yellow-700">
+                <p className="mb-2">Por favor contacte a los siguientes clientes manualmente:</p>
+                <ul className="list-disc list-inside space-y-1">
+                  {failedEmails.slice(0, 3).map((email: any) => (
+                    <li key={email.id}>
+                      <span className="font-medium">{email.subject}</span>
+                      <span className="text-xs text-yellow-600 ml-2">({email.to})</span>
+                    </li>
+                  ))}
+                  {failedEmails.length > 3 && (
+                    <li className="text-xs text-yellow-600">...y {failedEmails.length - 3} más</li>
+                  )}
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       )}
 

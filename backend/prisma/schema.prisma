@@ -47,6 +47,7 @@ model Turno {
   notas       String?
   guestNombre String?     @map("guest_nombre")
   guestEmail  String?     @map("guest_email")
+  guestPhone  String?     @map("guest_phone") @db.VarChar(20)
   createdAt   DateTime    @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt   DateTime    @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
   userId      String?     @map("user_id") @db.Uuid
