@@ -140,31 +140,84 @@ const AdminHome = () => {
       )}
 
       {failedEmails.length > 0 && (
-        <div className="bg-yellow-50 border-l-4 border-yellow-500 rounded-lg p-4">
-          <div className="flex items-start">
-            <div className="flex-shrink-0">
-              <svg className="h-5 w-5 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-              </svg>
-            </div>
-            <div className="ml-3 flex-1">
-              <h3 className="text-sm font-medium text-yellow-800">
-                {failedEmails.length} notificación(es) por correo falló(aron)
-              </h3>
-              <div className="mt-2 text-sm text-yellow-700">
-                <p className="mb-2">Por favor contacte a los siguientes clientes manualmente:</p>
-                <ul className="list-disc list-inside space-y-1">
-                  {failedEmails.slice(0, 3).map((email: any) => (
-                    <li key={email.id}>
-                      <span className="font-medium">{email.subject}</span>
-                      <span className="text-xs text-yellow-600 ml-2">({email.to})</span>
-                    </li>
-                  ))}
-                  {failedEmails.length > 3 && (
-                    <li className="text-xs text-yellow-600">...y {failedEmails.length - 3} más</li>
-                  )}
-                </ul>
+        <div className="bg-gradient-to-r from-red-50 to-orange-50 border border-red-200 rounded-xl shadow-sm overflow-hidden">
+          <div className="p-6">
+            <div className="flex items-start justify-between">
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                    <svg className="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-red-900">
+                    Alerta de Notificaciones Fallidas
+                  </h3>
+                  <p className="text-sm text-red-700 mt-1">
+                    {failedEmails.length} notificación(es) por correo no pudieron ser entregada(s)
+                  </p>
+                </div>
               </div>
+              <div className="flex-shrink-0">
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                  Requiere atención
+                </span>
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <p className="text-sm font-medium text-red-800 mb-3">Clientes a contactar manualmente:</p>
+              <div className="bg-white rounded-lg border border-red-200 divide-y divide-red-100">
+                {failedEmails.slice(0, 5).map((email: any) => (
+                  <div key={email.id} className="p-4 flex items-center justify-between hover:bg-red-50 transition-colors">
+                    <div className="flex-1">
+                      <p className="text-sm font-medium text-gray-900">{email.subject}</p>
+                      <div className="flex items-center space-x-4 mt-1">
+                        <p className="text-xs text-gray-500 flex items-center">
+                          <svg className="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                          </svg>
+                          {email.to}
+                        </p>
+                        {email.lastError && (
+                          <p className="text-xs text-red-600 flex items-center">
+                            <svg className="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            {email.lastError.substring(0, 50)}...
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    <div className="ml-4 flex-shrink-0">
+                      <button className="text-xs text-red-600 hover:text-red-800 font-medium">
+                        Ver detalles
+                      </button>
+                    </div>
+                  </div>
+                ))}
+                {failedEmails.length > 5 && (
+                  <div className="p-4 text-center bg-red-50">
+                    <p className="text-xs text-red-700">
+                      Y {failedEmails.length - 5} notificación(es) más fallida(s)
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="mt-4 flex items-center justify-between">
+              <p className="text-xs text-red-600">
+                <svg className="w-4 h-4 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Se recomienda contactar a estos clientes por teléfono para confirmar sus citas
+              </p>
+              <button className="text-sm text-red-700 hover:text-red-900 font-medium">
+                Ver todas las notificaciones fallidas →
+              </button>
             </div>
           </div>
         </div>

@@ -16,7 +16,18 @@ const Navbar = () => {
         <Link to="/" className="text-sm font-semibold text-gray-600 hover:text-[#8cc550] transition-colors">Inicio</Link>
         <Link to="/sobre-nosotros" className="text-sm font-semibold text-gray-600 hover:text-[#8cc550] transition-colors">Sobre la notaría</Link>
         <Link to="/abogados" className="text-sm font-semibold text-gray-600 hover:text-[#8cc550] transition-colors">Abogados</Link>
-        <Link to="/booking" className="text-sm font-semibold text-gray-600 hover:text-[#8cc550] transition-colors">Trámites y documentos</Link>
+        <div className="flex items-center space-x-4">
+          <Link to="/booking" className="text-sm font-semibold text-gray-600 hover:text-[#8cc550] transition-colors">Trámites y documentos</Link>
+          <Link
+            to="/cancelar"
+            className="text-sm font-semibold text-red-600 hover:text-red-700 transition-colors flex items-center"
+          >
+            <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            Cancelar Cita
+          </Link>
+        </div>
         <a href="/LISTADEPRECIOSAÑO2026.pdf" target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-gray-600 hover:text-[#8cc550] transition-colors">Tarifas</a>
       </div>
 
