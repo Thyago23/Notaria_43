@@ -72,7 +72,7 @@ export async function handleGetAgenda(req, res, next) {
 
 export async function handleMarkAsAttended(req, res, next) {
   try {
-    const turno = await markTurnoAsAttended(req.params.id);
+    const turno = await markTurnoAsAttended(req.params.id, req.user.userId);
     return res.status(HTTP_STATUS.OK).json({
       success: true,
       message: 'Turno marcado como atendido',

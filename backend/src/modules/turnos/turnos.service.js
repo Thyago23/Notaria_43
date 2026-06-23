@@ -334,8 +334,15 @@ export async function getAgenda({ fecha, fechaInicio, fechaFin }) {
       notas: true,
       guestNombre: true,
       guestEmail: true,
+      createdAt: true,
       user: {
         select: { id: true, cedula: true, nombres: true, apellidos: true },
+      },
+      atendidoPor: {
+        select: { id: true, nombres: true, apellidos: true },
+      },
+      canceladoPor: {
+        select: { id: true, nombres: true, apellidos: true },
       },
       tramite: { select: { nombre: true, duracionMinutos: true } },
     },
@@ -346,7 +353,7 @@ export async function getAgenda({ fecha, fechaInicio, fechaFin }) {
 /**
  * Marca un turno como atendido (Notario).
  */
-export async function markTurnoAsAttended(turnoId) {
+export async function markTurnoAsAttended(turnoId, adminId) {
   const database = getDatabase();
 
   const turno = await database.turno.findUnique({
@@ -367,7 +374,10 @@ export async function markTurnoAsAttended(turnoId) {
 
   return database.turno.update({
     where: { id: turnoId },
-    data: { status: TURNO_STATUS.ATENDIDO },
+    data: { 
+      status: TURNO_STATUS.ATENDIDO,
+      atendidoPorId: adminId || null 
+    },
     include: {
       user: { select: { nombres: true, apellidos: true } },
       tramite: { select: { nombre: true } },
@@ -404,7 +414,10 @@ export async function cancelTurno(turnoId, userId, userRole) {
 
   return database.turno.update({
     where: { id: turnoId },
-    data: { status: TURNO_STATUS.CANCELADO },
+    data: { 
+      status: TURNO_STATUS.CANCELADO,
+      canceladoPorId: userId || null
+    },
   });
 }
 
