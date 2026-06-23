@@ -15,6 +15,9 @@ RUN npm install
 COPY prisma ./prisma
 RUN npx prisma generate
 
+# Aplicar migraciones a la base de datos (solo en producción)
+RUN npx prisma db push --accept-data-loss
+
 # Copiar código fuente
 COPY src ./src
 
