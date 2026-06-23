@@ -8,9 +8,20 @@ interface Cita {
   horaFin: string;
   status: 'PENDIENTE' | 'ATENDIDO' | 'CANCELADO';
   notas: string | null;
+  createdAt?: string;
   user?: {
     id: string;
     cedula: string;
+    nombres: string;
+    apellidos: string;
+  } | null;
+  atendidoPor?: {
+    id: string;
+    nombres: string;
+    apellidos: string;
+  } | null;
+  canceladoPor?: {
+    id: string;
     nombres: string;
     apellidos: string;
   } | null;
@@ -44,6 +55,7 @@ const Dashboard = () => {
   const [actionLoading, setActionLoading] = useState<{ [key: string]: boolean }>({});
   const [filterTramite, setFilterTramite] = useState('');
   const [filterCliente, setFilterCliente] = useState('');
+  const [selectedCita, setSelectedCita] = useState<Cita | null>(null);
 
   // Estado del modal de reporte
   const [showReporteModal, setShowReporteModal] = useState(false);
@@ -226,7 +238,7 @@ const Dashboard = () => {
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {filteredCitas.map((cita) => (
-              <tr key={cita.id} className="hover:bg-gray-50">
+              <tr key={cita.id} className="hover:bg-gray-50 cursor-pointer" onClick={() => setSelectedCita(cita)}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm font-medium text-gray-900">
                     {cita.user ? `${cita.user.nombres} ${cita.user.apellidos}` : cita.guest_nombre || 'Invitado'}
@@ -252,7 +264,7 @@ const Dashboard = () => {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   {cita.status === 'PENDIENTE' && (
-                    <>
+                    <div onClick={(e) => e.stopPropagation()}>
                       <button
                         onClick={() => handleMarkAsAttended(cita.id)}
                         disabled={actionLoading[cita.id]}
@@ -267,7 +279,7 @@ const Dashboard = () => {
                       >
                         {actionLoading[cita.id] ? 'Procesando...' : 'Cancelar'}
                       </button>
-                    </>
+                    </div>
                   )}
                   {cita.status === 'ATENDIDO' && <span className="text-green-600 text-sm font-medium">✓ Atendido</span>}
                   {cita.status === 'CANCELADO' && <span className="text-red-600 text-sm font-medium">✗ Cancelado</span>}
@@ -410,6 +422,80 @@ const Dashboard = () => {
                   )}
                 </div>
               )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de Detalles de Cita */}
+      {selectedCita && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" onClick={() => setSelectedCita(null)}>
+          <div className="bg-white rounded-xl shadow-xl w-full max-w-md p-6" onClick={(e) => e.stopPropagation()}>
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-bold text-dark">Detalles de la Cita</h2>
+              <button onClick={() => setSelectedCita(null)} className="text-gray-400 hover:text-gray-600 text-xl font-bold">✕</button>
+            </div>
+            
+            <div className="space-y-4">
+              <div>
+                <p className="text-xs text-gray-500 font-semibold uppercase">Trámite</p>
+                <p className="text-sm font-medium text-gray-900">{selectedCita.tramite.nombre}</p>
+              </div>
+
+              <div>
+                <p className="text-xs text-gray-500 font-semibold uppercase">Cliente</p>
+                <p className="text-sm text-gray-900">{selectedCita.user ? `${selectedCita.user.nombres} ${selectedCita.user.apellidos}` : selectedCita.guest_nombre || 'Invitado'}</p>
+                <p className="text-sm text-gray-500">{selectedCita.user?.cedula || selectedCita.guest_email || 'N/A'}</p>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-xs text-gray-500 font-semibold uppercase">Fecha Agendada</p>
+                  <p className="text-sm text-gray-900">{new Date(selectedCita.fecha).toLocaleDateString()}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-500 font-semibold uppercase">Hora</p>
+                  <p className="text-sm text-gray-900">{selectedCita.horaInicio} - {selectedCita.horaFin}</p>
+                </div>
+              </div>
+
+              <div>
+                <p className="text-xs text-gray-500 font-semibold uppercase">Generada El</p>
+                <p className="text-sm text-gray-900">{selectedCita.createdAt ? new Date(selectedCita.createdAt).toLocaleString() : 'N/A'}</p>
+              </div>
+
+              <div className="pt-2 border-t border-gray-100">
+                <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                  selectedCita.status === 'ATENDIDO' ? 'bg-green-100 text-green-800' :
+                  selectedCita.status === 'CANCELADO' ? 'bg-red-100 text-red-800' :
+                  'bg-yellow-100 text-yellow-800'
+                }`}>
+                  ESTADO: {selectedCita.status}
+                </span>
+              </div>
+
+              {selectedCita.status === 'ATENDIDO' && selectedCita.atendidoPor && (
+                <div>
+                  <p className="text-xs text-gray-500 font-semibold uppercase">Atendida Por</p>
+                  <p className="text-sm text-gray-900">{selectedCita.atendidoPor.nombres} {selectedCita.atendidoPor.apellidos}</p>
+                </div>
+              )}
+
+              {selectedCita.status === 'CANCELADO' && selectedCita.canceladoPor && (
+                <div>
+                  <p className="text-xs text-gray-500 font-semibold uppercase">Cancelada Por</p>
+                  <p className="text-sm text-gray-900">{selectedCita.canceladoPor.nombres} {selectedCita.canceladoPor.apellidos}</p>
+                </div>
+              )}
+            </div>
+            
+            <div className="mt-6 flex justify-end">
+              <button
+                onClick={() => setSelectedCita(null)}
+                className="px-4 py-2 bg-gray-100 text-gray-800 rounded hover:bg-gray-200 transition-colors text-sm font-medium"
+              >
+                Cerrar
+              </button>
             </div>
           </div>
         </div>

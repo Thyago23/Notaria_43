@@ -17,8 +17,10 @@ model User {
   role      UserRole @default(CIUDADANO)
   isActive  Boolean  @default(true) @map("is_active")
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
-  turnos    Turno[]
+  updatedAt        DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  turnos           Turno[]  @relation("TurnosCreados")
+  turnosAtendidos  Turno[]  @relation("TurnosAtendidos")
+  turnosCancelados Turno[]  @relation("TurnosCancelados")
 
   @@index([role], map: "idx_users_role")
   @@map("users")
@@ -47,13 +49,17 @@ model Turno {
   notas       String?
   guestNombre String?     @map("guest_nombre")
   guestEmail  String?     @map("guest_email")
-  guestPhone  String?     @map("guest_phone") @db.VarChar(20)
-  createdAt   DateTime    @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt   DateTime    @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
-  userId      String?     @map("user_id") @db.Uuid
-  tramiteId   String      @map("tramite_id") @db.Uuid
-  tramite     Tramite     @relation(fields: [tramiteId], references: [id], onUpdate: NoAction)
-  user        User?       @relation(fields: [userId], references: [id], onUpdate: NoAction)
+  guestPhone     String?     @map("guest_phone") @db.VarChar(20)
+  createdAt      DateTime    @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt      DateTime    @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  userId         String?     @map("user_id") @db.Uuid
+  atendidoPorId  String?     @map("atendido_por_id") @db.Uuid
+  canceladoPorId String?     @map("cancelado_por_id") @db.Uuid
+  tramiteId      String      @map("tramite_id") @db.Uuid
+  tramite        Tramite     @relation(fields: [tramiteId], references: [id], onUpdate: NoAction)
+  user           User?       @relation("TurnosCreados", fields: [userId], references: [id], onUpdate: NoAction)
+  atendidoPor    User?       @relation("TurnosAtendidos", fields: [atendidoPorId], references: [id], onUpdate: NoAction)
+  canceladoPor   User?       @relation("TurnosCancelados", fields: [canceladoPorId], references: [id], onUpdate: NoAction)
 
   @@index([fecha, status], map: "idx_turnos_fecha_status")
   @@index([tramiteId], map: "idx_turnos_tramite_id")
