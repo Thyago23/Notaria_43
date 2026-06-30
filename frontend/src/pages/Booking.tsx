@@ -5,8 +5,8 @@ import { TRAMITES_DATA } from '../data/tramites';
 const Booking = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredTramites = TRAMITES_DATA.filter(tramite => 
-    tramite.nombre.toLowerCase().includes(searchTerm.toLowerCase()) || 
+  const filteredTramites = TRAMITES_DATA.filter(tramite =>
+    tramite.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
     tramite.categoria.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -47,7 +47,7 @@ const Booking = () => {
                     ¿Necesita cancelar o reagendar una cita?
                   </h3>
                   <p className="text-sm text-gray-500 mt-1">
-                    Ingrese con el código de turno de su comprobante PDF para liberar su espacio
+                    Ingrese con el código de turno de su comprobante PDF para liberar su cita
                   </p>
                 </div>
               </div>
@@ -62,9 +62,9 @@ const Booking = () => {
         </div>
 
         <div className="max-w-xl mx-auto mb-12 relative">
-          <input 
-            type="text" 
-            placeholder="Buscar trámite (ej. compraventa, divorcio...)" 
+          <input
+            type="text"
+            placeholder="Buscar trámite (ej. compraventa, divorcio...)"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full px-5 py-4 pl-12 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary shadow-sm text-gray-700"
@@ -92,8 +92,8 @@ const Booking = () => {
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {tramites.map((tramite) => (
-                  <Link 
-                    key={tramite.id} 
+                  <Link
+                    key={tramite.id}
                     to={`/tramites/${tramite.id}`}
                     className="bg-white rounded-lg shadow hover:shadow-md transition-shadow p-6 border border-gray-100 flex flex-col justify-between group"
                   >
