@@ -41,24 +41,36 @@ export const generateBookingPDF = async (data: AppointmentData) => {
     const cancellationUrl = `https://notaria43.com/cancelar?id=${data.turnoId}`;
     try {
       const qrCodeDataUrl = await QRCode.toDataURL(cancellationUrl, {
-        width: 100,
-        margin: 1,
+        width: 120,
+        margin: 2,
+        errorCorrectionLevel: 'H',
       });
-      doc.addImage(qrCodeDataUrl, 'PNG', 140, 120, 50, 50);
+
+      // Add QR code with white background for better visibility
+      doc.setFillColor(255, 255, 255);
+      doc.rect(130, 125, 60, 60, 'F');
+      doc.addImage(qrCodeDataUrl, 'PNG', 135, 130, 50, 50);
+
       doc.setFontSize(8);
-      doc.text('Escanee para cancelar', 140, 175);
+      doc.setTextColor(100, 100, 100);
+      doc.text('Escanee para cancelar', 135, 190);
     } catch (qrError) {
       console.error('Error generating QR code:', qrError);
+      // Fallback: show text if QR fails
+      doc.setFontSize(8);
+      doc.setTextColor(200, 0, 0);
+      doc.text('Error generando QR', 135, 150);
     }
   }
 
   // Add Cancellation Instructions
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(10);
+  doc.setTextColor(0, 0, 0);
   doc.text('Instrucciones de Cancelación:', 20, 130);
-  doc.text('Si necesita cancelar su cita, puede hacerlo ingresando el código de turno en:', 20, 138);
-  doc.text('https://notaria43.com/cancelar', 20, 146);
-  doc.text('o escaneando el código QR de este documento.', 20, 154);
+  doc.text('Si necesita cancelar su cita, puede hacerlo:', 20, 138);
+  doc.text('1. Escaneando el código QR de este documento', 20, 146);
+  doc.text('2. Ingresando el código de turno en: https://notaria43.com/cancelar', 20, 154);
 
   // Add Footer
   doc.setFontSize(9);
