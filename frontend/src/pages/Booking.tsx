@@ -33,26 +33,26 @@ const Booking = () => {
         <div className="max-w-7xl mx-auto mb-8">
           <Link
             to="/cancelar"
-            className="block bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-200 rounded-xl p-6 hover:shadow-lg transition-all group"
+            className="block bg-white border border-gray-200 rounded-xl p-6 hover:border-[#8cc550] hover:shadow-md transition-all group"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center group-hover:bg-red-200 transition-colors">
-                  <svg className="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center group-hover:bg-[#8cc550]/10 transition-colors">
+                  <svg className="w-6 h-6 text-gray-500 group-hover:text-[#8cc550] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-red-900 group-hover:text-red-700 transition-colors">
-                    Cancelar una cita existente
+                  <h3 className="text-lg font-semibold text-gray-800 group-hover:text-[#8cc550] transition-colors">
+                    ¿Necesita cancelar o reagendar una cita?
                   </h3>
-                  <p className="text-sm text-red-700 mt-1">
-                    Ingrese el código de turno de su comprobante PDF para cancelar su cita
+                  <p className="text-sm text-gray-500 mt-1">
+                    Ingrese con el código de turno de su comprobante PDF para liberar su espacio
                   </p>
                 </div>
               </div>
-              <div className="flex items-center space-x-2 text-red-600 group-hover:text-red-800 transition-colors">
-                <span className="text-sm font-medium">Cancelar cita</span>
+              <div className="flex items-center space-x-2 text-gray-500 group-hover:text-[#8cc550] transition-colors">
+                <span className="text-sm font-medium">Gestionar cita</span>
                 <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>

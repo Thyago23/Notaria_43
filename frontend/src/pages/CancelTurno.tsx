@@ -73,13 +73,13 @@ const CancelTurno = () => {
     <div className="bg-light min-h-screen py-12 px-4 md:px-16">
       <div className="max-w-2xl mx-auto">
         <button
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/booking')}
           className="text-gray-500 hover:text-[#8cc550] mb-6 flex items-center transition-colors font-medium text-sm"
         >
           <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
-          Volver al inicio
+          Volver a Trámites y Documentos
         </button>
 
         <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
