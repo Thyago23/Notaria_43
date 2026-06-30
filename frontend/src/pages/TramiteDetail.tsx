@@ -34,8 +34,9 @@ const TramiteDetail = () => {
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/\D/g, '');
-    setFormData({ ...formData, cliente_telefono: value });
-    setPhoneError(validatePhone(value));
+    const truncatedValue = value.substring(0, 10);
+    setFormData({ ...formData, cliente_telefono: truncatedValue });
+    setPhoneError(validatePhone(truncatedValue));
   };
 
   useEffect(() => {

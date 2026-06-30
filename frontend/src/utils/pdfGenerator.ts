@@ -10,6 +10,7 @@ interface AppointmentData {
 }
 
 export const generateBookingPDF = async (data: AppointmentData) => {
+  console.log('Generando PDF con datos:', data);
   const doc = new jsPDF();
 
   // Add Notary Header
@@ -37,19 +38,23 @@ export const generateBookingPDF = async (data: AppointmentData) => {
   doc.text(`CÓDIGO DE TURNO: ${data.turnoId ? data.turnoId.toUpperCase() : 'N/A'}`, 20, 115);
 
   // Generate QR Code with cancellation URL
+  console.log('Turno ID para QR:', data.turnoId);
   if (data.turnoId) {
     const cancellationUrl = `https://notaria43.com/cancelar?id=${data.turnoId}`;
+    console.log('URL de cancelación:', cancellationUrl);
     try {
       const qrCodeDataUrl = await QRCode.toDataURL(cancellationUrl, {
         width: 120,
         margin: 2,
         errorCorrectionLevel: 'H',
       });
+      console.log('QR generado exitosamente, longitud:', qrCodeDataUrl.length);
 
       // Add QR code with white background for better visibility
       doc.setFillColor(255, 255, 255);
       doc.rect(130, 125, 60, 60, 'F');
       doc.addImage(qrCodeDataUrl, 'PNG', 135, 130, 50, 50);
+      console.log('QR agregado al PDF');
 
       doc.setFontSize(8);
       doc.setTextColor(100, 100, 100);
@@ -61,6 +66,8 @@ export const generateBookingPDF = async (data: AppointmentData) => {
       doc.setTextColor(200, 0, 0);
       doc.text('Error generando QR', 135, 150);
     }
+  } else {
+    console.warn('No hay turno ID para generar QR');
   }
 
   // Add Cancellation Instructions
@@ -79,5 +86,7 @@ export const generateBookingPDF = async (data: AppointmentData) => {
   doc.text('Este documento es su comprobante oficial de cita. Guárdelo para referencia.', 20, 197);
 
   // Save the PDF
+  console.log('Guardando PDF...');
   doc.save(`cita_notarial_${data.cliente_nombre.replace(/\s+/g, '_')}.pdf`);
+  console.log('PDF guardado exitosamente');
 };
