@@ -187,14 +187,14 @@ const TramiteDetail = () => {
       </button>
 
       <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
-        <div className="bg-dark p-8 md:px-12 text-white">
+        <div className="bg-dark p-6 md:p-8 md:px-12 text-white">
           <span className="text-[#8cc550] font-medium text-sm tracking-wider uppercase mb-2 block">
             {tramite.categoria || tramite.descripcion || 'Trámite'}
           </span>
           <h1 className="text-3xl md:text-4xl font-heading font-bold">{tramite.nombre}</h1>
         </div>
 
-        <div className="p-8 md:p-12">
+        <div className="p-6 md:p-12">
           {bookingSuccess ? (
             <div className="animate-fadeIn text-center py-8">
               <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -319,7 +319,7 @@ const TramiteDetail = () => {
                       Primero seleccione una fecha
                     </div>
                   ) : (
-                    <div className="grid grid-cols-4 gap-2">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                       {getFilteredHours().length === 0 ? (
                         <div className="col-span-4 text-center py-4">
                           <p className="text-red-500 text-sm">

@@ -72,7 +72,7 @@ const Home = () => {
           </div>
 
           {/* Card 2 */}
-          <div className="flex flex-col bg-white relative -mt-4 mb-4 shadow-lg z-10 transform scale-105">
+          <div className="flex flex-col bg-white relative my-4 md:-mt-4 md:mb-4 shadow-lg z-10 transform scale-105">
             <div className="h-64 overflow-hidden bg-gray-200">
               <img
                 src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=800&auto=format&fit=crop"
