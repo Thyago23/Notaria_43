@@ -19,13 +19,13 @@ const Home = () => {
           <div className="flex flex-wrap gap-4 mb-16">
             <Link
               to="/booking"
-              className="bg-[#8cc550] hover:bg-[#7ab345] text-white font-medium py-3 px-8 text-sm transition-colors text-center"
+              className="bg-[#8cc550] hover:bg-[#7ab345] text-white font-medium py-3 px-8 rounded-full text-sm transition-colors text-center"
             >
               ¡Agenda tu cita ahora!
             </Link>
             <Link
               to="/sobre-nosotros"
-              className="border border-[#8cc550] text-[#8cc550] hover:bg-[#8cc550]/5 font-medium py-3 px-8 text-sm transition-colors text-center"
+              className="border border-[#8cc550] text-[#8cc550] hover:bg-[#8cc550]/5 font-medium py-3 px-8 rounded-full text-sm transition-colors text-center"
             >
               Sobre nosotros
             </Link>
@@ -110,7 +110,7 @@ const Home = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent"></div>
             
             <div className="absolute bottom-0 left-0 p-8 md:p-10 w-full">
-              <span className="text-blue-300 font-semibold text-xs tracking-[0.2em] uppercase mb-3 block">
+              <span className="text-[#8cc550] font-semibold text-xs tracking-[0.2em] uppercase mb-3 block">
                 PROFESIONALISMO
               </span>
               <h2 className="text-white text-3xl font-bold leading-tight">
@@ -122,8 +122,8 @@ const Home = () => {
           {/* Left Content Section */}
           <div className="w-full lg:w-[55%] flex flex-col justify-center py-6">
             <div className="flex items-center space-x-4 mb-6">
-              <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center">
-                <svg className="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center">
+                <svg className="w-7 h-7 text-[#8cc550]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
               </div>
@@ -137,7 +137,7 @@ const Home = () => {
             </p>
 
             <div>
-              <Link to="/abogados" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-10 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 text-center inline-flex items-center group">
+              <Link to="/abogados" className="bg-[#8cc550] hover:bg-[#7ab345] text-white font-semibold py-4 px-10 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 text-center inline-flex items-center group">
                 Conoce a nuestro equipo
                 <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -162,7 +162,7 @@ const Home = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent"></div>
             
             <div className="absolute bottom-0 left-0 p-8 md:p-10 w-full">
-              <span className="text-indigo-300 font-semibold text-xs tracking-[0.2em] uppercase mb-3 block">
+              <span className="text-[#8cc550] font-semibold text-xs tracking-[0.2em] uppercase mb-3 block">
                 TRAYECTORIA
               </span>
               <h2 className="text-white text-3xl font-bold leading-tight">
@@ -174,8 +174,8 @@ const Home = () => {
           {/* Right Content Section */}
           <div className="w-full lg:w-[55%] flex flex-col justify-center py-6">
             <div className="flex items-center space-x-4 mb-6">
-              <div className="w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center">
-                <svg className="w-7 h-7 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center">
+                <svg className="w-7 h-7 text-[#8cc550]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
               </div>
@@ -189,7 +189,7 @@ const Home = () => {
             </p>
 
             <div>
-              <Link to="/sobre-nosotros" className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-4 px-10 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 text-center inline-flex items-center group">
+              <Link to="/sobre-nosotros" className="bg-[#8cc550] hover:bg-[#7ab345] text-white font-semibold py-4 px-10 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 text-center inline-flex items-center group">
                 Saber más sobre nosotros
                 <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
