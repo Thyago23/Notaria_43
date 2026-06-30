@@ -22,6 +22,21 @@ const TramiteDetail = () => {
   });
   const [bookingSuccess, setBookingSuccess] = useState(false);
   const [bookingError, setBookingError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+
+  const validatePhone = (phone: string) => {
+    const numericPhone = phone.replace(/\D/g, '');
+    if (phone.length > 0 && numericPhone.length !== 10) {
+      return 'El número debe tener 10 dígitos';
+    }
+    return '';
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '');
+    setFormData({ ...formData, cliente_telefono: value });
+    setPhoneError(validatePhone(value));
+  };
 
   useEffect(() => {
     if (!id) {
@@ -113,6 +128,11 @@ const TramiteDetail = () => {
       return;
     }
 
+    if (formData.cliente_telefono.length !== 10) {
+      setBookingError('El número de teléfono debe tener 10 dígitos.');
+      return;
+    }
+
     // Format date as YYYY-MM-DD
     const fechaString = formData.fecha.toISOString().split('T')[0];
 
@@ -127,7 +147,7 @@ const TramiteDetail = () => {
         notas: '',
       });
 
-      generateBookingPDF({
+      await generateBookingPDF({
         cliente_nombre: formData.cliente_nombre,
         cliente_email: formData.cliente_email,
         tramite_nombre: tramite.nombre,
@@ -287,10 +307,16 @@ const TramiteDetail = () => {
                     type="tel"
                     required
                     value={formData.cliente_telefono}
-                    onChange={(e) => setFormData({ ...formData, cliente_telefono: e.target.value })}
-                    className="w-full border border-gray-300 rounded-md px-4 py-3 focus:ring-2 focus:ring-[#8cc550] outline-none transition-shadow"
-                    placeholder=" Ej.0991234567"
+                    onChange={handlePhoneChange}
+                    className={`w-full border rounded-md px-4 py-3 focus:ring-2 outline-none transition-shadow ${
+                      phoneError ? 'border-red-300 focus:ring-red-500' : 'border-gray-300 focus:ring-[#8cc550]'
+                    }`}
+                    placeholder="Ej. 0991234567"
+                    maxLength={10}
                   />
+                  {phoneError && (
+                    <p className="text-red-500 text-xs mt-1">{phoneError}</p>
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Fecha</label>

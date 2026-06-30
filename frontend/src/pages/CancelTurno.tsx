@@ -1,15 +1,43 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { apiClient } from '../api/client';
 
 const CancelTurno = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [turnoId, setTurnoId] = useState('');
   const [turnoData, setTurnoData] = useState<any | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [searched, setSearched] = useState(false);
+
+  // Handle QR code scan from URL parameter
+  useEffect(() => {
+    const idFromQR = searchParams.get('id');
+    if (idFromQR) {
+      setTurnoId(idFromQR);
+      handleSearchFromQR(idFromQR);
+    }
+  }, [searchParams]);
+
+  const handleSearchFromQR = async (id: string) => {
+    setError('');
+    setTurnoData(null);
+    setSuccess(false);
+    setSearched(true);
+    setLoading(true);
+
+    try {
+      const response = await apiClient.get(`/turnos/public/${id}`);
+      setTurnoData(response.data.data);
+    } catch (err: any) {
+      const errorMessage = err.response?.data?.message || 'Turno no encontrado';
+      setError(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();

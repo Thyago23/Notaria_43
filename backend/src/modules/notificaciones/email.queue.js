@@ -92,17 +92,39 @@ export async function enqueueEmail({ to, subject, html }) {
 
 /**
  * Obtiene emails fallidos para mostrar alertas en el dashboard.
+ * @param {number} page - Página actual (default: 1)
+ * @param {number} limit - Registros por página (default: 10)
  */
-export async function getFailedEmails() {
+export async function getFailedEmails(page = 1, limit = 10) {
   const database = getDatabase();
 
-  return database.emailQueue.findMany({
-    where: {
-      status: EMAIL_STATUS.FAILED,
+  const skip = (page - 1) * limit;
+
+  const [emails, total] = await Promise.all([
+    database.emailQueue.findMany({
+      where: {
+        status: EMAIL_STATUS.FAILED,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+      skip,
+      take: limit,
+    }),
+    database.emailQueue.count({
+      where: {
+        status: EMAIL_STATUS.FAILED,
+      },
+    }),
+  ]);
+
+  return {
+    data: emails,
+    pagination: {
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
     },
-    orderBy: {
-      createdAt: 'desc',
-    },
-    take: 10,
-  });
+  };
 }
