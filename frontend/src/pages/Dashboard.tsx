@@ -57,6 +57,14 @@ const Dashboard = () => {
   const [filterCliente, setFilterCliente] = useState('');
   const [selectedCita, setSelectedCita] = useState<Cita | null>(null);
 
+  // Paginación
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filterTramite, filterCliente]);
+
   // Estado del modal de reporte
   const [showReporteModal, setShowReporteModal] = useState(false);
   const [reporteFechaInicio, setReporteFechaInicio] = useState('');
@@ -162,6 +170,11 @@ const Dashboard = () => {
     return tramiteMatch && clienteMatch;
   });
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentCitas = filteredCitas.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredCitas.length / itemsPerPage);
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -237,7 +250,7 @@ const Dashboard = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {filteredCitas.map((cita) => (
+            {currentCitas.map((cita) => (
               <tr key={cita.id} className="hover:bg-gray-50 cursor-pointer" onClick={() => setSelectedCita(cita)}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm font-medium text-gray-900">
@@ -286,7 +299,7 @@ const Dashboard = () => {
                 </td>
               </tr>
             ))}
-            {filteredCitas.length === 0 && (
+            {currentCitas.length === 0 && (
               <tr>
                 <td colSpan={5} className="px-6 py-8 text-center text-gray-500 text-sm">
                   No se encontraron citas con esos filtros.
@@ -296,6 +309,54 @@ const Dashboard = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Paginación */}
+      {totalPages > 1 && (
+        <div className="flex justify-between items-center bg-white px-4 py-3 border border-gray-200 rounded-lg shadow mt-4">
+          <div className="flex-1 flex justify-between sm:hidden">
+            <button
+              onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+              className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+            >
+              Anterior
+            </button>
+            <button
+              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+              disabled={currentPage === totalPages}
+              className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+            >
+              Siguiente
+            </button>
+          </div>
+          <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+            <div>
+              <p className="text-sm text-gray-700">
+                Mostrando <span className="font-medium">{indexOfFirstItem + 1}</span> a <span className="font-medium">{Math.min(indexOfLastItem, filteredCitas.length)}</span> de <span className="font-medium">{filteredCitas.length}</span> resultados
+              </p>
+            </div>
+            <div>
+              <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                <button
+                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                  disabled={currentPage === 1}
+                  className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+                >
+                  <span className="sr-only">Anterior</span>
+                  &larr; Anterior
+                </button>
+                <button
+                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                  disabled={currentPage === totalPages}
+                  className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+                >
+                  Siguiente &rarr;
+                </button>
+              </nav>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Modal de Reporte */}
       {showReporteModal && (
