@@ -157,7 +157,7 @@ const TramiteDetail = () => {
         cliente_nombre: formData.cliente_nombre,
         cliente_email: formData.cliente_email,
         tramite_nombre: tramite.nombre,
-        fecha_hora: `${formData.fecha}T${formData.hora}`,
+        fecha_hora: `${formData.fecha.toISOString().split('T')[0]}T${formData.hora}`,
         turnoId: response.data.data.id,
       });
 
