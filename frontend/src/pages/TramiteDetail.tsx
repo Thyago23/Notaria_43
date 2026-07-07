@@ -116,6 +116,7 @@ const TramiteDetail = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+    console.log('=== SUBMIT FORMULARIO INICIADO ===');
     e.preventDefault();
     setBookingError('');
 
