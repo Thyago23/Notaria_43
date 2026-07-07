@@ -41,7 +41,7 @@ export const generateBookingPDF = async (data: AppointmentData) => {
   // Generate QR Code with cancellation URL
   let qrGenerated = false;
   if (data.turnoId) {
-    const cancellationUrl = `https://notaria43.com/cancelar?id=${data.turnoId}`;
+    const cancellationUrl = `https://notaria-43.vercel.app/cancelar?id=${data.turnoId}`;
     try {
       const qrCodeDataUrl = await QRCode.toDataURL(cancellationUrl, {
         width: 120,
@@ -76,9 +76,9 @@ export const generateBookingPDF = async (data: AppointmentData) => {
   doc.text('Si necesita cancelar su cita, puede hacerlo:', 20, 138);
   if (qrGenerated) {
     doc.text('1. Escaneando el código QR de este documento', 20, 146);
-    doc.text('2. Ingresando el código de turno en: https://notaria43.com/cancelar', 20, 154);
+    doc.text('2. Ingresando el código de turno en: https://notaria-43.vercel.app/cancelar', 20, 154);
   } else {
-    doc.text('Ingresando el código de turno en: https://notaria43.com/cancelar', 20, 146);
+    doc.text('Ingresando el código de turno en: https://notaria-43.vercel.app/cancelar', 20, 146);
   }
 
   // Add Footer
