@@ -10,7 +10,8 @@ interface AppointmentData {
 }
 
 export const generateBookingPDF = async (data: AppointmentData) => {
-  console.log('Generando PDF con datos:', data);
+  console.log('=== INICIANDO GENERACIÓN DE PDF ===');
+  console.log('Datos recibidos:', data);
   const doc = new jsPDF();
 
   // Add Notary Header
@@ -38,55 +39,82 @@ export const generateBookingPDF = async (data: AppointmentData) => {
   doc.text(`CÓDIGO DE TURNO: ${data.turnoId ? data.turnoId.toUpperCase() : 'N/A'}`, 20, 115);
 
   // Generate QR Code with cancellation URL
-  console.log('Turno ID para QR:', data.turnoId);
   if (data.turnoId) {
     const cancellationUrl = `https://notaria43.com/cancelar?id=${data.turnoId}`;
-    console.log('URL de cancelación:', cancellationUrl);
-    try {
-      const qrCodeDataUrl = await QRCode.toDataURL(cancellationUrl, {
-        width: 120,
-        margin: 2,
-        errorCorrectionLevel: 'H',
+    QRCode.toDataURL(cancellationUrl, {
+      width: 120,
+      margin: 2,
+      errorCorrectionLevel: 'H',
+    })
+      .then((qrCodeDataUrl: string) => {
+        // Add QR code with white background for better visibility
+        doc.setFillColor(255, 255, 255);
+        doc.rect(130, 125, 60, 60, 'F');
+        doc.addImage(qrCodeDataUrl, 'PNG', 135, 130, 50, 50);
+
+        doc.setFontSize(8);
+        doc.setTextColor(100, 100, 100);
+        doc.text('Escanee para cancelar', 135, 190);
+
+        // Add Cancellation Instructions
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(10);
+        doc.setTextColor(0, 0, 0);
+        doc.text('Instrucciones de Cancelación:', 20, 130);
+        doc.text('Si necesita cancelar su cita, puede hacerlo:', 20, 138);
+        doc.text('1. Escaneando el código QR de este documento', 20, 146);
+        doc.text('2. Ingresando el código de turno en: https://notaria43.com/cancelar', 20, 154);
+
+        // Add Footer
+        doc.setFontSize(9);
+        doc.setTextColor(100, 100, 100);
+        doc.text('Por favor, preséntese 10 minutos antes de su cita con los requisitos necesarios.', 20, 190);
+        doc.text('Este documento es su comprobante oficial de cita. Guárdelo para referencia.', 20, 197);
+
+        // Save the PDF
+        doc.save(`cita_notarial_${data.cliente_nombre.replace(/\s+/g, '_')}.pdf`);
+      })
+      .catch((qrError: any) => {
+        console.error('Error generating QR code:', qrError);
+
+        // Fallback: show text if QR fails
+        doc.setFontSize(8);
+        doc.setTextColor(200, 0, 0);
+        doc.text('Error generando QR', 135, 150);
+
+        // Add Cancellation Instructions without QR
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(10);
+        doc.setTextColor(0, 0, 0);
+        doc.text('Instrucciones de Cancelación:', 20, 130);
+        doc.text('Si necesita cancelar su cita, puede hacerlo:', 20, 138);
+        doc.text('Ingresando el código de turno en: https://notaria43.com/cancelar', 20, 146);
+
+        // Add Footer
+        doc.setFontSize(9);
+        doc.setTextColor(100, 100, 100);
+        doc.text('Por favor, preséntese 10 minutos antes de su cita con los requisitos necesarios.', 20, 190);
+        doc.text('Este documento es su comprobante oficial de cita. Guárdelo para referencia.', 20, 197);
+
+        // Save the PDF
+        doc.save(`cita_notarial_${data.cliente_nombre.replace(/\s+/g, '_')}.pdf`);
       });
-      console.log('QR generado exitosamente, longitud:', qrCodeDataUrl.length);
-
-      // Add QR code with white background for better visibility
-      doc.setFillColor(255, 255, 255);
-      doc.rect(130, 125, 60, 60, 'F');
-      doc.addImage(qrCodeDataUrl, 'PNG', 135, 130, 50, 50);
-      console.log('QR agregado al PDF');
-
-      doc.setFontSize(8);
-      doc.setTextColor(100, 100, 100);
-      doc.text('Escanee para cancelar', 135, 190);
-    } catch (qrError) {
-      console.error('Error generating QR code:', qrError);
-      // Fallback: show text if QR fails
-      doc.setFontSize(8);
-      doc.setTextColor(200, 0, 0);
-      doc.text('Error generando QR', 135, 150);
-    }
   } else {
-    console.warn('No hay turno ID para generar QR');
+    // No QR if no turno ID
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    doc.setTextColor(0, 0, 0);
+    doc.text('Instrucciones de Cancelación:', 20, 130);
+    doc.text('Si necesita cancelar su cita, puede hacerlo:', 20, 138);
+    doc.text('Ingresando el código de turno en: https://notaria43.com/cancelar', 20, 146);
+
+    // Add Footer
+    doc.setFontSize(9);
+    doc.setTextColor(100, 100, 100);
+    doc.text('Por favor, preséntese 10 minutos antes de su cita con los requisitos necesarios.', 20, 190);
+    doc.text('Este documento es su comprobante oficial de cita. Guárdelo para referencia.', 20, 197);
+
+    // Save the PDF
+    doc.save(`cita_notarial_${data.cliente_nombre.replace(/\s+/g, '_')}.pdf`);
   }
-
-  // Add Cancellation Instructions
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(10);
-  doc.setTextColor(0, 0, 0);
-  doc.text('Instrucciones de Cancelación:', 20, 130);
-  doc.text('Si necesita cancelar su cita, puede hacerlo:', 20, 138);
-  doc.text('1. Escaneando el código QR de este documento', 20, 146);
-  doc.text('2. Ingresando el código de turno en: https://notaria43.com/cancelar', 20, 154);
-
-  // Add Footer
-  doc.setFontSize(9);
-  doc.setTextColor(100, 100, 100);
-  doc.text('Por favor, preséntese 10 minutos antes de su cita con los requisitos necesarios.', 20, 190);
-  doc.text('Este documento es su comprobante oficial de cita. Guárdelo para referencia.', 20, 197);
-
-  // Save the PDF
-  console.log('Guardando PDF...');
-  doc.save(`cita_notarial_${data.cliente_nombre.replace(/\s+/g, '_')}.pdf`);
-  console.log('PDF guardado exitosamente');
 };

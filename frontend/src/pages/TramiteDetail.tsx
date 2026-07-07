@@ -148,6 +148,10 @@ const TramiteDetail = () => {
         notas: '',
       });
 
+      console.log('=== PREPARANDO PARA GENERAR PDF ===');
+      console.log('Turno ID:', response.data.data.id);
+      console.log('Nombre:', formData.cliente_nombre);
+
       await generateBookingPDF({
         cliente_nombre: formData.cliente_nombre,
         cliente_email: formData.cliente_email,
@@ -156,6 +160,7 @@ const TramiteDetail = () => {
         turnoId: response.data.data.id,
       });
 
+      console.log('=== PDF GENERADO ===');
       setBookingSuccess(true);
     } catch (submitError) {
       console.error('Error reservando turno:', submitError);
