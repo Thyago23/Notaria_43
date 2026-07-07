@@ -31,7 +31,16 @@ export const generateBookingPDF = async (data: AppointmentData) => {
   doc.text(`Nombre del Cliente: ${data.cliente_nombre}`, 20, 65);
   doc.text(`Email de Contacto: ${data.cliente_email}`, 20, 75);
   doc.text(`Trámite Solicitado: ${data.tramite_nombre}`, 20, 85);
-  doc.text(`Fecha y Hora: ${new Date(data.fecha_hora).toLocaleString()}`, 20, 95);
+
+  // Parse fecha_hora which is in format "DateTTime"
+  const [datePart, timePart] = data.fecha_hora.split('T');
+  const formattedDate = new Date(datePart).toLocaleDateString('es-EC', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+  doc.text(`Fecha y Hora: ${formattedDate} a las ${timePart}`, 20, 95);
 
   // Add Turno ID prominently
   doc.setFont('helvetica', 'bold');
