@@ -8,6 +8,11 @@ import { environment } from '../../config/environment.js';
 let transporterInstance = null;
 
 function createTransporter() {
+  // Validate SMTP credentials
+  if (!environment.smtp.user || !environment.smtp.pass) {
+    console.error('[EMAIL] SMTP credentials are missing. Email sending will fail.');
+  }
+
   return nodemailer.createTransport({
     host: environment.smtp.host,
     port: environment.smtp.port,
@@ -15,6 +20,12 @@ function createTransporter() {
     auth: {
       user: environment.smtp.user,
       pass: environment.smtp.pass,
+    },
+    connectionTimeout: 30000, // 30 seconds
+    greetingTimeout: 15000, // 15 seconds
+    socketTimeout: 30000, // 30 seconds
+    tls: {
+      rejectUnauthorized: false, // Allow self-signed certificates
     },
   });
 }
