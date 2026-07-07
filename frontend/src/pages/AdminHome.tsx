@@ -15,7 +15,7 @@ const AdminHome = () => {
   const [failedEmailsPagination, setFailedEmailsPagination] = useState({
     total: 0,
     page: 1,
-    limit: 10,
+    limit: 3,
     totalPages: 0,
   });
 
@@ -25,12 +25,12 @@ const AdminHome = () => {
 
   const fetchFailedEmails = async (page: number) => {
     try {
-      const emailsResponse = await apiClient.get(`/notificaciones/failed?page=${page}&limit=10`);
+      const emailsResponse = await apiClient.get(`/notificaciones/failed?page=${page}&limit=3`);
       setFailedEmails(emailsResponse.data.data || []);
       setFailedEmailsPagination(emailsResponse.data.pagination || {
         total: 0,
         page: 1,
-        limit: 10,
+        limit: 3,
         totalPages: 0,
       });
     } catch (emailError) {
@@ -55,12 +55,12 @@ const AdminHome = () => {
 
       // Fetch failed emails with pagination
       try {
-        const emailsResponse = await apiClient.get('/notificaciones/failed?page=1&limit=10');
+        const emailsResponse = await apiClient.get('/notificaciones/failed?page=1&limit=3');
         setFailedEmails(emailsResponse.data.data || []);
         setFailedEmailsPagination(emailsResponse.data.pagination || {
           total: 0,
           page: 1,
-          limit: 10,
+          limit: 3,
           totalPages: 0,
         });
       } catch (emailError) {
@@ -167,43 +167,43 @@ const AdminHome = () => {
       )}
 
       {failedEmails.length > 0 && (
-        <div className="bg-gradient-to-r from-red-50 to-orange-50 border border-red-200 rounded-xl shadow-sm overflow-hidden">
+        <div className="bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200 rounded-xl shadow-sm overflow-hidden">
           <div className="p-6">
             <div className="flex items-start justify-between">
               <div className="flex items-start space-x-4">
                 <div className="flex-shrink-0">
-                  <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
-                    <svg className="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center">
+                    <svg className="w-6 h-6 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
                   </div>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-red-900">
+                  <h3 className="text-lg font-semibold text-amber-900">
                     Alerta de Notificaciones Fallidas
                   </h3>
-                  <p className="text-sm text-red-700 mt-1">
+                  <p className="text-sm text-amber-700 mt-1">
                     {failedEmailsPagination.total} notificación(es) por correo no pudieron ser entregada(s)
                   </p>
                 </div>
               </div>
               <div className="flex-shrink-0">
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
                   Requiere atención
                 </span>
               </div>
             </div>
 
             <div className="mt-6">
-              <p className="text-sm font-medium text-red-800 mb-3">Clientes a contactar manualmente:</p>
-              <div className="bg-white rounded-lg border border-red-200 divide-y divide-red-100">
+              <p className="text-sm font-medium text-amber-800 mb-3">Clientes a contactar manualmente:</p>
+              <div className="bg-white rounded-lg border border-amber-200 divide-y divide-amber-100">
                 {failedEmails.length === 0 ? (
                   <div className="p-8 text-center">
                     <p className="text-sm text-gray-500">No hay notificaciones fallidas en esta página</p>
                   </div>
                 ) : (
                   failedEmails.map((email: any) => (
-                    <div key={email.id} className="p-4 flex items-center justify-between hover:bg-red-50 transition-colors">
+                    <div key={email.id} className="p-4 flex items-center justify-between hover:bg-amber-50 transition-colors">
                       <div className="flex-1">
                         <p className="text-sm font-medium text-gray-900">{email.subject}</p>
                         <div className="flex items-center space-x-4 mt-1">
@@ -214,7 +214,7 @@ const AdminHome = () => {
                             {email.to}
                           </p>
                           {email.lastError && (
-                            <p className="text-xs text-red-600 flex items-center">
+                            <p className="text-xs text-amber-600 flex items-center">
                               <svg className="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                               </svg>
@@ -224,7 +224,7 @@ const AdminHome = () => {
                         </div>
                       </div>
                       <div className="ml-4 flex-shrink-0">
-                        <button className="text-xs text-red-600 hover:text-red-800 font-medium">
+                        <button className="text-xs text-amber-600 hover:text-amber-800 font-medium">
                           Ver detalles
                         </button>
                       </div>
@@ -243,14 +243,14 @@ const AdminHome = () => {
                     <button
                       onClick={() => fetchFailedEmails(failedEmailsPagination.page - 1)}
                       disabled={failedEmailsPagination.page === 1}
-                      className="px-3 py-1 text-sm border border-red-200 rounded-md hover:bg-red-50 disabled:opacity-50 disabled:cursor-not-allowed text-red-700"
+                      className="px-3 py-1 text-sm border border-amber-200 rounded-md hover:bg-amber-50 disabled:opacity-50 disabled:cursor-not-allowed text-amber-700"
                     >
                       Anterior
                     </button>
                     <button
                       onClick={() => fetchFailedEmails(failedEmailsPagination.page + 1)}
                       disabled={failedEmailsPagination.page === failedEmailsPagination.totalPages}
-                      className="px-3 py-1 text-sm border border-red-200 rounded-md hover:bg-red-50 disabled:opacity-50 disabled:cursor-not-allowed text-red-700"
+                      className="px-3 py-1 text-sm border border-amber-200 rounded-md hover:bg-amber-50 disabled:opacity-50 disabled:cursor-not-allowed text-amber-700"
                     >
                       Siguiente
                     </button>
@@ -260,7 +260,7 @@ const AdminHome = () => {
             </div>
 
             <div className="mt-4 flex items-center justify-between">
-              <p className="text-xs text-red-600">
+              <p className="text-xs text-amber-600">
                 <svg className="w-4 h-4 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
