@@ -96,7 +96,7 @@ const AdminHome = () => {
         const icon = isAtendido ? 'M5 13l4 4L19 7' : 
                      t.status === 'CANCELADO' ? 'M6 18L18 6M6 6l12 12' : 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z';
         
-        const clienteName = t.user ? `${t.user.nombres} ${t.user.apellidos}` : (t.guestNombre || 'Invitado');
+        const clienteName = t.user ? `${t.user.nombres} ${t.user.apellidos}` : t.guestNombre;
         const statusText = t.status.charAt(0) + t.status.slice(1).toLowerCase();
 
         return {

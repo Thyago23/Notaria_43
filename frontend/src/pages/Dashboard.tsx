@@ -148,7 +148,7 @@ const Dashboard = () => {
     const rows = reporteData.turnos.map(t => [
       new Date(t.fecha).toLocaleDateString(),
       t.horaInicio,
-      t.user ? `${t.user.nombres} ${t.user.apellidos}` : t.guest_nombre || 'Invitado',
+      t.user ? `${t.user.nombres} ${t.user.apellidos}` : t.guest_nombre,
       t.user?.cedula || t.guest_email || 'N/A',
       t.tramite.nombre,
       t.status,
@@ -254,7 +254,7 @@ const Dashboard = () => {
               <tr key={cita.id} className="hover:bg-gray-50 cursor-pointer" onClick={() => setSelectedCita(cita)}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm font-medium text-gray-900">
-                    {cita.user ? `${cita.user.nombres} ${cita.user.apellidos}` : cita.guest_nombre || 'Invitado'}
+                    {cita.user ? `${cita.user.nombres} ${cita.user.apellidos}` : cita.guest_nombre}
                   </div>
                   <div className="text-sm text-gray-500">{cita.user?.cedula || cita.guest_email || 'N/A'}</div>
                 </td>
@@ -453,7 +453,7 @@ const Dashboard = () => {
                               <tr key={t.id} className="hover:bg-gray-50">
                                 <td className="px-4 py-2">
                                   <div className="font-medium text-gray-900">
-                                    {t.user ? `${t.user.nombres} ${t.user.apellidos}` : t.guest_nombre || 'Invitado'}
+                                    {t.user ? `${t.user.nombres} ${t.user.apellidos}` : t.guest_nombre}
                                   </div>
                                   <div className="text-gray-500 text-xs">{t.user?.cedula || t.guest_email || 'N/A'}</div>
                                 </td>
@@ -505,7 +505,7 @@ const Dashboard = () => {
 
               <div>
                 <p className="text-xs text-gray-500 font-semibold uppercase">Cliente</p>
-                <p className="text-sm text-gray-900">{selectedCita.user ? `${selectedCita.user.nombres} ${selectedCita.user.apellidos}` : selectedCita.guest_nombre || 'Invitado'}</p>
+                <p className="text-sm text-gray-900">{selectedCita.user ? `${selectedCita.user.nombres} ${selectedCita.user.apellidos}` : selectedCita.guest_nombre}</p>
                 <p className="text-sm text-gray-500">{selectedCita.user?.cedula || selectedCita.guest_email || 'N/A'}</p>
               </div>
               
