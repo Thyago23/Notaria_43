@@ -205,27 +205,27 @@ const AdminHome = () => {
                   </div>
                 ) : (
                   failedEmails.map((email: any) => (
-                    <div key={email.id} className="p-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
-                      <div className="flex-1">
-                        <p className="text-sm font-medium text-gray-900">{email.subject}</p>
-                        <div className="flex items-center space-x-4 mt-1">
-                          <p className="text-xs text-gray-500 flex items-center">
-                            <svg className="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div key={email.id} className="p-4 flex flex-col sm:flex-row sm:items-center justify-between hover:bg-slate-50 transition-colors gap-3 sm:gap-4">
+                      <div className="flex-1 min-w-0 w-full">
+                        <p className="text-sm font-medium text-gray-900 break-words">{email.subject}</p>
+                        <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 mt-2">
+                          <p className="text-xs text-gray-500 flex items-center truncate">
+                            <svg className="w-3 h-3 mr-1 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg>
-                            {email.to}
+                            <span className="truncate">{email.to}</span>
                           </p>
                           {email.lastError && (
                             <p className="text-xs text-slate-500 flex items-center">
-                              <svg className="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <svg className="w-3 h-3 mr-1 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                               </svg>
-                              {email.lastError.substring(0, 50)}...
+                              <span className="truncate">{email.lastError.substring(0, 50)}...</span>
                             </p>
                           )}
                         </div>
                       </div>
-                      <div className="ml-4 flex-shrink-0">
+                      <div className="flex-shrink-0 self-end sm:self-auto">
                         <button 
                           onClick={() => setSelectedFailedEmail(email)}
                           className="text-xs text-slate-600 hover:text-slate-800 font-medium"
