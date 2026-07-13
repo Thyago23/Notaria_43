@@ -98,11 +98,11 @@ const CancelTurno = () => {
   };
 
   return (
-    <div className="bg-light min-h-screen py-12 px-4 md:px-16">
+    <div className="bg-light min-h-screen py-8 px-4 sm:py-12 sm:px-6">
       <div className="max-w-2xl mx-auto">
         <button
           onClick={() => navigate('/booking')}
-          className="text-gray-500 hover:text-[#8cc550] mb-6 flex items-center transition-colors font-medium text-sm"
+          className="text-gray-500 hover:text-[#8cc550] mb-4 sm:mb-6 flex items-center transition-colors font-medium text-sm"
         >
           <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -111,49 +111,49 @@ const CancelTurno = () => {
         </button>
 
         <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
-          <div className="bg-dark p-8 md:px-12 text-white">
-            <h1 className="text-3xl md:text-4xl font-heading font-bold">Cancelar Cita</h1>
-            <p className="mt-2 opacity-90">Ingrese el código de turno de su comprobante PDF</p>
+          <div className="bg-dark p-6 sm:p-8 md:px-12 text-white">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold">Cancelar Cita</h1>
+            <p className="mt-2 opacity-90 text-sm sm:text-base">Ingrese el código de turno de su comprobante PDF</p>
           </div>
 
-          <div className="p-8 md:p-12">
+          <div className="p-6 sm:p-8 md:p-12">
             {success ? (
-              <div className="animate-fadeIn text-center py-8">
-                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <svg className="w-10 h-10 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="animate-fadeIn text-center py-6 sm:py-8">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
+                  <svg className="w-8 h-8 sm:w-10 sm:h-10 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h2 className="text-3xl font-bold text-gray-800 mb-4">¡Cita Cancelada Exitosamente!</h2>
-                <p className="text-gray-600 mb-8 max-w-md mx-auto">
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">¡Cita Cancelada Exitosamente!</h2>
+                <p className="text-gray-600 mb-6 sm:mb-8 max-w-md mx-auto text-sm sm:text-base">
                   Su cita ha sido cancelada y el horario está disponible para otros ciudadanos.
                 </p>
                 <button
                   onClick={() => navigate('/booking')}
-                  className="bg-[#8cc550] hover:bg-[#7ab345] text-white font-medium py-3 px-8 rounded transition-colors inline-flex items-center"
+                  className="bg-[#8cc550] hover:bg-[#7ab345] text-white font-medium py-3 px-6 sm:px-8 rounded transition-colors inline-flex items-center w-full sm:w-auto"
                 >
                   Agendar nueva cita
                 </button>
               </div>
             ) : (
               <>
-                <form onSubmit={handleSearch} className="mb-8">
+                <form onSubmit={handleSearch} className="mb-6 sm:mb-8">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Código de Turno
                   </label>
-                  <div className="flex gap-4">
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                     <input
                       type="text"
                       value={turnoId}
                       onChange={(e) => setTurnoId(e.target.value)}
                       placeholder="Ej. 12345678-1234-5678-9012-345678901234"
-                      className="flex-1 border border-gray-300 rounded-md px-4 py-3 focus:ring-2 focus:ring-[#8cc550] outline-none transition-shadow uppercase"
+                      className="flex-1 border border-gray-300 rounded-md px-4 py-3 focus:ring-2 focus:ring-[#8cc550] outline-none transition-shadow uppercase text-sm"
                       disabled={loading}
                     />
                     <button
                       type="submit"
                       disabled={loading}
-                      className="bg-[#8cc550] hover:bg-[#7ab345] text-white font-medium py-3 px-6 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="bg-[#8cc550] hover:bg-[#7ab345] text-white font-medium py-3 px-6 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
                     >
                       {loading ? 'Buscando...' : 'Buscar'}
                     </button>
@@ -164,35 +164,35 @@ const CancelTurno = () => {
                 </form>
 
                 {error && searched && !turnoData && (
-                  <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
-                    <p className="text-red-700 text-sm">{error}</p>
+                  <div className="bg-slate-50 border-l-4 border-slate-500 p-4 mb-6">
+                    <p className="text-slate-700 text-sm">{error}</p>
                   </div>
                 )}
 
                 {turnoData && (
                   <div className="animate-fadeIn">
-                    <h2 className="text-xl font-bold text-gray-800 mb-4">Detalles de la Cita</h2>
-                    <div className="bg-gray-50 rounded-lg p-6 border border-gray-200 mb-6">
+                    <h2 className="text-lg sm:text-xl font-bold text-gray-800 mb-4">Detalles de la Cita</h2>
+                    <div className="bg-gray-50 rounded-lg p-4 sm:p-6 border border-gray-200 mb-6">
                       <div className="space-y-3">
                         <div>
-                          <span className="text-sm text-gray-500">Trámite:</span>
-                          <p className="font-medium text-gray-800">{turnoData.tramite.nombre}</p>
+                          <span className="text-xs sm:text-sm text-gray-500">Trámite:</span>
+                          <p className="font-medium text-gray-800 text-sm sm:text-base">{turnoData.tramite.nombre}</p>
                         </div>
                         <div>
-                          <span className="text-sm text-gray-500">Fecha:</span>
-                          <p className="font-medium text-gray-800">{formatDate(turnoData.fecha)}</p>
+                          <span className="text-xs sm:text-sm text-gray-500">Fecha:</span>
+                          <p className="font-medium text-gray-800 text-sm sm:text-base">{formatDate(turnoData.fecha)}</p>
                         </div>
                         <div>
-                          <span className="text-sm text-gray-500">Horario:</span>
-                          <p className="font-medium text-gray-800">
+                          <span className="text-xs sm:text-sm text-gray-500">Horario:</span>
+                          <p className="font-medium text-gray-800 text-sm sm:text-base">
                             {formatTime(turnoData.horaInicio)} - {formatTime(turnoData.horaFin)}
                           </p>
                         </div>
                         <div>
-                          <span className="text-sm text-gray-500">Estado:</span>
+                          <span className="text-xs sm:text-sm text-gray-500">Estado:</span>
                           <p className={`font-medium ${
                             turnoData.status === 'PENDIENTE' ? 'text-green-600' :
-                            turnoData.status === 'CANCELADO' ? 'text-red-600' :
+                            turnoData.status === 'CANCELADO' ? 'text-slate-600' :
                             'text-gray-600'
                           }`}>
                             {turnoData.status === 'PENDIENTE' ? 'Pendiente' :
@@ -211,14 +211,14 @@ const CancelTurno = () => {
                         <button
                           onClick={handleCancel}
                           disabled={loading}
-                          className="w-full bg-red-500 hover:bg-red-600 text-white font-medium py-3 px-4 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="w-full bg-slate-600 hover:bg-slate-700 text-white font-medium py-3 px-4 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           {loading ? 'Cancelando...' : 'Confirmar Cancelación'}
                         </button>
                       </div>
                     ) : (
-                      <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4">
-                        <p className="text-yellow-700 text-sm">
+                      <div className="bg-slate-50 border-l-4 border-slate-500 p-4">
+                        <p className="text-slate-700 text-sm">
                           {turnoData.status === 'CANCELADO' 
                             ? 'Este turno ya ha sido cancelado anteriormente.'
                             : 'Este turno ya fue atendido y no puede ser cancelado.'}

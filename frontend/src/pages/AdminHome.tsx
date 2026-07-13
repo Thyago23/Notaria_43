@@ -92,7 +92,7 @@ const AdminHome = () => {
 
         const isAtendido = t.status === 'ATENDIDO';
         const color = isAtendido ? 'bg-green-100 text-green-600' : 
-                      t.status === 'CANCELADO' ? 'bg-red-100 text-red-600' : 'bg-yellow-100 text-yellow-600';
+                      t.status === 'CANCELADO' ? 'bg-slate-100 text-slate-600' : 'bg-yellow-100 text-yellow-600';
         const icon = isAtendido ? 'M5 13l4 4L19 7' : 
                      t.status === 'CANCELADO' ? 'M6 18L18 6M6 6l12 12' : 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z';
         
@@ -162,8 +162,8 @@ const AdminHome = () => {
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-          <p className="text-red-800 text-sm">{error}</p>
+        <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+          <p className="text-slate-700 text-sm">{error}</p>
         </div>
       )}
 
@@ -348,7 +348,7 @@ const AdminHome = () => {
             
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col relative overflow-hidden">
               <div className="flex items-start">
-                <div className="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center text-red-500 shrink-0 border border-red-100">
+                <div className="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center text-slate-500 shrink-0 border border-slate-100">
                   <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
@@ -359,7 +359,7 @@ const AdminHome = () => {
                 </div>
               </div>
               <div className="mt-4 h-12 relative flex items-center">
-                 <div className="w-full border-t border-red-500 mt-4"></div>
+                 <div className="w-full border-t border-slate-300 mt-4"></div>
               </div>
               <p className="text-xs text-gray-400 mt-2">Últimos 30 días</p>
             </div>
@@ -547,8 +547,8 @@ const AdminHome = () => {
               </div>
               <div>
                 <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider">Error Reportado</p>
-                <div className="mt-1 bg-red-50 p-3 rounded-md border border-red-100">
-                  <p className="text-sm text-red-700 font-mono break-all">
+                <div className="mt-1 bg-slate-50 p-3 rounded-md border border-slate-200">
+                  <p className="text-sm text-slate-700 font-mono break-all">
                     {selectedFailedEmail.lastError || 'No se registró un error específico'}
                   </p>
                 </div>
