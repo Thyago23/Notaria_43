@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { apiClient } from '../api/client';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const AdminHome = () => {
   const [resumen, setResumen] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
 
   const [actividadReciente, setActividadReciente] = useState<any[]>([]);
@@ -509,7 +510,10 @@ const AdminHome = () => {
                     </div>
                     <span className="text-[10px] font-medium text-gray-700 leading-tight">Asignación</span>
                   </Link>
-                  <button className="flex flex-col items-center justify-center p-3 border border-gray-100 rounded-xl hover:border-yellow-300 hover:bg-yellow-50 transition-all text-center group">
+                  <button 
+                    onClick={() => navigate('/admin/citas', { state: { openReport: true } })}
+                    className="flex flex-col items-center justify-center p-3 border border-gray-100 rounded-xl hover:border-yellow-300 hover:bg-yellow-50 transition-all text-center group"
+                  >
                     <div className="w-10 h-10 flex items-center justify-center text-yellow-500 mb-2">
                       <svg className="w-6 h-6 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />

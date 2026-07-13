@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { apiClient } from '../api/client';
 
 interface Cita {
@@ -74,6 +75,17 @@ const Dashboard = () => {
   const [reporteData, setReporteData] = useState<ReporteData | null>(null);
   const [reporteLoading, setReporteLoading] = useState(false);
   const [reporteError, setReporteError] = useState<string | null>(null);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if ((location.state as any)?.openReport) {
+      setShowReporteModal(true);
+      // Limpiar el estado para que no se vuelva a abrir al recargar la página
+      navigate('/admin/citas', { replace: true, state: {} });
+    }
+  }, [location, navigate]);
 
   useEffect(() => {
     fetchCitas();
