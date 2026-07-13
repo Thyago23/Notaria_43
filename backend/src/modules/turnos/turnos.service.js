@@ -309,9 +309,7 @@ export async function getUserTurnos(userId) {
 export async function getAgenda({ fecha, fechaInicio, fechaFin }) {
   const database = getDatabase();
 
-  const whereClause = {
-    status: { not: TURNO_STATUS.CANCELADO },
-  };
+  const whereClause = {};
 
   if (fecha) {
     whereClause.fecha = new Date(fecha + 'T00:00:00');
@@ -321,7 +319,7 @@ export async function getAgenda({ fecha, fechaInicio, fechaFin }) {
       lte: new Date(fechaFin + 'T00:00:00'),
     };
   }
-  // Sin filtro por defecto - mostrar todos los turnos no cancelados
+  // Se retornan todos los turnos (incluyendo cancelados) para que el frontend maneje las pestañas
 
   return database.turno.findMany({
     where: whereClause,

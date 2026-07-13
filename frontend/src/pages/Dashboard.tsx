@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { apiClient } from '../api/client';
 
 interface Cita {
@@ -56,6 +57,7 @@ const Dashboard = () => {
   const [filterTramite, setFilterTramite] = useState('');
   const [filterCliente, setFilterCliente] = useState('');
   const [selectedCita, setSelectedCita] = useState<Cita | null>(null);
+  const [activeTab, setActiveTab] = useState<'PENDIENTE' | 'ATENDIDO' | 'CANCELADO' | 'TODOS'>('PENDIENTE');
 
   // Paginación
   const [currentPage, setCurrentPage] = useState(1);
@@ -73,6 +75,17 @@ const Dashboard = () => {
   const [reporteData, setReporteData] = useState<ReporteData | null>(null);
   const [reporteLoading, setReporteLoading] = useState(false);
   const [reporteError, setReporteError] = useState<string | null>(null);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if ((location.state as any)?.openReport) {
+      setShowReporteModal(true);
+      // Limpiar el estado para que no se vuelva a abrir al recargar la página
+      navigate('/admin/citas', { replace: true, state: {} });
+    }
+  }, [location, navigate]);
 
   useEffect(() => {
     fetchCitas();
@@ -167,7 +180,8 @@ const Dashboard = () => {
     const tramiteMatch = cita.tramite.nombre.toLowerCase().includes(filterTramite.toLowerCase());
     const clienteNombre = cita.user?.nombres || cita.guest_nombre || '';
     const clienteMatch = clienteNombre.toLowerCase().includes(filterCliente.toLowerCase());
-    return tramiteMatch && clienteMatch;
+    const tabMatch = activeTab === 'TODOS' || cita.status === activeTab;
+    return tramiteMatch && clienteMatch && tabMatch;
   });
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -213,27 +227,51 @@ const Dashboard = () => {
         </div>
       )}
 
-      {/* Filtros */}
-      <div className="bg-white p-4 rounded-lg shadow flex flex-col md:flex-row gap-4">
-        <div className="flex-1">
-          <label className="block text-xs text-gray-500 mb-1">Buscar por Cliente</label>
-          <input
-            type="text"
-            placeholder="Ej. Juan..."
-            value={filterCliente}
-            onChange={(e) => setFilterCliente(e.target.value)}
-            className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-1 focus:ring-primary outline-none"
-          />
+      {/* Filtros y Tabs */}
+      <div className="bg-white p-4 rounded-lg shadow flex flex-col gap-4">
+        {/* Tabs */}
+        <div className="border-b border-gray-200">
+          <nav className="-mb-px flex space-x-8 overflow-x-auto" aria-label="Tabs">
+            {['PENDIENTE', 'ATENDIDO', 'CANCELADO', 'TODOS'].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => { setActiveTab(tab as any); setCurrentPage(1); }}
+                className={`
+                  whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors
+                  ${activeTab === tab 
+                    ? 'border-primary text-primary'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}
+                `}
+              >
+                {tab === 'PENDIENTE' ? 'Pendientes' : 
+                 tab === 'ATENDIDO' ? 'Atendidas' : 
+                 tab === 'CANCELADO' ? 'Canceladas' : 'Todas'}
+              </button>
+            ))}
+          </nav>
         </div>
-        <div className="flex-1">
-          <label className="block text-xs text-gray-500 mb-1">Filtrar por Trámite</label>
-          <input
-            type="text"
-            placeholder="Ej. Escrituras..."
-            value={filterTramite}
-            onChange={(e) => setFilterTramite(e.target.value)}
-            className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-1 focus:ring-primary outline-none"
-          />
+
+        <div className="flex flex-col md:flex-row gap-4 mt-2">
+          <div className="flex-1">
+            <label className="block text-xs text-gray-500 mb-1">Buscar por Cliente</label>
+            <input
+              type="text"
+              placeholder="Ej. Juan..."
+              value={filterCliente}
+              onChange={(e) => setFilterCliente(e.target.value)}
+              className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-1 focus:ring-primary outline-none"
+            />
+          </div>
+          <div className="flex-1">
+            <label className="block text-xs text-gray-500 mb-1">Filtrar por Trámite</label>
+            <input
+              type="text"
+              placeholder="Ej. Escrituras..."
+              value={filterTramite}
+              onChange={(e) => setFilterTramite(e.target.value)}
+              className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-1 focus:ring-primary outline-none"
+            />
+          </div>
         </div>
       </div>
 
@@ -331,8 +369,8 @@ const Dashboard = () => {
           </div>
           <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
             <div>
-              <p className="text-sm text-gray-700">
-                Mostrando <span className="font-medium">{indexOfFirstItem + 1}</span> a <span className="font-medium">{Math.min(indexOfLastItem, filteredCitas.length)}</span> de <span className="font-medium">{filteredCitas.length}</span> resultados
+              <p className="text-sm text-gray-600">
+                Mostrando {indexOfFirstItem + 1} a {Math.min(indexOfLastItem, filteredCitas.length)} de {filteredCitas.length} resultados
               </p>
             </div>
             <div>
@@ -340,17 +378,29 @@ const Dashboard = () => {
                 <button
                   onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                   disabled={currentPage === 1}
-                  className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+                  className="relative inline-flex items-center px-3 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
                 >
-                  <span className="sr-only">Anterior</span>
-                  &larr; Anterior
+                  Anterior
                 </button>
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
+                      currentPage === page
+                        ? 'z-10 bg-primary border-primary text-white'
+                        : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ))}
                 <button
                   onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                   disabled={currentPage === totalPages}
-                  className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+                  className="relative inline-flex items-center px-3 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
                 >
-                  Siguiente &rarr;
+                  Siguiente
                 </button>
               </nav>
             </div>
