@@ -29,15 +29,15 @@ const Booking = () => {
   return (
     <div className="bg-light min-h-screen py-8 px-4 sm:py-12 sm:px-6 md:px-16">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-dark mb-2 sm:mb-0 text-center sm:text-left">
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-dark text-left">
             Catálogo de Trámites
           </h1>
           
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="sm:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-[#8cc550] hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#8cc550] self-center sm:self-auto"
+            className="sm:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-[#8cc550] hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#8cc550]"
           >
             <span className="sr-only">Abrir menú de categorías</span>
             {mobileMenuOpen ? (
