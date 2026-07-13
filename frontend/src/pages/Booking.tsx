@@ -34,10 +34,10 @@ const Booking = () => {
             Catálogo de Trámites
           </h1>
           
-          {/* Mobile menu button */}
+          {/* Category menu button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="sm:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-[#8cc550] hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#8cc550]"
+            className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-[#8cc550] hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#8cc550]"
           >
             <span className="sr-only">Abrir menú de categorías</span>
             {mobileMenuOpen ? (
@@ -52,13 +52,13 @@ const Booking = () => {
           </button>
         </div>
         
-        <p className="text-gray-600 text-center sm:text-left mb-6 sm:mb-8 max-w-2xl mx-auto text-sm sm:text-base">
+        <p className="text-gray-600 mb-6 sm:mb-8 text-sm sm:text-base">
           Seleccione el trámite que desea realizar para conocer los requisitos detallados y agendar su cita notarial.
         </p>
 
-        {/* Mobile category menu */}
+        {/* Category menu dropdown */}
         {mobileMenuOpen && (
-          <div className="sm:hidden mb-6 bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+          <div className="mb-6 bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
             <div className="p-4">
               <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
                 Filtrar por categoría
@@ -97,33 +97,6 @@ const Booking = () => {
             </div>
           </div>
         )}
-
-        {/* Desktop category tabs */}
-        <div className="hidden sm:flex flex-wrap gap-2 mb-8">
-          <button
-            onClick={() => setSelectedCategory(null)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-              selectedCategory === null
-                ? 'bg-[#8cc550] text-white'
-                : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
-            }`}
-          >
-            Todas
-          </button>
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                selectedCategory === category
-                  ? 'bg-[#8cc550] text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
 
         {/* Cancelar Cita - Card destacada */}
         <div className="max-w-7xl mx-auto mb-6 sm:mb-8">
