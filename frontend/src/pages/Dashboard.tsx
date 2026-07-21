@@ -229,26 +229,49 @@ const Dashboard = () => {
 
       {/* Filtros y Tabs */}
       <div className="bg-white p-4 rounded-lg shadow flex flex-col gap-4">
-        {/* Tabs */}
-        <div className="border-b border-gray-200">
-          <nav className="-mb-px flex space-x-4 sm:space-x-8 overflow-x-auto pb-2" aria-label="Tabs">
-            {['PENDIENTE', 'ATENDIDO', 'CANCELADO', 'TODOS'].map((tab) => (
-              <button
-                key={tab}
-                onClick={() => { setActiveTab(tab as any); setCurrentPage(1); }}
-                className={`
-                  whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors
-                  ${activeTab === tab 
-                    ? 'border-primary text-primary'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}
-                `}
-              >
-                {tab === 'PENDIENTE' ? 'Pendientes' : 
-                 tab === 'ATENDIDO' ? 'Atendidas' : 
-                 tab === 'CANCELADO' ? 'Canceladas' : 'Todas'}
-              </button>
-            ))}
-          </nav>
+        {/* Tabs responsive (Select en móvil, Tabs en desktop) */}
+        <div className="mb-4">
+          {/* Vista Móvil */}
+          <div className="sm:hidden mb-2">
+            <label htmlFor="tabs" className="sr-only">Selecciona un estado</label>
+            <select
+              id="tabs"
+              name="tabs"
+              className="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-primary focus:outline-none focus:ring-primary sm:text-sm border"
+              value={activeTab}
+              onChange={(e) => {
+                setActiveTab(e.target.value as any);
+                setCurrentPage(1);
+              }}
+            >
+              <option value="PENDIENTE">Pendientes</option>
+              <option value="ATENDIDO">Atendidas</option>
+              <option value="CANCELADO">Canceladas</option>
+              <option value="TODOS">Todas</option>
+            </select>
+          </div>
+          
+          {/* Vista Desktop */}
+          <div className="hidden sm:block border-b border-gray-200">
+            <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+              {['PENDIENTE', 'ATENDIDO', 'CANCELADO', 'TODOS'].map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => { setActiveTab(tab as any); setCurrentPage(1); }}
+                  className={`
+                    whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors
+                    ${activeTab === tab 
+                      ? 'border-primary text-primary'
+                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}
+                  `}
+                >
+                  {tab === 'PENDIENTE' ? 'Pendientes' : 
+                   tab === 'ATENDIDO' ? 'Atendidas' : 
+                   tab === 'CANCELADO' ? 'Canceladas' : 'Todas'}
+                </button>
+              ))}
+            </nav>
+          </div>
         </div>
 
         <div className="flex flex-col md:flex-row gap-4 mt-2">
