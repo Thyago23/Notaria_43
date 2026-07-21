@@ -383,47 +383,7 @@ const AdminHome = () => {
         </>
       )}
 
-      {/* Modal Detalles Notificación */}
-      {selectedFailedEmail && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg p-6 max-w-lg w-full shadow-xl">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-bold text-gray-900">Detalles de Notificación</h3>
-              <button onClick={() => setSelectedFailedEmail(null)} className="text-gray-400 hover:text-gray-600">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            <div className="space-y-4">
-              <div>
-                <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider">Asunto</p>
-                <p className="text-sm text-gray-900 mt-1">{selectedFailedEmail.subject}</p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider">Destinatario</p>
-                <p className="text-sm text-gray-900 mt-1">{selectedFailedEmail.to}</p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider">Error Reportado</p>
-                <div className="mt-1 bg-slate-50 p-3 rounded-md border border-slate-200">
-                  <p className="text-sm text-slate-700 font-mono break-all">
-                    {selectedFailedEmail.lastError || 'No se registró un error específico'}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="mt-6 flex justify-end">
-              <button 
-                onClick={() => setSelectedFailedEmail(null)}
-                className="px-4 py-2 bg-gray-100 text-gray-800 rounded-md hover:bg-gray-200 text-sm font-medium transition-colors"
-              >
-                Cerrar
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+
     </div>
   );
 };
