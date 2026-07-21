@@ -199,6 +199,56 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* Sección 4: Ubicación */}
+      <section id="ubicacion" className="bg-white py-20 px-6 md:px-12 flex justify-center items-center">
+        <div className="max-w-7xl mx-auto w-full flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
+          
+          {/* Left Map Section */}
+          <div className="w-full lg:w-1/2 h-[450px] md:h-[550px] shadow-xl group shrink-0 relative">
+            <iframe 
+              src="https://www.google.com/maps?q=Av.+Ilalo+Y+Rio+Tivacuno+Oe11-323,+Vía+Al+Tingo+(Valle+De+Los+Chillos),+Quito,+Pichincha&output=embed"
+              width="100%" 
+              height="100%" 
+              style={{ border: 0 }} 
+              allowFullScreen={true} 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Ubicación Notaría 43"
+            ></iframe>
+          </div>
+
+          {/* Right Content Section */}
+          <div className="w-full lg:w-1/2 flex flex-col justify-center py-6">
+            <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-gray-900 mb-8 text-center md:text-left">
+              Estamos ubicados en:
+            </h2>
+            
+            <a 
+              href="https://maps.google.com/?q=Av.+Ilalo+Y+Rio+Tivacuno+Oe11-323,+Vía+Al+Tingo+(Valle+De+Los+Chillos),+Quito,+Pichincha" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-lg text-gray-700 hover:text-[#8cc550] transition-colors mb-12 leading-relaxed font-medium block text-center md:text-left underline underline-offset-4"
+            >
+              Av. Ilalo Y Rio Tivacuno Oe11-323, Vía Al Tingo (Valle De Los Chillos), Quito, Pichincha
+            </a>
+
+            {/* Photos Placeholder Grid (mockup style) */}
+            <div className="relative w-full max-w-md mx-auto md:mx-0 h-[350px]">
+               <div className="absolute top-0 left-0 w-[55%] h-[180px] bg-[#a8a8a8] rounded-[2rem] border-2 border-black flex items-center justify-center z-10 shadow-lg">
+                  <span className="text-4xl font-bold text-black">fotos</span>
+               </div>
+               <div className="absolute top-[50px] right-0 w-[55%] h-[180px] bg-[#a8a8a8] rounded-[2rem] border-2 border-black flex items-center justify-center z-20 shadow-lg">
+                  <span className="text-4xl font-bold text-black">fotos</span>
+               </div>
+               <div className="absolute bottom-0 left-[10%] w-[55%] h-[180px] bg-[#a8a8a8] rounded-[2rem] border-2 border-black flex items-center justify-center z-30 shadow-lg">
+                  <span className="text-4xl font-bold text-black">fotos</span>
+               </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
