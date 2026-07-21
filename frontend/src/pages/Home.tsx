@@ -220,29 +220,37 @@ const Home = () => {
 
           {/* Right Content Section */}
           <div className="w-full lg:w-1/2 flex flex-col justify-center py-6">
-            <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-gray-900 mb-8 text-center md:text-left">
-              Estamos ubicados en:
-            </h2>
+            <div className="flex items-center space-x-4 mb-6">
+              <div className="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center">
+                <svg className="w-7 h-7 text-[#8cc550]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-heading font-extrabold text-gray-900 leading-[1.15] tracking-tight">
+                Estamos ubicados en:
+              </h2>
+            </div>
             
             <a 
               href="https://maps.google.com/?q=Av.+Ilalo+Y+Rio+Tivacuno+Oe11-323,+Vía+Al+Tingo+(Valle+De+Los+Chillos),+Quito,+Pichincha" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-lg text-gray-700 hover:text-[#8cc550] transition-colors mb-12 leading-relaxed font-medium block text-center md:text-left underline underline-offset-4"
+              className="text-lg text-gray-700 hover:text-[#8cc550] transition-colors mb-12 leading-relaxed font-medium block underline underline-offset-4 pl-[4.5rem]"
             >
               Av. Ilalo Y Rio Tivacuno Oe11-323, Vía Al Tingo (Valle De Los Chillos), Quito, Pichincha
             </a>
 
             {/* Photos Placeholder Grid (mockup style) */}
             <div className="relative w-full max-w-md mx-auto md:mx-0 h-[350px]">
-               <div className="absolute top-0 left-0 w-[55%] h-[180px] bg-[#a8a8a8] rounded-[2rem] border-2 border-black flex items-center justify-center z-10 shadow-lg">
-                  <span className="text-4xl font-bold text-black">fotos</span>
+               <div className="absolute top-0 left-0 w-[55%] h-[180px] rounded-[2rem] border-4 border-white flex items-center justify-center z-10 shadow-xl overflow-hidden hover:scale-105 transition-transform duration-300">
+                  <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=600&auto=format&fit=crop" alt="Instalaciones 1" className="w-full h-full object-cover" />
                </div>
-               <div className="absolute top-[50px] right-0 w-[55%] h-[180px] bg-[#a8a8a8] rounded-[2rem] border-2 border-black flex items-center justify-center z-20 shadow-lg">
-                  <span className="text-4xl font-bold text-black">fotos</span>
+               <div className="absolute top-[50px] right-0 w-[55%] h-[180px] rounded-[2rem] border-4 border-white flex items-center justify-center z-20 shadow-xl overflow-hidden hover:scale-105 transition-transform duration-300">
+                  <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32b7?q=80&w=600&auto=format&fit=crop" alt="Instalaciones 2" className="w-full h-full object-cover" />
                </div>
-               <div className="absolute bottom-0 left-[10%] w-[55%] h-[180px] bg-[#a8a8a8] rounded-[2rem] border-2 border-black flex items-center justify-center z-30 shadow-lg">
-                  <span className="text-4xl font-bold text-black">fotos</span>
+               <div className="absolute bottom-0 left-[10%] w-[55%] h-[180px] rounded-[2rem] border-4 border-white flex items-center justify-center z-30 shadow-xl overflow-hidden hover:scale-105 transition-transform duration-300">
+                  <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600&auto=format&fit=crop" alt="Instalaciones 3" className="w-full h-full object-cover" />
                </div>
             </div>
 
