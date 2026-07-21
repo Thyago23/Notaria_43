@@ -205,9 +205,9 @@ const Home = () => {
         <div className="max-w-7xl mx-auto w-full flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
           
           {/* Left Map Section */}
-          <div className="w-full lg:w-1/2 h-[450px] md:h-[550px] shadow-xl group shrink-0 relative">
+          <div className="w-full lg:w-1/2 h-[450px] md:h-[550px] shadow-2xl rounded-[2.5rem] overflow-hidden group shrink-0 relative border-4 border-white">
             <iframe 
-              src="https://www.google.com/maps?q=Av.+Ilalo+Y+Rio+Tivacuno+Oe11-323,+Vía+Al+Tingo+(Valle+De+Los+Chillos),+Quito,+Pichincha&output=embed"
+              src="https://maps.google.com/maps?q=-0.2959549,-78.4531404&hl=es&z=17&output=embed"
               width="100%" 
               height="100%" 
               style={{ border: 0 }} 
@@ -215,6 +215,7 @@ const Home = () => {
               loading="lazy" 
               referrerPolicy="no-referrer-when-downgrade"
               title="Ubicación Notaría 43"
+              className="rounded-[2.5rem]"
             ></iframe>
           </div>
 
@@ -233,12 +234,16 @@ const Home = () => {
             </div>
             
             <a 
-              href="https://maps.google.com/?q=Av.+Ilalo+Y+Rio+Tivacuno+Oe11-323,+Vía+Al+Tingo+(Valle+De+Los+Chillos),+Quito,+Pichincha" 
+              href="https://www.google.com/maps/place/Notar%C3%ADa+43/@-0.2958093,-78.4539041,398m/data=!3m1!1e3!4m6!3m5!1s0x91d5bd5e2d63f903:0x5e55a3ba0d107483!8m2!3d-0.2959549!4d-78.4531404!16s%2Fg%2F11c1p6x1y4!5m2!1e2!1e4?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-lg text-gray-700 hover:text-[#8cc550] transition-colors mb-12 leading-relaxed font-medium block underline underline-offset-4 pl-[4.5rem]"
+              className="flex items-start text-lg text-gray-700 hover:text-[#8cc550] transition-colors mb-12 leading-relaxed font-medium text-left group"
             >
-              Av. Ilalo Y Rio Tivacuno Oe11-323, Vía Al Tingo (Valle De Los Chillos), Quito, Pichincha
+              <svg className="w-6 h-6 text-[#8cc550] mr-3 mt-1 flex-shrink-0 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span className="underline-offset-4 group-hover:underline">Av. Ilalo Y Rio Tivacuno Oe11-323, Vía Al Tingo (Valle De Los Chillos), Quito, Pichincha</span>
             </a>
 
             {/* Photos Placeholder Grid (mockup style) */}
@@ -247,7 +252,7 @@ const Home = () => {
                   <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=600&auto=format&fit=crop" alt="Instalaciones 1" className="w-full h-full object-cover" />
                </div>
                <div className="absolute top-[50px] right-0 w-[55%] h-[180px] rounded-[2rem] border-4 border-white flex items-center justify-center z-20 shadow-xl overflow-hidden hover:scale-105 transition-transform duration-300">
-                  <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32b7?q=80&w=600&auto=format&fit=crop" alt="Instalaciones 2" className="w-full h-full object-cover" />
+                  <img src="https://images.unsplash.com/photo-1606857521015-7f9fcf423740?q=80&w=600&auto=format&fit=crop" alt="Instalaciones 2" className="w-full h-full object-cover" />
                </div>
                <div className="absolute bottom-0 left-[10%] w-[55%] h-[180px] rounded-[2rem] border-4 border-white flex items-center justify-center z-30 shadow-xl overflow-hidden hover:scale-105 transition-transform duration-300">
                   <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600&auto=format&fit=crop" alt="Instalaciones 3" className="w-full h-full object-cover" />
