@@ -4,9 +4,10 @@
 // Sistema de Gestión de Turnos - Notaría 43
 // ============================================
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { apiClient } from '../../api/client';
 
 interface NavItem {
   path: string;
@@ -17,8 +18,32 @@ interface NavItem {
 
 const AdminDashboardLayout: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [failedEmails, setFailedEmails] = useState<any[]>([]);
+  const notifRef = useRef<HTMLDivElement>(null);
   const { user, logout } = useAuth();
   const location = useLocation();
+
+  useEffect(() => {
+    fetchFailedEmails();
+    
+    const handleClickOutside = (event: MouseEvent) => {
+      if (notifRef.current && !notifRef.current.contains(event.target as Node)) {
+        setShowNotifications(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const fetchFailedEmails = async () => {
+    try {
+      const response = await apiClient.get('/notificaciones/failed?page=1&limit=5');
+      setFailedEmails(response.data.data || []);
+    } catch (err) {
+      console.error('Error fetching failed notifications', err);
+    }
+  };
 
   const navItems: NavItem[] = [
     {
@@ -148,25 +173,62 @@ const AdminDashboardLayout: React.FC = () => {
           </div>
 
           <div className="flex items-center space-x-6">
-            <div className="relative hidden md:block w-64">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            {/* Notifications Dropdown */}
+            <div className="relative" ref={notifRef}>
+              <button 
+                onClick={() => setShowNotifications(!showNotifications)}
+                className="text-gray-400 hover:text-[#8cc550] relative transition-colors focus:outline-none p-1"
+              >
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                 </svg>
-              </div>
-              <input
-                type="text"
-                className="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-full leading-5 bg-gray-50 placeholder-gray-400 focus:outline-none focus:bg-white focus:ring-1 focus:ring-primary sm:text-sm transition-colors"
-                placeholder="Buscar..."
-              />
-            </div>
+                {failedEmails.length > 0 && (
+                  <span className="absolute top-0 right-0 block h-2.5 w-2.5 rounded-full bg-red-500 ring-2 ring-white"></span>
+                )}
+              </button>
 
-            <button className="text-gray-400 hover:text-gray-600 relative transition-colors">
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-              </svg>
-              <span className="absolute top-0.5 right-0.5 block h-2 w-2 rounded-full bg-green-500 ring-2 ring-white"></span>
-            </button>
+              {showNotifications && (
+                <div className="absolute right-0 mt-3 w-80 bg-white rounded-xl shadow-2xl border border-gray-100 z-50 overflow-hidden transform transition-all">
+                  <div className="p-4 border-b border-gray-100 bg-gray-50/80 flex justify-between items-center">
+                    <h3 className="text-sm font-semibold text-gray-800">Notificaciones Fallidas</h3>
+                    {failedEmails.length > 0 && (
+                      <span className="bg-red-100 text-red-600 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">
+                        {failedEmails.length} alertas
+                      </span>
+                    )}
+                  </div>
+                  <div className="max-h-96 overflow-y-auto">
+                    {failedEmails.length === 0 ? (
+                      <div className="p-8 flex flex-col items-center justify-center text-center">
+                        <div className="w-12 h-12 bg-green-50 text-[#8cc550] rounded-full flex items-center justify-center mb-3">
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                        </div>
+                        <p className="text-sm font-medium text-gray-800">Todo en orden</p>
+                        <p className="text-xs text-gray-500 mt-1">No hay notificaciones fallidas</p>
+                      </div>
+                    ) : (
+                      <ul className="divide-y divide-gray-100">
+                        {failedEmails.map((email: any) => (
+                          <li key={email.id} className="p-4 hover:bg-slate-50 transition-colors">
+                            <p className="text-sm font-medium text-gray-900 line-clamp-1">{email.subject}</p>
+                            <div className="flex items-center mt-1 text-xs text-gray-500">
+                              <svg className="w-3 h-3 mr-1 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                              <span className="truncate">{email.to}</span>
+                            </div>
+                            {email.lastError && (
+                              <div className="flex items-start mt-2 bg-red-50 p-2 rounded text-xs text-red-600">
+                                <svg className="w-3 h-3 mr-1 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                <span className="line-clamp-2">{email.lastError}</span>
+                              </div>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
 
             <div className="w-10 h-10 bg-[#8cc550] rounded-full flex items-center justify-center text-white font-semibold shadow-sm">
               {user?.nombres?.charAt(0) || 'U'}

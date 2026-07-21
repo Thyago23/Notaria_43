@@ -12,33 +12,11 @@ const AdminHome = () => {
   const [actividadReciente, setActividadReciente] = useState<any[]>([]);
   const [barChartData, setBarChartData] = useState<any[]>([]);
   const [sparklineData, setSparklineData] = useState<any[]>([{value: 0}]);
-  const [failedEmails, setFailedEmails] = useState<any[]>([]);
-  const [failedEmailsPagination, setFailedEmailsPagination] = useState({
-    total: 0,
-    page: 1,
-    limit: 3,
-    totalPages: 0,
-  });
-  const [selectedFailedEmail, setSelectedFailedEmail] = useState<any>(null);
 
   useEffect(() => {
     fetchResumen();
   }, []);
 
-  const fetchFailedEmails = async (page: number) => {
-    try {
-      const emailsResponse = await apiClient.get(`/notificaciones/failed?page=${page}&limit=3`);
-      setFailedEmails(emailsResponse.data.data || []);
-      setFailedEmailsPagination(emailsResponse.data.pagination || {
-        total: 0,
-        page: 1,
-        limit: 3,
-        totalPages: 0,
-      });
-    } catch (emailError) {
-      console.error('Error fetching failed emails:', emailError);
-    }
-  };
 
   const fetchResumen = async () => {
     try {
@@ -55,21 +33,6 @@ const AdminHome = () => {
       const response = await apiClient.get(`/turnos/reportes?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`);
       const data = response.data.data;
 
-      // Fetch failed emails with pagination
-      try {
-        const emailsResponse = await apiClient.get('/notificaciones/failed?page=1&limit=3');
-        setFailedEmails(emailsResponse.data.data || []);
-        setFailedEmailsPagination(emailsResponse.data.pagination || {
-          total: 0,
-          page: 1,
-          limit: 3,
-          totalPages: 0,
-        });
-      } catch (emailError) {
-        console.error('Error fetching failed emails:', emailError);
-        setFailedEmails([]);
-      }
-      
       setResumen(data.resumen);
       
       // Procesar turnos reales
@@ -165,114 +128,6 @@ const AdminHome = () => {
       {error && (
         <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
           <p className="text-slate-700 text-sm">{error}</p>
-        </div>
-      )}
-
-      {failedEmails.length > 0 && (
-        <div className="bg-slate-50 border border-slate-200 rounded-xl shadow-sm overflow-hidden">
-          <div className="p-6">
-            <div className="flex items-start justify-between">
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center">
-                    <svg className="w-6 h-6 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                    </svg>
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-slate-700">
-                    Alerta de Notificaciones Fallidas
-                  </h3>
-                  <p className="text-sm text-slate-500 mt-1">
-                    {failedEmailsPagination.total} notificación(es) por correo no pudieron ser entregada(s)
-                  </p>
-                </div>
-              </div>
-              <div className="flex-shrink-0">
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-600">
-                  Requiere atención
-                </span>
-              </div>
-            </div>
-
-            <div className="mt-6">
-              <p className="text-sm font-medium text-slate-700 mb-3">Clientes a contactar manualmente:</p>
-              <div className="bg-white rounded-lg border border-slate-200 divide-y divide-slate-100">
-                {failedEmails.length === 0 ? (
-                  <div className="p-8 text-center">
-                    <p className="text-sm text-gray-500">No hay notificaciones fallidas en esta página</p>
-                  </div>
-                ) : (
-                  failedEmails.map((email: any) => (
-                    <div key={email.id} className="p-4 flex flex-col sm:flex-row sm:items-center justify-between hover:bg-slate-50 transition-colors gap-3 sm:gap-4">
-                      <div className="flex-1 min-w-0 w-full">
-                        <p className="text-sm font-medium text-gray-900 break-words">{email.subject}</p>
-                        <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 mt-2">
-                          <p className="text-xs text-gray-500 flex items-center truncate">
-                            <svg className="w-3 h-3 mr-1 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
-                            <span className="truncate">{email.to}</span>
-                          </p>
-                          {email.lastError && (
-                            <p className="text-xs text-slate-500 flex items-center">
-                              <svg className="w-3 h-3 mr-1 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                              </svg>
-                              <span className="truncate">{email.lastError.substring(0, 50)}...</span>
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                      <div className="flex-shrink-0 self-end sm:self-auto">
-                        <button 
-                          onClick={() => setSelectedFailedEmail(email)}
-                          className="text-xs text-slate-600 hover:text-slate-800 font-medium"
-                        >
-                          Ver detalles
-                        </button>
-                      </div>
-                    </div>
-                  ))
-                )}
-              </div>
-
-              {/* Pagination Controls */}
-              {failedEmailsPagination.totalPages > 1 && (
-                <div className="mt-4 flex items-center justify-between">
-                  <p className="text-xs text-gray-500">
-                    Página {failedEmailsPagination.page} de {failedEmailsPagination.totalPages} ({failedEmailsPagination.total} total)
-                  </p>
-                  <div className="flex items-center space-x-2">
-                    <button
-                      onClick={() => fetchFailedEmails(failedEmailsPagination.page - 1)}
-                      disabled={failedEmailsPagination.page === 1}
-                      className="px-3 py-1 text-sm border border-slate-200 rounded-md hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed text-slate-700"
-                    >
-                      Anterior
-                    </button>
-                    <button
-                      onClick={() => fetchFailedEmails(failedEmailsPagination.page + 1)}
-                      disabled={failedEmailsPagination.page === failedEmailsPagination.totalPages}
-                      className="px-3 py-1 text-sm border border-slate-200 rounded-md hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed text-slate-700"
-                    >
-                      Siguiente
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <div className="mt-4 flex items-center justify-between">
-              <p className="text-xs text-slate-500">
-                <svg className="w-4 h-4 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Se recomienda contactar a estos clientes por teléfono para confirmar sus citas
-              </p>
-            </div>
-          </div>
         </div>
       )}
 
