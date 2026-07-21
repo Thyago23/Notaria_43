@@ -58,6 +58,7 @@ const Dashboard = () => {
   const [filterCliente, setFilterCliente] = useState('');
   const [selectedCita, setSelectedCita] = useState<Cita | null>(null);
   const [activeTab, setActiveTab] = useState<'PENDIENTE' | 'ATENDIDO' | 'CANCELADO' | 'TODOS'>('PENDIENTE');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Paginación
   const [currentPage, setCurrentPage] = useState(1);
@@ -231,24 +232,61 @@ const Dashboard = () => {
       <div className="bg-white p-4 rounded-lg shadow flex flex-col gap-4">
         {/* Tabs responsive (Select en móvil, Tabs en desktop) */}
         <div className="mb-4">
-          {/* Vista Móvil */}
-          <div className="sm:hidden mb-2">
-            <label htmlFor="tabs" className="sr-only">Selecciona un estado</label>
-            <select
-              id="tabs"
-              name="tabs"
-              className="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-primary focus:outline-none focus:ring-primary sm:text-sm border"
-              value={activeTab}
-              onChange={(e) => {
-                setActiveTab(e.target.value as any);
-                setCurrentPage(1);
-              }}
+          {/* Vista Móvil (Custom Dropdown) */}
+          <div className="sm:hidden mb-4 relative z-20">
+            <label className="sr-only">Selecciona un estado</label>
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="relative w-full cursor-pointer rounded-lg bg-white py-3 pl-4 pr-10 text-left border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm transition-all"
             >
-              <option value="PENDIENTE">Pendientes</option>
-              <option value="ATENDIDO">Atendidas</option>
-              <option value="CANCELADO">Canceladas</option>
-              <option value="TODOS">Todas</option>
-            </select>
+              <span className="block truncate font-medium text-gray-700">
+                {activeTab === 'PENDIENTE' ? 'Pendientes' : 
+                 activeTab === 'ATENDIDO' ? 'Atendidas' : 
+                 activeTab === 'CANCELADO' ? 'Canceladas' : 'Todas'}
+              </span>
+              <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4">
+                <svg className={`h-5 w-5 text-gray-400 transition-transform duration-200 ${isMobileMenuOpen ? 'rotate-180' : ''}`} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
+                </svg>
+              </span>
+            </button>
+
+            {isMobileMenuOpen && (
+              <>
+                <div 
+                  className="fixed inset-0 z-10" 
+                  onClick={() => setIsMobileMenuOpen(false)} 
+                  aria-hidden="true" 
+                ></div>
+                <ul className="absolute z-20 mt-1 max-h-60 w-full overflow-auto rounded-lg bg-white py-1 text-base shadow-xl ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm border border-gray-100">
+                  {['PENDIENTE', 'ATENDIDO', 'CANCELADO', 'TODOS'].map((tab) => (
+                    <li
+                      key={tab}
+                      className={`relative cursor-pointer select-none py-3 pl-4 pr-9 hover:bg-green-50 hover:text-[#8cc550] transition-colors ${activeTab === tab ? 'bg-green-50 text-[#8cc550] font-semibold' : 'text-gray-700'}`}
+                      onClick={() => {
+                        setActiveTab(tab as any);
+                        setCurrentPage(1);
+                        setIsMobileMenuOpen(false);
+                      }}
+                    >
+                      <span className="block truncate">
+                        {tab === 'PENDIENTE' ? 'Pendientes' : 
+                         tab === 'ATENDIDO' ? 'Atendidas' : 
+                         tab === 'CANCELADO' ? 'Canceladas' : 'Todas'}
+                      </span>
+                      {activeTab === tab ? (
+                        <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-[#8cc550]">
+                          <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
+                          </svg>
+                        </span>
+                      ) : null}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
           </div>
           
           {/* Vista Desktop */}
