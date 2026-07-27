@@ -16,6 +16,7 @@ import Footer from './components/layout/Footer';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import AdminDashboardLayout from './components/layout/AdminDashboardLayout';
 import ScrollToTop from './components/layout/ScrollToTop';
+import ErrorBoundary from './components/layout/ErrorBoundary';
 
 function ConditionalFooter() {
   const location = useLocation();
@@ -35,42 +36,44 @@ function ConditionalNavbar() {
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <ScrollToTop />
-        <div className="min-h-screen flex flex-col">
-          <ConditionalNavbar />
-          <main className="flex-grow">
-            <Routes>
-              {/* Public Routes */}
-              <Route path="/" element={<Home />} />
-              <Route path="/abogados" element={<Abogados />} />
-              <Route path="/sobre-nosotros" element={<SobreNosotros />} />
-              <Route path="/booking" element={<Booking />} />
-              <Route path="/tramites/:id" element={<TramiteDetail />} />
-              <Route path="/cancelar" element={<CancelTurno />} />
-              <Route path="/login" element={<LoginAdmin />} />
-              
-              {/* Protected Admin Routes */}
-              <Route
-                path="/admin"
-                element={
-                  <ProtectedRoute>
-                    <AdminDashboardLayout />
-                  </ProtectedRoute>
-                }
-              >
-                <Route path="dashboard" element={<AdminHome />} />
-                <Route path="citas" element={<Dashboard />} />
-                <Route path="tramites" element={<AdminTramites />} />
-                <Route path="asignacion" element={<AdminAsignacion />} />
-              </Route>
-            </Routes>
-          </main>
-          <ConditionalFooter />
-        </div>
-      </Router>
-    </AuthProvider>
+    <ErrorBoundary>
+      <AuthProvider>
+        <Router>
+          <ScrollToTop />
+          <div className="min-h-screen flex flex-col">
+            <ConditionalNavbar />
+            <main className="flex-grow">
+              <Routes>
+                {/* Public Routes */}
+                <Route path="/" element={<Home />} />
+                <Route path="/abogados" element={<Abogados />} />
+                <Route path="/sobre-nosotros" element={<SobreNosotros />} />
+                <Route path="/booking" element={<Booking />} />
+                <Route path="/tramites/:id" element={<TramiteDetail />} />
+                <Route path="/cancelar" element={<CancelTurno />} />
+                <Route path="/login" element={<LoginAdmin />} />
+                
+                {/* Protected Admin Routes */}
+                <Route
+                  path="/admin"
+                  element={
+                    <ProtectedRoute>
+                      <AdminDashboardLayout />
+                    </ProtectedRoute>
+                  }
+                >
+                  <Route path="dashboard" element={<AdminHome />} />
+                  <Route path="citas" element={<Dashboard />} />
+                  <Route path="tramites" element={<AdminTramites />} />
+                  <Route path="asignacion" element={<AdminAsignacion />} />
+                </Route>
+              </Routes>
+            </main>
+            <ConditionalFooter />
+          </div>
+        </Router>
+      </AuthProvider>
+    </ErrorBoundary>
   );
 }
 
