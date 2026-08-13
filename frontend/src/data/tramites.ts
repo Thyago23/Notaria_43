@@ -692,7 +692,6 @@ export const TRAMITES_DATA: Tramite[] = [
       'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
     ]
   },
-,
   {
     id: 'designaci-n-de-administrador-com-n',
     categoria: 'Trámites notariales referentes a personas y familia',
