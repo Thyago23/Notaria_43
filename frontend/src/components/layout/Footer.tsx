@@ -109,7 +109,7 @@ const Footer: React.FC = () => {
                 </svg>
                 <div>
                   <span className="font-semibold text-white block">Teléfono:</span>
-                  <a href="tel:02868248" className="hover:text-white transition-colors">(02) 868-248</a>
+                  <a href="tel:0958644106" className="hover:text-white transition-colors">0958644106</a>
                 </div>
               </div>
 
@@ -119,7 +119,7 @@ const Footer: React.FC = () => {
                 </svg>
                 <div>
                   <span className="font-semibold text-white block">Correo Electrónico:</span>
-                  <a href="mailto:contacto@notaria43.com" className="hover:text-[#8cc550] transition-colors">contacto@notaria43.com</a>
+                  <a href="mailto:notaria43_quito@hotmail.com" className="hover:text-[#8cc550] transition-colors">notaria43_quito@hotmail.com</a>
                 </div>
               </div>
             </div>

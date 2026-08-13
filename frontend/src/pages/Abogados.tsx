@@ -12,37 +12,37 @@ const staff: Administrator[] = [
   {
     name: 'Mgs. Dr. Fernando Iván Castro Salazar',
     title: 'Notario Principal',
-    email: 'contacto@notaria43.com',
+    email: 'notaria43_quito@hotmail.com',
     image: '/AdministradoresDeLaNotaria43/Mgs.Dr.Fernando Iván Castro Salazar.jpeg'
   },
   {
     name: 'Dra. Fernanda Rojas',
     title: 'Asesora Jurídica / Abogada de Familia',
-    email: 'contacto@notaria43.com',
+    email: 'notaria43_quito@hotmail.com',
     image: '/AdministradoresDeLaNotaria43/Fernanda Rojas.jpeg'
   },
   {
     name: 'Ab. Joao Aguirre',
     title: 'Asesor Legal / Especialista en Derecho Civil',
-    email: 'contacto@notaria43.com',
+    email: 'notaria43_quito@hotmail.com',
     image: '/AdministradoresDeLaNotaria43/Joao Aguirre.jpeg'
   },
   {
     name: 'Ab. Marcos Simbaña',
     title: 'Especialista en Derecho Inmobiliario',
-    email: 'contacto@notaria43.com',
+    email: 'notaria43_quito@hotmail.com',
     image: '/AdministradoresDeLaNotaria43/Marcos Simbaña .jpeg'
   },
   {
     name: 'Dr. Rodrigo Roman',
     title: 'Especialista en Trámites Societarios',
-    email: 'contacto@notaria43.com',
+    email: 'notaria43_quito@hotmail.com',
     image: '/AdministradoresDeLaNotaria43/Rodrigo Roman .jpeg'
   },
   {
     name: 'Dra. Veronica Toapanta',
     title: 'Asistente Jurídica / Especialista de Actas',
-    email: 'contacto@notaria43.com',
+    email: 'notaria43_quito@hotmail.com',
     image: '/AdministradoresDeLaNotaria43/Veronica Toapanta .jpeg'
   }
 ];

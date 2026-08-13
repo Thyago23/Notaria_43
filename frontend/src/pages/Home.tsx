@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const Home = () => {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   return (
     <div className="w-full">
       {/* Hero Section */}
@@ -51,12 +54,12 @@ const Home = () => {
           {/* Left Image Section */}
           <div className="w-full lg:w-[45%] relative h-[450px] md:h-[600px] rounded-[2.5rem] overflow-hidden shadow-2xl group shrink-0">
             <img
-              src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1200&auto=format&fit=crop"
+              src="/FotoDocumentaciónlegalalalcancedeunclic.jpeg"
               alt="Trámites Notariales"
               className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-in-out"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent"></div>
-            
+
             <div className="absolute bottom-0 left-0 p-8 md:p-10 w-full">
               <span className="text-[#8cc550] font-semibold text-xs tracking-[0.2em] uppercase mb-3 block">
                 GESTIÓN ÁGIL
@@ -79,7 +82,7 @@ const Home = () => {
                 Trámites Notariales
               </h2>
             </div>
-            
+
             <p className="text-gray-600 text-lg mb-10 leading-relaxed">
               Revisa nuestro catálogo completo de trámites, conoce los requisitos exactos y agenda tu cita en línea en menos de 2 minutos. Simplificamos tus gestiones legales para que no pierdas tiempo en filas.
             </p>
@@ -99,16 +102,16 @@ const Home = () => {
       {/* Sección 2: Equipo de Abogados */}
       <section id="abogados" className="bg-white py-20 px-6 md:px-12 flex justify-center items-center">
         <div className="max-w-7xl mx-auto w-full flex flex-col lg:flex-row-reverse gap-12 lg:gap-20 items-center">
-          
+
           {/* Right Image Section */}
           <div className="w-full lg:w-[45%] relative h-[450px] md:h-[600px] rounded-[2.5rem] overflow-hidden shadow-2xl group shrink-0">
             <img
-              src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop"
+              src="/FotoExpertoscuidandotusintereses.jpeg"
               alt="Equipo de Abogados"
               className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-in-out"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent"></div>
-            
+
             <div className="absolute bottom-0 left-0 p-8 md:p-10 w-full">
               <span className="text-[#8cc550] font-semibold text-xs tracking-[0.2em] uppercase mb-3 block">
                 PROFESIONALISMO
@@ -131,9 +134,9 @@ const Home = () => {
                 Equipo de Abogados
               </h2>
             </div>
-            
+
             <p className="text-gray-600 text-lg mb-10 leading-relaxed">
-              Conoce a los profesionales del derecho que analizarán y gestionarán tu caso con total confidencialidad y rigor legal. Desde compraventas hasta testamentos, te acompañamos en cada decisión.
+              Conoce a los profesionales del derecho que analizarán y gestionarán tu caso con total confidencialidad y rigor legal.
             </p>
 
             <div>
@@ -151,16 +154,16 @@ const Home = () => {
       {/* Sección 3: Nuestra Notaría */}
       <section id="sobre-nosotros" className="bg-slate-50 py-20 px-6 md:px-12 flex justify-center items-center">
         <div className="max-w-7xl mx-auto w-full flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
-          
+
           {/* Left Image Section */}
           <div className="w-full lg:w-[45%] relative h-[450px] md:h-[600px] rounded-[2.5rem] overflow-hidden shadow-2xl group shrink-0">
             <img
-              src="https://images.unsplash.com/photo-1577415124269-fc1140a69e91?q=80&w=1200&auto=format&fit=crop"
+              src="/FotoMásdeunadécadadeconfianza.jpg"
               alt="Nuestra Notaría"
               className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-in-out"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent"></div>
-            
+
             <div className="absolute bottom-0 left-0 p-8 md:p-10 w-full">
               <span className="text-[#8cc550] font-semibold text-xs tracking-[0.2em] uppercase mb-3 block">
                 TRAYECTORIA
@@ -183,7 +186,7 @@ const Home = () => {
                 Nuestra Notaría
               </h2>
             </div>
-            
+
             <p className="text-gray-600 text-lg mb-10 leading-relaxed">
               Descubre nuestra historia, instalaciones y el compromiso ético que nos impulsa a brindar la mejor seguridad jurídica del Valle de Los Chillos.
             </p>
@@ -202,25 +205,25 @@ const Home = () => {
 
       {/* Sección 4: Ubicación */}
       <section id="ubicacion" className="bg-white py-20 px-6 md:px-12 flex justify-center items-center">
-        <div className="max-w-7xl mx-auto w-full flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
-          
-          {/* Left Map Section */}
-          <div className="w-full lg:w-1/2 h-[450px] md:h-[550px] shadow-2xl rounded-[2.5rem] overflow-hidden group shrink-0 relative border-4 border-white">
-            <iframe 
+        <div className="max-w-7xl mx-auto w-full flex flex-col lg:flex-row-reverse gap-12 lg:gap-20 items-center">
+
+          {/* Right Map Section (acting as the 'Foto') */}
+          <div className="w-full lg:w-[45%] relative h-[450px] md:h-[600px] rounded-[2.5rem] overflow-hidden shadow-2xl group shrink-0 border-4 border-white bg-slate-50">
+            <iframe
               src="https://maps.google.com/maps?q=-0.2959549,-78.4531404&hl=es&z=17&output=embed"
-              width="100%" 
-              height="100%" 
-              style={{ border: 0 }} 
-              allowFullScreen={true} 
-              loading="lazy" 
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen={true}
+              loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               title="Ubicación Notaría 43"
               className="rounded-[2.5rem]"
             ></iframe>
           </div>
 
-          {/* Right Content Section */}
-          <div className="w-full lg:w-1/2 flex flex-col justify-center py-6">
+          {/* Left Content Section (acting as the 'Descripción') */}
+          <div className="w-full lg:w-[55%] flex flex-col justify-center py-6">
             <div className="flex items-center space-x-4 mb-6">
               <div className="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center">
                 <svg className="w-7 h-7 text-[#8cc550]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -232,36 +235,69 @@ const Home = () => {
                 Estamos ubicados en:
               </h2>
             </div>
-            
-            <a 
-              href="https://www.google.com/maps/place/Notar%C3%ADa+43/@-0.2958093,-78.4539041,398m/data=!3m1!1e3!4m6!3m5!1s0x91d5bd5e2d63f903:0x5e55a3ba0d107483!8m2!3d-0.2959549!4d-78.4531404!16s%2Fg%2F11c1p6x1y4!5m2!1e2!1e4?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-start text-lg text-gray-700 hover:text-[#8cc550] transition-colors mb-12 leading-relaxed font-medium text-left group"
-            >
-              <svg className="w-6 h-6 text-[#8cc550] mr-3 mt-1 flex-shrink-0 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              <span className="underline-offset-4 group-hover:underline">Av. Ilalo Y Rio Tivacuno Oe11-323, Vía Al Tingo (Valle De Los Chillos), Quito, Pichincha</span>
-            </a>
 
-            {/* Photos Placeholder Grid (mockup style) */}
-            <div className="relative w-full max-w-md mx-auto md:mx-0 h-[350px]">
-               <div className="absolute top-0 left-0 w-[55%] h-[180px] rounded-[2rem] border-4 border-white flex items-center justify-center z-10 shadow-xl overflow-hidden hover:scale-105 transition-transform duration-300">
-                  <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=600&auto=format&fit=crop" alt="Instalaciones 1" className="w-full h-full object-cover" />
-               </div>
-               <div className="absolute top-[50px] right-0 w-[55%] h-[180px] rounded-[2rem] border-4 border-white flex items-center justify-center z-20 shadow-xl overflow-hidden hover:scale-105 transition-transform duration-300">
-                  <img src="https://images.unsplash.com/photo-1606857521015-7f9fcf423740?q=80&w=600&auto=format&fit=crop" alt="Instalaciones 2" className="w-full h-full object-cover" />
-               </div>
-               <div className="absolute bottom-0 left-[10%] w-[55%] h-[180px] rounded-[2rem] border-4 border-white flex items-center justify-center z-30 shadow-xl overflow-hidden hover:scale-105 transition-transform duration-300">
-                  <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600&auto=format&fit=crop" alt="Instalaciones 3" className="w-full h-full object-cover" />
-               </div>
+            <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+              <a
+                href="https://www.google.com/maps/place/Notar%C3%ADa+43/@-0.2958093,-78.4539041,398m/data=!3m1!1e3!4m6!3m5!1s0x91d5bd5e2d63f903:0x5e55a3ba0d107483!8m2!3d-0.2959549!4d-78.4531404!16s%2Fg%2F11c1p6x1y4!5m2!1e2!1e4?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start text-lg text-gray-700 hover:text-[#8cc550] transition-colors group font-medium"
+              >
+                <svg className="w-6 h-6 text-[#8cc550] mr-3 mt-1 flex-shrink-0 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span className="underline-offset-4 group-hover:underline">Av. Ilaló Y Río Tivacuno Oe11-323, Vía Al Tingo (Valle De Los Chillos), Quito, Pichincha</span>
+              </a>
+            </p>
+
+            {/* Galería de Fotos Reales */}
+            <div className="grid grid-cols-2 grid-rows-[auto_auto] gap-4 w-full mt-4">
+              <div 
+                className="col-span-2 h-[220px] rounded-[1.5rem] overflow-hidden shadow-lg border-2 border-white hover:shadow-xl transition-shadow relative bg-slate-100 cursor-pointer group"
+                onClick={() => setSelectedImage('/EntradaNotariaFoto1.png')}
+              >
+                <img src="/EntradaNotariaFoto1.png" alt="Fachada Notaría 43" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=600&auto=format&fit=crop'; }} />
+              </div>
+              <div 
+                className="h-[160px] rounded-[1.5rem] overflow-hidden shadow-lg border-2 border-white hover:shadow-xl transition-shadow relative bg-slate-100 cursor-pointer group"
+                onClick={() => setSelectedImage('/EdiNotaria43Foto2.png')}
+              >
+                <img src="/EdiNotaria43Foto2.png" alt="Ingreso Notaría 43" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1606857521015-7f9fcf423740?q=80&w=600&auto=format&fit=crop'; }} />
+              </div>
+              <div 
+                className="h-[160px] rounded-[1.5rem] overflow-hidden shadow-lg border-2 border-white hover:shadow-xl transition-shadow relative bg-slate-100 cursor-pointer group"
+                onClick={() => setSelectedImage('/Notaria43Foto3.png')}
+              >
+                <img src="/Notaria43Foto3.png" alt="Exteriores Notaría 43" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600&auto=format&fit=crop'; }} />
+              </div>
             </div>
-
+            
           </div>
         </div>
       </section>
+      {/* Image Modal (Lightbox) */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 md:p-8"
+          onClick={() => setSelectedImage(null)}
+        >
+          <button 
+            className="absolute top-6 right-6 text-white hover:text-[#8cc550] transition-colors p-2 bg-black/50 rounded-full"
+            onClick={() => setSelectedImage(null)}
+          >
+            <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          <img 
+            src={selectedImage} 
+            alt="Ampliación" 
+            className="max-w-full max-h-[90vh] object-contain rounded-xl shadow-2xl" 
+            onClick={(e) => e.stopPropagation()} 
+          />
+        </div>
+      )}
     </div>
   );
 };
