@@ -363,5 +363,559 @@ export const TRAMITES_DATA: Tramite[] = [
       'Nombramiento vigente del representante legal de la persona jurídica.',
       'Comparecencia del representante legal de la persona juridica.'
     ]
-  }
+  },
+  {
+    id: 'aceptaci-n-de-herencia',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Aceptación de herencia',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'aceptaci-n-y-repudio-de-herencia-adulto-mayor',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Aceptación y repudio de herencia adulto mayor',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'aclaratoria-ampliatoria-modificatoria-y-rectificatoria-incremento-de-cuant-a',
+    categoria: 'Trámites notariales referentes a bienes inmuebles (casas, terrenos y oficinas)',
+    nombre: 'Aclaratoria, ampliatoria, modificatoria y rectificatoria (incremento de cuantía)',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'aclaratoria-ampliatoria-modificatoria-rectificatoria-o-ratificatoria',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Aclaratoria, ampliatoria, modificatoria, rectificatoria o ratificatoria',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'acta-de-acuerdo-de-jubilaci-n-patronal',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Acta de acuerdo de jubilación patronal',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'aprobaci-n-de-constituci-n-de-sociedades-civiles-y-mercantiles',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Aprobación de constitución de sociedades civiles y mercantiles',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'aprobaci-n-de-escisi-n-de-sociedades-civiles-y-mercantiles',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Aprobación de escisión de sociedades civiles y mercantiles',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'aprobaci-n-de-fusi-n-por-absorci-n-de-sociedades-civiles-y-mercantiles',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Aprobación de fusión por absorción de sociedades civiles y mercantiles',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'aprobaci-n-de-reforma-de-sociedades-civiles-y-mercantiles',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Aprobación de reforma de sociedades civiles y mercantiles',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'autorizaci-n-de-inscripci-n-de-matr-culas-de-comercio',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Autorización de inscripción de matrículas de comercio',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'autorizaci-n-para-trabajo-de-menores-de-edad',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Autorización para trabajo de menores de edad',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'cancelaci-n-de-contrato-de-prenda',
+    categoria: 'Trámites notariales referentes a bienes inmuebles (casas, terrenos y oficinas)',
+    nombre: 'Cancelación de contrato de prenda',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'cancelaci-n-de-sociedades',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Cancelación de sociedades',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'capitulaciones-matrimoniales',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Capitulaciones matrimoniales',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'cesi-n-de-derechos-fiduciarios',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Cesión de derechos fiduciarios',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'cesi-n-de-derechos-hipotecarios-con-cuant-a-determinada',
+    categoria: 'Trámites notariales referentes a bienes inmuebles (casas, terrenos y oficinas)',
+    nombre: 'Cesión de derechos hipotecarios con cuantía determinada',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'cesi-n-de-derechos-hipotecarios-con-cuant-a-indeterminada',
+    categoria: 'Trámites notariales referentes a bienes inmuebles (casas, terrenos y oficinas)',
+    nombre: 'Cesión de derechos hipotecarios con cuantía indeterminada',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'cesi-n-de-participaciones',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Cesión de participaciones',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'comodato',
+    categoria: 'Trámites notariales referentes a bienes inmuebles (casas, terrenos y oficinas)',
+    nombre: 'Comodato',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'compraventa-de-inmuebles-financiadas-con-el-bono-que-otorga-el-estado-a-trav-s-del-miduvi',
+    categoria: 'Trámites notariales referentes a bienes inmuebles (casas, terrenos y oficinas)',
+    nombre: 'Compraventa de inmuebles financiadas con el bono que otorga el estado a través del miduvi',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'constituci-n-de-consorcio-con-cuant-a-determinada',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Constitución de consorcio con cuantía determinada',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'constituci-n-de-consorcio-con-cuant-a-indeterminada',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Constitución de consorcio con cuantía indeterminada',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'constituci-n-de-fideicomiso-mercantil',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Constitución de fideicomiso mercantil',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'constituci-n-de-mutuo-hipotecario',
+    categoria: 'Trámites notariales referentes a bienes inmuebles (casas, terrenos y oficinas)',
+    nombre: 'Constitución de mutuo hipotecario',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'constituci-n-de-mutuo-hipotecario-abierto',
+    categoria: 'Trámites notariales referentes a bienes inmuebles (casas, terrenos y oficinas)',
+    nombre: 'Constitución de mutuo hipotecario abierto',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'constituci-n-de-patrimonio-familiar',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Constitución de patrimonio familiar',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'constituci-n-de-prenda',
+    categoria: 'Trámites notariales referentes a bienes inmuebles (casas, terrenos y oficinas)',
+    nombre: 'Constitución de prenda',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'constituci-n-de-sociedades',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Constitución de sociedades',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'constituci-n-de-uso-y-habitaci-n',
+    categoria: 'Trámites notariales referentes a bienes inmuebles (casas, terrenos y oficinas)',
+    nombre: 'Constitución de uso y habitación',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'constituci-n-de-usufructo',
+    categoria: 'Trámites notariales referentes a bienes inmuebles (casas, terrenos y oficinas)',
+    nombre: 'Constitución de usufructo',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'contrato-de-novaci-n',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Contrato de novación',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'contrato-de-prestaci-n-de-servicios-para-la-exploraci-n-y-explotaci-n-de-hidrocarburos-u-otros-contratos-relacionados',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Contrato de prestación de servicios para la exploración y explotación de hidrocarburos u otros contratos relacionados',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'contratos-de-mandato-de-persona-jur-dica',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Contratos de mandato de persona jurídica',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'declaraci-n-juramentada-emancipaci-n-voluntaria-del-hijo-adulto',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Declaración juramentada emancipación voluntaria del hijo adulto',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'declaraci-n-juramentada-para-extinci-n-de-patrimonio-familiar',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Declaración juramentada para extinción de patrimonio familiar',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'declaraci-n-juramentada-para-tramitar-la-posesi-n-notoria-del-estado-civil',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Declaración juramentada para tramitar la posesión notoria del estado civil',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'declaraci-n-juramentada-que-justifique-la-baja-de-inventarios',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Declaración juramentada que justifique la baja de inventarios',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'declaratoria-de-interdicci-n-de-la-persona-privada-de-la-libertad',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Declaratoria de interdicción de la persona privada de la libertad',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'delegaci-n-poder-especial-persona-jur-dica',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Delegación poder especial persona jurídica',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'delegaci-n-poder-especial-persona-natural',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Delegación poder especial persona natural',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'delegaci-n-poder-general-persona-jur-dica',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Delegación poder general persona jurídica',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+,
+  {
+    id: 'designaci-n-de-administrador-com-n',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Designación de administrador común',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'disminuci-n-de-capital',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Disminución de capital',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'disoluci-n-de-alianza-estrat-gica',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Disolución de alianza estratégica',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'disoluci-n-de-consorcio',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Disolución de consorcio',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'disoluci-n-de-convenio-de-asociaci-n',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Disolución de convenio de asociación',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'disoluci-n-de-la-sociedad-conyugal-incluida-su-protocolizaci-n',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Disolución de la sociedad conyugal, incluida su protocolización',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'disoluci-n-de-la-sociedad-de-bienes-en-la-uni-n-de-hecho-incluida-su-protocolizaci-n',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Disolución de la sociedad de bienes en la unión de hecho,incluida su protocolización',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'disoluci-n-de-sociedades',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Disolución de sociedades',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'emisi-n-de-obligaciones-y-titularizaciones',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Emisión de obligaciones y titularizaciones',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'encargos-fiduciarios',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Encargos fiduciarios',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'escritura-de-concesi-n-de-frecuencias-de-radio-y-televisi-n',
+    categoria: 'Trámites notariales referentes a bienes inmuebles (casas, terrenos y oficinas)',
+    nombre: 'Escritura de concesión de frecuencias de radio y televisión',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'escritura-de-concesi-n-de-frecuencias-de-radio-y-televisi-n-comunitaria',
+    categoria: 'Trámites notariales referentes a bienes inmuebles (casas, terrenos y oficinas)',
+    nombre: 'Escritura de concesión de frecuencias de radio y televisión comunitaria',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'escritura-de-concesi-n-de-minas',
+    categoria: 'Trámites notariales referentes a bienes inmuebles (casas, terrenos y oficinas)',
+    nombre: 'Escritura de concesión de minas',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'escritura-de-concesiones-que-realicen-los-organismos-del-estado-con-cuant-a-indeterminada',
+    categoria: 'Trámites notariales referentes a bienes inmuebles (casas, terrenos y oficinas)',
+    nombre: 'Escritura de concesiones que realicen los organismos del estado con cuantía indeterminada',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'escritura-de-transferencia-de-dominio-ley-organica-para-el-cierre-de-la-crisis-bancaria-de-1999-disposici-n-general-innumerada',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Escritura de transferencia de dominio - ley organica para el cierre de la crisis bancaria de 1999 (disposición general innumerada)',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'fe-de-la-supervivencia-de-personas-naturales',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Fe de la supervivencia de personas naturales',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'fraccionamiento',
+    categoria: 'Trámites notariales referentes a bienes inmuebles (casas, terrenos y oficinas)',
+    nombre: 'Fraccionamiento',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'fusi-n-de-sociedades',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Fusión de sociedades',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'insinuaci-n-para-donaci-n-adulto-mayor',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Insinuación para donación adulto mayor',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'levantamiento-de-protestos-inclu-da-su-protocolizaci-n',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Levantamiento de protestos, incluída su protocolización',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'liquidaci-n-de-la-sociedad-conyugal',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Liquidación de la sociedad conyugal',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'liquidaci-n-de-la-sociedad-de-bienes-en-uni-n-de-hecho',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Liquidación de la sociedad de bienes en unión de hecho',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'liquidaci-n-de-sociedades',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Liquidación de sociedades',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'modificatoria-poder-especial-persona-jur-dica',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Modificatoria poder especial persona jurídica',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'modificatoria-poder-especial-persona-natural',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Modificatoria poder especial persona natural',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'modificatoria-poder-general-persona-jur-dica',
+    categoria: 'Trámites notariales referentes a personas juridicas',
+    nombre: 'Modificatoria poder general persona jurídica',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'modificatoria-poder-general-persona-natural',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Modificatoria poder general persona natural',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+  {
+    id: 'modificatoria-poderes-especiales-para-el-cobro-de-sueldos-pensiones-de-jubilaci-n-invalidez-montep-o-bono-de-desarrollo-humano-o-similares',
+    categoria: 'Trámites notariales referentes a personas y familia',
+    nombre: 'Modificatoria poderes especiales para el cobro de sueldos, pensiones de jubilación, invalidez, montepío, bono de desarrollo humano o similares',
+    requisitos: [
+      'Para conocer los requisitos específicos de este trámite, por favor contáctenos a través de nuestros canales oficiales o acérquese a la Notaría 43.'
+    ]
+  },
+
 ];

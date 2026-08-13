@@ -22,7 +22,7 @@ const Booking = () => {
   }, {} as Record<string, typeof TRAMITES_DATA>);
 
   const categories = Object.keys(groupedTramites);
-  const displayTramites = selectedCategory 
+  const displayTramites = selectedCategory
     ? { [selectedCategory]: groupedTramites[selectedCategory] }
     : groupedTramites;
 
@@ -33,7 +33,7 @@ const Booking = () => {
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-dark text-left">
             Catálogo de Trámites
           </h1>
-          
+
           {/* Category menu button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -51,7 +51,7 @@ const Booking = () => {
             )}
           </button>
         </div>
-        
+
         <p className="text-gray-600 mb-6 sm:mb-8 text-sm sm:text-base">
           Seleccione el trámite que desea realizar para conocer los requisitos detallados y agendar su cita notarial.
         </p>
@@ -69,11 +69,10 @@ const Booking = () => {
                     setSelectedCategory(null);
                     setMobileMenuOpen(false);
                   }}
-                  className={`w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    selectedCategory === null
+                  className={`w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors ${selectedCategory === null
                       ? 'bg-[#8cc550] text-white'
                       : 'text-gray-700 hover:bg-gray-100'
-                  }`}
+                    }`}
                 >
                   Todas las categorías
                 </button>
@@ -84,11 +83,10 @@ const Booking = () => {
                       setSelectedCategory(category);
                       setMobileMenuOpen(false);
                     }}
-                    className={`w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                      selectedCategory === category
+                    className={`w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors ${selectedCategory === category
                         ? 'bg-[#8cc550] text-white'
                         : 'text-gray-700 hover:bg-gray-100'
-                    }`}
+                      }`}
                   >
                     {category}
                   </button>
@@ -113,7 +111,7 @@ const Booking = () => {
                 </div>
                 <div>
                   <h3 className="text-base sm:text-lg font-semibold text-gray-800 group-hover:text-[#8cc550] transition-colors">
-                    ¿Necesita cancelar o reagendar una cita?
+                    ¿Necesita cancelar una cita?
                   </h3>
                   <p className="text-xs sm:text-sm text-gray-500 mt-1">
                     Ingrese con el código de turno de su comprobante PDF para liberar su cita
