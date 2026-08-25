@@ -11,7 +11,7 @@ const Navbar = () => {
       <div className="py-4 px-6 md:px-12 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <img src="/logo_notaria.png" alt="Notaria 43" className="h-12 w-auto" />
+          <img src="/Navbar_notaria.png" alt="Notaria 43" className="h-12 w-auto" />
         </Link>
 
         {/* Navigation Links - Desktop */}
