@@ -10,8 +10,8 @@ const Navbar = () => {
     <nav className="bg-white border-b border-gray-100 relative z-50">
       <div className="py-4 px-6 md:px-12 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="text-3xl font-heading font-bold text-dark tracking-tight">
-          Notaria 43
+        <Link to="/" className="flex items-center">
+          <img src="/logo_notaria.png" alt="Notaria 43" className="h-12 w-auto" />
         </Link>
 
         {/* Navigation Links - Desktop */}
