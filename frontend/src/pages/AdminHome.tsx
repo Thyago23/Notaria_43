@@ -22,10 +22,12 @@ const AdminHome = () => {
     try {
       setIsLoading(true);
       setError(null);
-      // Fetch report from last 30 days
-      const end = new Date();
-      const start = new Date();
-      start.setDate(end.getDate() - 30);
+      // Fetch report from last 30 days and next 30 days
+      const today = new Date();
+      const end = new Date(today);
+      end.setDate(today.getDate() + 30);
+      const start = new Date(today);
+      start.setDate(today.getDate() - 30);
 
       const fechaInicio = start.toISOString().split('T')[0];
       const fechaFin = end.toISOString().split('T')[0];
