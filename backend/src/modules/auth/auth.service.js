@@ -1,8 +1,3 @@
-// ============================================
-// Auth Module: Servicio (Lógica de Negocio)
-// La lógica es "ciega" — no sabe cómo se muestra
-// ============================================
-
 import { getDatabase } from '../../config/database.js';
 import { hashValue, compareHash } from '../wrappers/hash.wrapper.js';
 import { generateToken } from '../wrappers/jwt.wrapper.js';
@@ -10,11 +5,7 @@ import { isValidCedulaEcuatoriana } from '../../utils/cedulaValidator.js';
 import { AppError } from '../../utils/appError.js';
 import { HTTP_STATUS, USER_ROLES } from '../../utils/constants.js';
 
-/**
- * Registra un nuevo ciudadano en el sistema.
- * RF-01: Valida la cédula algorítmicamente.
- * RF-02: Genera JWT tras registro exitoso.
- */
+
 export async function registerCitizen({ cedula, nombres, apellidos, email, password }) {
   if (!isValidCedulaEcuatoriana(cedula)) {
     throw new AppError(
@@ -66,10 +57,7 @@ export async function registerCitizen({ cedula, nombres, apellidos, email, passw
   return { user: newUser, token };
 }
 
-/**
- * Autentica un usuario con cédula y contraseña.
- * RF-02: Genera JWT para sesión segura.
- */
+
 export async function loginUser({ cedula, password }) {
   const database = getDatabase();
 
