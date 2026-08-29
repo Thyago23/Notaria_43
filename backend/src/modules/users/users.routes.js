@@ -31,29 +31,29 @@ usersRouter.put(
   handleUpdateProfile
 );
 
-// Gestión de usuarios (solo Administrativo)
+// Gestión de usuarios (Administrativo y Notario)
 usersRouter.get(
   '/',
-  roleMiddleware(USER_ROLES.ADMINISTRATIVO),
+  roleMiddleware(USER_ROLES.ADMINISTRATIVO, USER_ROLES.NOTARIO),
   handleListUsers
 );
 
 usersRouter.post(
   '/staff',
-  roleMiddleware(USER_ROLES.ADMINISTRATIVO),
+  roleMiddleware(USER_ROLES.ADMINISTRATIVO, USER_ROLES.NOTARIO),
   validateRequest({ body: createStaffUserSchema }),
   handleCreateStaffUser
 );
 
 usersRouter.put(
   '/:id',
-  roleMiddleware(USER_ROLES.ADMINISTRATIVO),
+  roleMiddleware(USER_ROLES.NOTARIO),
   handleUpdateUser
 );
 
 usersRouter.delete(
   '/:id',
-  roleMiddleware(USER_ROLES.ADMINISTRATIVO),
+  roleMiddleware(USER_ROLES.NOTARIO),
   handleDeleteUser
 );
 
