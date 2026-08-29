@@ -28,6 +28,8 @@ const AdminAsignacion = () => {
     password: '',
     role: 'ADMINISTRATIVO'
   });
+  
+  const [editingUser, setEditingUser] = useState<User | null>(null);
 
   useEffect(() => {
     fetchUsers();
@@ -63,6 +65,44 @@ const AdminAsignacion = () => {
       setError(err.message || 'Error al crear el usuario de staff');
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleEdit = (user: User) => {
+    setEditingUser(user);
+    setShowForm(false);
+  };
+
+  const handleUpdateUser = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingUser) return;
+    try {
+      setIsSubmitting(true);
+      setError(null);
+      
+      await apiClient.put(`/users/${editingUser.id}`, {
+        role: editingUser.role,
+        isActive: editingUser.isActive
+      });
+      
+      setEditingUser(null);
+      await fetchUsers();
+      
+    } catch (err: any) {
+      setError(err.message || 'Error al actualizar el usuario');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleDeleteUser = async (id: string) => {
+    if (!window.confirm('¿Está seguro de eliminar este usuario?')) return;
+    try {
+      setError(null);
+      await apiClient.delete(`/users/${id}`);
+      await fetchUsers();
+    } catch (err: any) {
+      setError(err.message || 'Error al eliminar el usuario');
     }
   };
 
@@ -176,6 +216,65 @@ const AdminAsignacion = () => {
         </div>
       )}
 
+      {editingUser && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
+            <h2 className="text-lg font-semibold mb-4">Editar Usuario</h2>
+            <form onSubmit={handleUpdateUser} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Usuario</label>
+                <input
+                  type="text"
+                  disabled
+                  value={`${editingUser.nombres} ${editingUser.apellidos}`}
+                  className="w-full border border-gray-300 rounded px-3 py-2 text-sm bg-gray-50 text-gray-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Rol</label>
+                <select
+                  value={editingUser.role}
+                  onChange={(e) => setEditingUser({...editingUser, role: e.target.value})}
+                  className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-1 focus:ring-primary"
+                >
+                  <option value="CIUDADANO">Ciudadano</option>
+                  <option value="ADMINISTRATIVO">Administrativo</option>
+                  <option value="NOTARIO">Notario</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Estado</label>
+                <select
+                  value={editingUser.isActive ? "true" : "false"}
+                  onChange={(e) => setEditingUser({...editingUser, isActive: e.target.value === "true"})}
+                  className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-1 focus:ring-primary"
+                >
+                  <option value="true">Activo</option>
+                  <option value="false">Inactivo</option>
+                </select>
+              </div>
+              
+              <div className="flex justify-end pt-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setEditingUser(null)}
+                  className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="bg-primary hover:bg-primary-hover text-white px-6 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
+                >
+                  {isSubmitting ? 'Guardando...' : 'Guardar'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       <div className="bg-white rounded-lg shadow overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
@@ -184,6 +283,7 @@ const AdminAsignacion = () => {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Cédula</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Rol</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado</th>
+              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Acciones</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -210,11 +310,25 @@ const AdminAsignacion = () => {
                     {user.isActive ? 'Activo' : 'Inactivo'}
                   </span>
                 </td>
+                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <button
+                    onClick={() => handleEdit(user)}
+                    className="text-primary hover:text-primary-hover mr-3"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    onClick={() => handleDeleteUser(user.id)}
+                    className="text-red-600 hover:text-red-900"
+                  >
+                    Eliminar
+                  </button>
+                </td>
               </tr>
             ))}
             {users.length === 0 && (
               <tr>
-                <td colSpan={4} className="px-6 py-8 text-center text-gray-500 text-sm">
+                <td colSpan={5} className="px-6 py-8 text-center text-gray-500 text-sm">
                   No hay usuarios registrados.
                 </td>
               </tr>

@@ -8,6 +8,8 @@ import {
   handleUpdateProfile,
   handleCreateStaffUser,
   handleListUsers,
+  handleUpdateUser,
+  handleDeleteUser
 } from './users.controller.js';
 import { authMiddleware } from '../../middlewares/auth.middleware.js';
 import { roleMiddleware } from '../../middlewares/role.middleware.js';
@@ -41,6 +43,18 @@ usersRouter.post(
   roleMiddleware(USER_ROLES.ADMINISTRATIVO),
   validateRequest({ body: createStaffUserSchema }),
   handleCreateStaffUser
+);
+
+usersRouter.put(
+  '/:id',
+  roleMiddleware(USER_ROLES.ADMINISTRATIVO),
+  handleUpdateUser
+);
+
+usersRouter.delete(
+  '/:id',
+  roleMiddleware(USER_ROLES.ADMINISTRATIVO),
+  handleDeleteUser
 );
 
 export { usersRouter };

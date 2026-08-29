@@ -105,3 +105,39 @@ export async function listAllUsers() {
     orderBy: { createdAt: 'desc' },
   });
 }
+
+export async function updateUserRoleAndStatus(userId, { role, isActive }) {
+  const database = getDatabase();
+
+  const user = await database.user.findUnique({ where: { id: userId } });
+  if (!user) {
+    throw new AppError('Usuario no encontrado', HTTP_STATUS.NOT_FOUND);
+  }
+
+  // Si intentamos cambiar el rol o estado del notario y es el único, podríamos validar, pero por ahora permitimos.
+  return database.user.update({
+    where: { id: userId },
+    data: { 
+      ...(role !== undefined && { role }),
+      ...(isActive !== undefined && { isActive })
+    },
+    select: USER_SELECT_FIELDS,
+  });
+}
+
+export async function deleteUser(userId) {
+  const database = getDatabase();
+
+  const user = await database.user.findUnique({ where: { id: userId } });
+  if (!user) {
+    throw new AppError('Usuario no encontrado', HTTP_STATUS.NOT_FOUND);
+  }
+
+  // Eliminar usuario
+  await database.user.delete({
+    where: { id: userId },
+  });
+
+  return { success: true };
+}
+
