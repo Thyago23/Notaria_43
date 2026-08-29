@@ -59,6 +59,7 @@ const Dashboard = () => {
   const [selectedCita, setSelectedCita] = useState<Cita | null>(null);
   const [activeTab, setActiveTab] = useState<'PENDIENTE' | 'ATENDIDO' | 'CANCELADO' | 'TODOS'>('PENDIENTE');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
 
   // Paginación
   const [currentPage, setCurrentPage] = useState(1);
@@ -177,7 +178,18 @@ const Dashboard = () => {
     URL.revokeObjectURL(url);
   };
 
-  const filteredCitas = citas.filter(cita => {
+  const sortedCitas = [...citas].sort((a, b) => {
+    const dateA = new Date(a.fecha).getTime();
+    const dateB = new Date(b.fecha).getTime();
+    if (dateA !== dateB) {
+      return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+    }
+    const timeA = new Date(a.horaInicio).getTime();
+    const timeB = new Date(b.horaInicio).getTime();
+    return sortOrder === 'asc' ? timeA - timeB : timeB - timeA;
+  });
+
+  const filteredCitas = sortedCitas.filter(cita => {
     const tramiteMatch = cita.tramite.nombre.toLowerCase().includes(filterTramite.toLowerCase());
     const clienteNombre = cita.user?.nombres || cita.guest_nombre || '';
     const clienteMatch = clienteNombre.toLowerCase().includes(filterCliente.toLowerCase());
@@ -332,6 +344,17 @@ const Dashboard = () => {
               onChange={(e) => setFilterTramite(e.target.value)}
               className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-1 focus:ring-primary outline-none"
             />
+          </div>
+          <div className="flex-1">
+            <label className="block text-xs text-gray-500 mb-1">Ordenar por Fecha</label>
+            <select
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
+              className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-1 focus:ring-primary outline-none bg-white"
+            >
+              <option value="desc">Más recientes primero</option>
+              <option value="asc">Más antiguos primero</option>
+            </select>
           </div>
         </div>
       </div>
