@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+﻿import { useState, useEffect } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { generateBookingPDF } from '../utils/pdfGenerator';
 import { apiClient } from '../api/client';
 import { TRAMITES_DATA } from '../data/tramites';
@@ -19,6 +19,7 @@ const TramiteDetail = () => {
     cliente_telefono: '',
     fecha: null as Date | null,
     hora: '',
+    consentimiento: false,
   });
   const [bookingSuccess, setBookingSuccess] = useState(false);
   const [bookingError, setBookingError] = useState('');
@@ -119,6 +120,11 @@ const TramiteDetail = () => {
     console.log('=== SUBMIT FORMULARIO INICIADO ===');
     e.preventDefault();
     setBookingError('');
+
+    if (!formData.consentimiento) {
+      setBookingError('Debe aceptar la política de privacidad y los términos y condiciones.');
+      return;
+    }
 
     if (!formData.fecha || !formData.hora) {
       setBookingError('Seleccione una fecha y hora válida.');
@@ -235,7 +241,7 @@ const TramiteDetail = () => {
               </p>
               <button
                 onClick={() => navigate('/booking')}
-                className="bg-[#8cc550] hover:bg-[#7ab345] text-white font-medium py-3 px-8 rounded transition-colors inline-flex items-center"
+                className="bg-[#8cc550] hover:bg-[#7ab345] text-gray-900 font-medium py-3 px-8 rounded transition-colors inline-flex items-center"
               >
                 Volver a la lista de trámites
               </button>
@@ -262,7 +268,7 @@ const TramiteDetail = () => {
                 <p className="text-sm text-gray-500 mb-4">¿Cuenta con todos los requisitos necesarios para este trámite?</p>
                 <button
                   onClick={() => setShowBookingForm(true)}
-                  className="w-full md:w-auto bg-[#8cc550] hover:bg-[#7ab345] text-white font-medium py-3 px-8 rounded transition-colors text-center inline-block"
+                  className="w-full md:w-auto bg-[#8cc550] hover:bg-[#7ab345] text-gray-900 font-medium py-3 px-8 rounded transition-colors text-center inline-block"
                 >
                   Continuar para Reservar Cita
                 </button>
@@ -380,12 +386,24 @@ const TramiteDetail = () => {
                 </div>
 
                 <div className="pt-4 border-t border-gray-100">
+                  <div className="mb-4 flex items-start">
+                    <input
+                      type="checkbox"
+                      id="consentimiento"
+                      checked={formData.consentimiento}
+                      onChange={(e) => setFormData({ ...formData, consentimiento: e.target.checked })}
+                      className="mt-1 h-4 w-4 text-[#8cc550] focus:ring-[#8cc550] border-gray-300 rounded cursor-pointer"
+                    />
+                    <label htmlFor="consentimiento" className="ml-2 block text-sm text-gray-700 cursor-pointer">
+                      Acepto la <Link to="/politica-privacidad" className="text-[#8cc550] hover:underline" target="_blank">política de privacidad</Link> y los <Link to="/terminos-condiciones" className="text-[#8cc550] hover:underline" target="_blank">términos y condiciones</Link>.
+                    </label>
+                  </div>
                   <p className="text-xs text-gray-500 mb-4">
                     Al confirmar, se generará un comprobante en PDF de su cita. Deberá presentarlo junto con todos los requisitos el día asignado.
                   </p>
                   <button
                     type="submit"
-                    className="w-full bg-[#8cc550] hover:bg-[#7ab345] text-white font-medium py-3 px-4 rounded-md transition-colors shadow-sm"
+                    className="w-full bg-[#8cc550] hover:bg-[#7ab345] text-gray-900 font-medium py-3 px-4 rounded-md transition-colors shadow-sm"
                   >
                     Confirmar Reserva y Descargar Comprobante
                   </button>

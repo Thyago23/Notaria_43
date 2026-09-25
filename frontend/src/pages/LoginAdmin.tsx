@@ -203,7 +203,7 @@ const LoginAdmin: React.FC = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-[#8cc550] hover:bg-[#7ab345] text-white font-semibold py-3 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+              className="w-full bg-[#8cc550] hover:bg-[#7ab345] text-gray-900 font-semibold py-3 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
             >
               {isLoading ? (
                 <>

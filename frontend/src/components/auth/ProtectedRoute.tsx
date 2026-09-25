@@ -49,7 +49,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
           </p>
           <button
             onClick={() => window.history.back()}
-            className="bg-[#8cc550] hover:bg-[#7ab345] text-white font-medium py-2 px-6 rounded transition-colors"
+            className="bg-[#8cc550] hover:bg-[#7ab345] text-gray-900 font-medium py-2 px-6 rounded transition-colors"
           >
             Volver
           </button>

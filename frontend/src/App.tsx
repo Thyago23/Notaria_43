@@ -12,7 +12,12 @@ import AdminTramites from './pages/AdminTramites';
 import AdminAsignacion from './pages/AdminAsignacion';
 import Abogados from './pages/Abogados';
 import SobreNosotros from './pages/SobreNosotros';
+import PoliticaPrivacidad from './pages/PoliticaPrivacidad';
+import TerminosCondiciones from './pages/TerminosCondiciones';
+import PoliticaCookies from './pages/PoliticaCookies';
+import PoliticaReembolsos from './pages/PoliticaReembolsos';
 import Footer from './components/layout/Footer';
+import CookieBanner from './components/layout/CookieBanner';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import AdminDashboardLayout from './components/layout/AdminDashboardLayout';
 import ScrollToTop from './components/layout/ScrollToTop';
@@ -48,6 +53,10 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/abogados" element={<Abogados />} />
                 <Route path="/sobre-nosotros" element={<SobreNosotros />} />
+                <Route path="/politica-privacidad" element={<PoliticaPrivacidad />} />
+                <Route path="/terminos-condiciones" element={<TerminosCondiciones />} />
+                <Route path="/politica-cookies" element={<PoliticaCookies />} />
+                <Route path="/politica-reembolsos" element={<PoliticaReembolsos />} />
                 <Route path="/booking" element={<Booking />} />
                 <Route path="/tramites/:id" element={<TramiteDetail />} />
                 <Route path="/cancelar" element={<CancelTurno />} />
@@ -70,6 +79,7 @@ function App() {
               </Routes>
             </main>
             <ConditionalFooter />
+            <CookieBanner />
           </div>
         </Router>
       </AuthProvider>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { apiClient } from '../api/client';
+import { useAuth } from '../context/AuthContext';
 
 interface User {
   id: string;
@@ -105,6 +106,9 @@ const AdminAsignacion = () => {
       setError(err.message || 'Error al eliminar el usuario');
     }
   };
+
+  const { user: currentUser } = useAuth();
+  const isNotario = currentUser?.role === 'NOTARIO';
 
   if (isLoading) {
     return (
@@ -283,7 +287,9 @@ const AdminAsignacion = () => {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Cédula</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Rol</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado</th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Acciones</th>
+              {isNotario && (
+                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Acciones</th>
+              )}
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -310,25 +316,27 @@ const AdminAsignacion = () => {
                     {user.isActive ? 'Activo' : 'Inactivo'}
                   </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <button
-                    onClick={() => handleEdit(user)}
-                    className="text-primary hover:text-primary-hover mr-3"
-                  >
-                    Editar
-                  </button>
-                  <button
-                    onClick={() => handleDeleteUser(user.id)}
-                    className="text-red-600 hover:text-red-900"
-                  >
-                    Eliminar
-                  </button>
-                </td>
+                {isNotario && (
+                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <button
+                      onClick={() => handleEdit(user)}
+                      className="text-primary hover:text-primary-hover mr-3"
+                    >
+                      Editar
+                    </button>
+                    <button
+                      onClick={() => handleDeleteUser(user.id)}
+                      className="text-red-600 hover:text-red-900"
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                )}
               </tr>
             ))}
             {users.length === 0 && (
               <tr>
-                <td colSpan={5} className="px-6 py-8 text-center text-gray-500 text-sm">
+                <td colSpan={isNotario ? 5 : 4} className="px-6 py-8 text-center text-gray-500 text-sm">
                   No hay usuarios registrados.
                 </td>
               </tr>

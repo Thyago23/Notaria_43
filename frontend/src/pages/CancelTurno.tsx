@@ -130,7 +130,7 @@ const CancelTurno = () => {
                 </p>
                 <button
                   onClick={() => navigate('/booking')}
-                  className="bg-[#8cc550] hover:bg-[#7ab345] text-white font-medium py-3 px-6 sm:px-8 rounded transition-colors inline-flex items-center w-full sm:w-auto"
+                  className="bg-[#8cc550] hover:bg-[#7ab345] text-gray-900 font-medium py-3 px-6 sm:px-8 rounded transition-colors inline-flex items-center w-full sm:w-auto"
                 >
                   Agendar nueva cita
                 </button>
@@ -153,7 +153,7 @@ const CancelTurno = () => {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="bg-[#8cc550] hover:bg-[#7ab345] text-white font-medium py-3 px-6 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
+                      className="bg-[#8cc550] hover:bg-[#7ab345] text-gray-900 font-medium py-3 px-6 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
                     >
                       {loading ? 'Buscando...' : 'Buscar'}
                     </button>

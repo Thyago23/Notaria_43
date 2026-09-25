@@ -73,7 +73,7 @@ export class ErrorBoundary extends Component<Props, State> {
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <button
                 onClick={this.handleReload}
-                className="w-full sm:w-auto px-6 py-2.5 bg-[#8cc550] hover:bg-[#7ab345] text-white font-medium text-sm rounded-xl transition-colors shadow-sm"
+                className="w-full sm:w-auto px-6 py-2.5 bg-[#8cc550] hover:bg-[#7ab345] text-gray-900 font-medium text-sm rounded-xl transition-colors shadow-sm"
               >
                 Recargar página
               </button>

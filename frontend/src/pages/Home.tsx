@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+﻿import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 const Home = () => {
@@ -12,7 +12,7 @@ const Home = () => {
         <div className="w-full lg:w-1/2 flex flex-col justify-center px-8 md:px-16 py-16">
           <h1 className="text-5xl md:text-6xl font-heading font-bold text-dark leading-[1.1] mb-6">
             ¡La <span className="text-primary">Notaria 43</span><br />
-            mejorará su vida!
+            a su servicio
           </h1>
 
           <p className="text-gray-700 font-medium mb-10 max-w-lg leading-relaxed">
@@ -22,7 +22,7 @@ const Home = () => {
           <div className="flex flex-wrap gap-4 mb-16">
             <Link
               to="/booking"
-              className="bg-[#8cc550] hover:bg-[#7ab345] text-white font-medium py-3 px-8 rounded-full text-sm transition-colors text-center"
+              className="bg-[#8cc550] hover:bg-[#7ab345] text-gray-900 font-medium py-3 px-8 rounded-full text-sm transition-colors text-center"
             >
               ¡Agenda tu cita ahora!
             </Link>
@@ -88,7 +88,7 @@ const Home = () => {
             </p>
 
             <div>
-              <Link to="/booking" className="bg-[#8cc550] hover:bg-[#7ab345] text-white font-semibold py-4 px-10 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 text-center inline-flex items-center group">
+              <Link to="/booking" className="bg-[#8cc550] hover:bg-[#7ab345] text-gray-900 font-semibold py-4 px-10 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 text-center inline-flex items-center group">
                 Ver catálogo de trámites
                 <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -140,7 +140,7 @@ const Home = () => {
             </p>
 
             <div>
-              <Link to="/abogados" className="bg-[#8cc550] hover:bg-[#7ab345] text-white font-semibold py-4 px-10 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 text-center inline-flex items-center group">
+              <Link to="/abogados" className="bg-[#8cc550] hover:bg-[#7ab345] text-gray-900 font-semibold py-4 px-10 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 text-center inline-flex items-center group">
                 Conoce a nuestro equipo
                 <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -188,11 +188,11 @@ const Home = () => {
             </div>
 
             <p className="text-gray-600 text-lg mb-10 leading-relaxed">
-              Descubre nuestra historia, instalaciones y el compromiso ético que nos impulsa a brindar la mejor seguridad jurídica del Valle de Los Chillos.
+              Descubre nuestra historia, instalaciones y el compromiso ético que nos impulsa a brindar una excelente seguridad jurídica del Valle de Los Chillos.
             </p>
 
             <div>
-              <Link to="/sobre-nosotros" className="bg-[#8cc550] hover:bg-[#7ab345] text-white font-semibold py-4 px-10 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 text-center inline-flex items-center group">
+              <Link to="/sobre-nosotros" className="bg-[#8cc550] hover:bg-[#7ab345] text-gray-900 font-semibold py-4 px-10 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 text-center inline-flex items-center group">
                 Saber más sobre nosotros
                 <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -303,3 +303,4 @@ const Home = () => {
 };
 
 export default Home;
+

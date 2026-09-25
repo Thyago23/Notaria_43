@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
@@ -114,10 +114,11 @@ const Footer: React.FC = () => {
               </div>
             </div>
 
-            <div className="pt-4 border-t border-gray-800">
-              <Link to="#" className="text-sm text-gray-500 hover:text-white transition-colors">
-                Política de Privacidad
-              </Link>
+            <div className="pt-4 border-t border-gray-800 flex flex-wrap gap-4">
+              <Link to="/politica-privacidad" className="text-sm text-gray-500 hover:text-white transition-colors">Política de Privacidad</Link>
+              <Link to="/terminos-condiciones" className="text-sm text-gray-500 hover:text-white transition-colors">Términos y Condiciones</Link>
+              <Link to="/politica-cookies" className="text-sm text-gray-500 hover:text-white transition-colors">Política de Cookies</Link>
+              <Link to="/politica-reembolsos" className="text-sm text-gray-500 hover:text-white transition-colors">Política de Pagos y Reembolsos</Link>
             </div>
           </div>
         </div>
@@ -132,3 +133,4 @@ const Footer: React.FC = () => {
 };
 
 export default Footer;
+

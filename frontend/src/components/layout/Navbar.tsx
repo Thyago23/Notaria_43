@@ -43,7 +43,7 @@ const Navbar = () => {
           ) : (
             <Link
               to="/login"
-              className="bg-[#8cc550] hover:bg-[#7ab345] text-white font-medium py-3 px-8 text-sm uppercase tracking-wider transition-colors"
+              className="bg-[#8cc550] hover:bg-[#7ab345] text-gray-900 font-medium py-3 px-8 text-sm uppercase tracking-wider transition-colors"
             >
               ACCEDER
             </Link>
@@ -98,7 +98,7 @@ const Navbar = () => {
               <Link
                 to="/login"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full text-center bg-[#8cc550] hover:bg-[#7ab345] text-white font-medium py-3 px-8 text-sm uppercase tracking-wider rounded"
+                className="w-full text-center bg-[#8cc550] hover:bg-[#7ab345] text-gray-900 font-medium py-3 px-8 text-sm uppercase tracking-wider rounded"
               >
                 ACCEDER
               </Link>

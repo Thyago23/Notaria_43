@@ -230,7 +230,7 @@ const AdminDashboardLayout: React.FC = () => {
               )}
             </div>
 
-            <div className="w-10 h-10 bg-[#8cc550] rounded-full flex items-center justify-center text-white font-semibold shadow-sm">
+            <div className="w-10 h-10 bg-[#8cc550] rounded-full flex items-center justify-center text-gray-900 font-semibold shadow-sm">
               {user?.nombres?.charAt(0) || 'U'}
             </div>
           </div>
