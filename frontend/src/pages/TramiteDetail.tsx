@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { generateBookingPDF } from '../utils/pdfGenerator';
 import { apiClient } from '../api/client';
