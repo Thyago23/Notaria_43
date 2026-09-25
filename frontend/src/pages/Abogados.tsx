@@ -22,12 +22,6 @@ const staff: Administrator[] = [
     image: '/AdministradoresDeLaNotaria43/Fernanda Rojas.jpeg'
   },
   {
-    name: 'Ab. Joao Aguirre',
-    title: 'Asesor Legal / Especialista en Derecho Civil',
-    email: 'notaria43_quito@hotmail.com',
-    image: '/AdministradoresDeLaNotaria43/Joao Aguirre.jpeg'
-  },
-  {
     name: 'Ab. Marcos Simbaña',
     title: 'Especialista en Derecho Inmobiliario',
     email: 'notaria43_quito@hotmail.com',
