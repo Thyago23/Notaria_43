@@ -1,7 +1,4 @@
-// ============================================
-// Turnos Module: Servicio (Lógica de Negocio)
-// RF-03: Transacciones atómicas con GIST
-// ============================================
+
 
 import { getDatabase } from '../../config/database.js';
 import { AppError } from '../../utils/appError.js';
@@ -9,7 +6,6 @@ import { HTTP_STATUS, TURNO_STATUS, SCHEDULE } from '../../utils/constants.js';
 import { enqueueConfirmationEmail, enqueueAdminNotificationEmail } from '../notificaciones/notificaciones.service.js';
 
 /**
- * Calcula la hora de fin sumando minutos a una hora de inicio.
  * @param {string} horaInicio - Formato "HH:MM"
  * @param {number} duracionMinutos
  * @returns {string} Formato "HH:MM"
@@ -22,10 +18,7 @@ function calculateEndTime(horaInicio, duracionMinutos) {
   return `${String(endHours).padStart(2, '0')}:${String(endMinutes).padStart(2, '0')}`;
 }
 
-/**
- * Genera todos los slots disponibles para una fecha y duración de trámite.
- * Respeta el horario de la notaría y el almuerzo.
- */
+
 function generateAllSlots(duracionMinutos) {
   const slots = [];
   let currentMinutes = SCHEDULE.START_HOUR * 60;
@@ -36,7 +29,6 @@ function generateAllSlots(duracionMinutos) {
   while (currentMinutes + duracionMinutos <= endMinutes) {
     const slotEnd = currentMinutes + duracionMinutos;
 
-    // Verificar que el slot no caiga durante el almuerzo
     const overlapsLunch =
       (currentMinutes < lunchEndMinutes && slotEnd > lunchStartMinutes);
 
@@ -58,9 +50,7 @@ function generateAllSlots(duracionMinutos) {
   return slots;
 }
 
-/**
- * Consulta disponibilidad de slots para una fecha y trámite.
- */
+
 export async function getAvailableSlots(fecha, tramiteId) {
   const database = getDatabase();
 
@@ -132,11 +122,7 @@ export async function getAvailableSlots(fecha, tramiteId) {
   };
 }
 
-/**
- * Crea un nuevo turno con transacción atómica.
- * RF-03: La restricción GIST en la BD es la última línea de defensa
- * contra condiciones de carrera.
- */
+
 async function createTurnoInternal({ tramiteId, fecha, horaInicio, notas, userId, guestNombre, guestEmail, guestPhone }) {
   const database = getDatabase();
 
@@ -154,7 +140,6 @@ async function createTurnoInternal({ tramiteId, fecha, horaInicio, notas, userId
 
   const horaFin = calculateEndTime(horaInicio, tramite.duracionMinutos);
 
-  // Verificar que la hora esté dentro del horario de la notaría
   const [startH, startM] = horaInicio.split(':').map(Number);
   const [endH, endM] = horaFin.split(':').map(Number);
   const startMinutes = startH * 60 + startM;
@@ -164,7 +149,6 @@ async function createTurnoInternal({ tramiteId, fecha, horaInicio, notas, userId
     throw new AppError('El horario seleccionado está fuera del horario de atención', HTTP_STATUS.BAD_REQUEST);
   }
 
-  // Verificar que no caiga en horario de almuerzo
   const lunchStart = SCHEDULE.LUNCH_START * 60;
   const lunchEnd = SCHEDULE.LUNCH_END * 60;
   if (startMinutes < lunchEnd && endMinutes > lunchStart) {
@@ -173,22 +157,18 @@ async function createTurnoInternal({ tramiteId, fecha, horaInicio, notas, userId
 
   const fechaDate = new Date(fecha + 'T00:00:00');
 
-  // Verificar que no sea fecha pasada
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   if (fechaDate < today) {
     throw new AppError('No se pueden crear turnos en fechas pasadas', HTTP_STATUS.BAD_REQUEST);
   }
 
-  // Verificar que no sea fin de semana
   const dayOfWeek = fechaDate.getDay();
   if (dayOfWeek === 0 || dayOfWeek === 6) {
     throw new AppError('No se pueden crear turnos en fines de semana', HTTP_STATUS.BAD_REQUEST);
   }
 
-  // Transacción atómica (RF-03)
   const turno = await database.$transaction(async (tx) => {
-    // Verificar solapamiento dentro de la transacción
     const overlapping = await tx.turno.findFirst({
       where: {
         fecha: fechaDate,

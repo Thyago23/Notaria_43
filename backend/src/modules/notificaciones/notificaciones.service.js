@@ -5,17 +5,12 @@
 
 import { enqueueEmail } from './email.queue.js';
 
-/**
- * Formatea una hora de tipo Date a string legible.
- */
+
 function formatTime(timeDate) {
   const date = new Date(timeDate);
   return `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
 }
 
-/**
- * Formatea una fecha a string legible en español.
- */
 function formatDate(dateValue) {
   const date = new Date(dateValue);
   return date.toLocaleDateString('es-EC', {
@@ -26,9 +21,9 @@ function formatDate(dateValue) {
   });
 }
 
+
 /**
- * Genera y encola el email de confirmación de turno.
- * @param {object} turno - Turno con relaciones user y tramite incluidas
+ * @param {object} turno 
  */
 export async function enqueueConfirmationEmail(turno) {
   const userName = turno.user
@@ -96,8 +91,8 @@ export async function enqueueConfirmationEmail(turno) {
 }
 
 /**
- * Genera y encola el email de notificación al administrativo.
- * @param {object} turno - Turno con relaciones user y tramite incluidas
+ * 
+ * @param {object} turno 
  */
 export async function enqueueAdminNotificationEmail(turno) {
   const adminEmail = process.env.ADMIN_EMAIL || 'admin@notaria43.com';

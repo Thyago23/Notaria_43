@@ -84,7 +84,6 @@ export async function deleteTramite(tramiteId) {
     throw new AppError('Trámite no encontrado', HTTP_STATUS.NOT_FOUND);
   }
 
-  // No eliminar si tiene turnos pendientes — desactivar en su lugar
   if (tramite.turnos.length > 0) {
     return database.tramite.update({
       where: { id: tramiteId },
