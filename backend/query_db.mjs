@@ -1,0 +1,1 @@
+import { PrismaClient } from "@prisma/client"; const prisma = new PrismaClient(); async function main() { const turnos = await prisma.turno.findMany(); console.log(JSON.stringify(turnos, null, 2)); } main().catch(console.error).finally(() => prisma.$disconnect());
